@@ -1,7 +1,10 @@
 package com.main;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+
+import com.objects.Pet;
 
 public class PetUtils {
 
@@ -41,6 +44,18 @@ public class PetUtils {
 					break;
 				case 2:
 					break;
+				case 5: {
+					System.out.println("Enter the name of the pet.");
+					String petName = scan.nextLine();
+					List<Pet> results = DB.fetchPetsByColumnValue("name", petName);
+					if(results.size() == 0) {
+						System.out.println("Sorry, no pets were found with the name " + petName);
+					}
+					else for(Pet p : results) {
+						System.out.println(p.toString());
+					}
+					break;
+				}
 				default:
 					System.out.println("Try again");
 					break;
@@ -71,6 +86,10 @@ public class PetUtils {
 			switch (choice) {
 			case 0:
 				return;
+			case 1: {
+				//	SELECT * FROM <adoptionRequests> WHERE <isOpen>
+				break;
+			}
 			case 8:
 				System.out.print("Enter username: ");
 				String username = scan.next();

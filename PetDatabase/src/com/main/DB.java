@@ -54,14 +54,14 @@ public class DB {
 		return list;
 	}
 	
-	private static List<Pet> fetchPets() {
+	public static List<Pet> fetchPets() {
 		dbConnect();
 		
 		String sql = "SELECT * FROM Pet";
 		List<Pet> list = new ArrayList<>();
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ResultSet r = s.executeQuery();
+			ResultSet r = ps.executeQuery();
 			while(r.next()) {
 				Pet p = new Pet(r.getString("name"),
 								r.getString("species"),
@@ -73,6 +73,38 @@ public class DB {
 								r.getBoolean("vaccinated"),
 								r.getBoolean("neutered"),
 								r.getString("date_adopted"));
+				p.setId(r.getInt("id"));
+				list.add(p);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return list;
+	}
+	
+	public static List<Pet> fetchPetsByColumnValue(String column, String value) {
+		dbConnect();
+		
+		String sql = "SELECT * FROM Pet WHERE ? = ?";
+		List<Pet> list = new ArrayList<>();
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, column);
+			ps.setString(2, value);
+			ResultSet r = ps.executeQuery();
+			while(r.next()) {
+				Pet p = new Pet(r.getString("name"),
+						r.getString("species"),
+						r.getInt("age"),
+						r.getString("date_acquired"),
+						r.getString("sex"),
+						r.getString("color"),
+						r.getString("breed"),
+						r.getBoolean("vaccinated"),
+						r.getBoolean("neutered"),
+						r.getString("date_adopted"));
 				p.setId(r.getInt("id"));
 				list.add(p);
 			}
