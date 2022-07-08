@@ -5,21 +5,26 @@ public class Employee {
 	int id;
 	String name;
 	String phone;
-	String birthdate;
 	double salary;
-	User user;
-	public Employee(String name, String phone, String birthdate, double salary, User user) {
+	String username;
+	String password;
+	boolean admin;
+	String title;
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", phone=" + phone + ", salary=" + salary + ", username="
+				+ username + ", password=" + password + ", admin=" + admin + ", title=" + title + "]";
+	}
+	public Employee(String name, String phone, double salary, String username, String password, boolean admin,
+			String title) {
 		super();
 		this.name = name;
 		this.phone = phone;
-		this.birthdate = birthdate;
 		this.salary = salary;
-		this.user = user;
-	}
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", phone=" + phone + ", birthdate=" + birthdate + ", salary="
-				+ salary + ", user=" + user + "]";
+		this.username = username;
+		this.password = password;
+		this.admin = admin;
+		this.title = title;
 	}
 	public int getId() {
 		return id;
@@ -39,23 +44,34 @@ public class Employee {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getBirthdate() {
-		return birthdate;
-	}
-	public void setBirthdate(String birthdate) {
-		this.birthdate = birthdate;
-	}
 	public double getSalary() {
 		return salary;
 	}
 	public void setSalary(double salary) {
 		this.salary = salary;
 	}
-	public User getUser() {
-		return user;
+	public String getUsername() {
+		return username;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public boolean isAdmin() {
+		return admin;
+	}
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 }
