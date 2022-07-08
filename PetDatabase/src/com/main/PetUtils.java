@@ -1,7 +1,11 @@
 package com.main;
 
+import java.util.List;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import com.exceptions.InvalidSearchException;
+import com.objects.*;
 
 public class PetUtils {
 
@@ -16,10 +20,9 @@ public class PetUtils {
 			System.out.println("3. Filter pets by species");
 			System.out.println("4. Filter pets by age");
 			System.out.println("5. View pet by name");
-			System.out.println("6. Request adoption"); //prompts to either use pre-existing profile or create new
-			
+			System.out.println("6. Request adoption"); // prompts to either use pre-existing profile or create new
 
-			System.out.print("0. Quit");
+			System.out.println("0. Quit");
 			System.out.print("Selection: ");
 			try {
 				int choice = scan.nextInt();
@@ -40,6 +43,10 @@ public class PetUtils {
 					}
 					break;
 				case 2:
+					List<Pet> pets = DB.fetchPets();
+					for (Pet p : pets) {
+						System.out.println(p);
+					}
 					break;
 				default:
 					System.out.println("Try again");
@@ -54,6 +61,7 @@ public class PetUtils {
 
 	private static void employeeMenu() {
 		while (true) {
+			System.out.println("Welcome Employee");
 			System.out.println("Choose from the following menu:");
 			System.out.println("0. Logout (return to previous menu)");
 			System.out.println("1. View open adoption requests");
@@ -67,39 +75,79 @@ public class PetUtils {
 
 			System.out.print("Selection: ");
 			try {
-			int choice = scan.nextInt();
-			switch (choice) {
-			case 0:
-				return;
-			case 8:
-				System.out.print("Enter username: ");
-				String username = scan.next();
-				System.out.print("Enter password: ");
-				String password = scan.next();
-				if (DB.adminLogin(username, password)) {
-					adminMenu();
-				} else {
-					System.out.println("Unable to verify admin");
+				int choice = scan.nextInt();
+				switch (choice) {
+				case 0:
+					return;
+				case 8:
+					System.out.print("Enter username: ");
+					String username = scan.next();
+					System.out.print("Enter password: ");
+					String password = scan.next();
+					if (DB.adminLogin(username, password)) {
+						adminMenu();
+					} else {
+						System.out.println("Unable to verify admin");
+					}
+					break;
+				default:
+					System.out.println("Try again");
+					break;
 				}
-				break;
-			default:
-				System.out.println("Try again");
-				break;
-			}
 			} catch (InputMismatchException e) {
 				System.out.println("Input an integer");
 			}
 		}
-		
+
 	}
 
 	private static void adminMenu() {
 		while (true) {
+			System.out.println("Welcome Admin");
 			System.out.println("Choose from the following menu:");
 			System.out.println("0. Logout (return to previous menu)");
 			System.out.println("1. Create employee");
 			System.out.println("2. Remove employee");
 			System.out.println("3. View employees");
+			System.out.print("Selection: ");
+			try {
+
+				int choice = scan.nextInt();
+				switch (choice) {
+				case 0:
+					return;
+				case 1:
+					break;
+				case 2:
+					while (true) {
+						System.out.print("Input employee ID: ");
+						try {
+							int id = scan.nextInt();
+							try {
+								Employee e = DB.findEmployeeL(id);
+								DB.deleteEmployee(id);
+								System.out.println("Employee " + e.getName() + " deleted successfully.");
+							} catch (InvalidSearchException e) {
+								System.out.println("Employee not found");
+							}
+							break;
+
+						} catch (InputMismatchException e) {
+							System.out.println("Input an integer");
+						}
+					}
+					break;
+				case 3:
+					break;
+				default:
+					System.out.println("Try again.");
+					break;
+				}
+
+			} catch (InputMismatchException e) {
+				System.out.println("Input an integer");
+			}
+
 		}
 	}
 
