@@ -63,4 +63,15 @@ public class DB {
 		}
 		return false;
 	}
+
+	public static boolean adminLogin(String username, String password) {
+		List<Employee> users = fetchUsers();
+		for (Employee u : users) {
+			if(u.getUsername().equals(username) && u.getPassword().equals(password) && u.isAdmin()) {
+				System.out.println("Login successful! Hello " + u.getName());
+				return true;
+			}
+		}
+		return false;
+	}
 }
