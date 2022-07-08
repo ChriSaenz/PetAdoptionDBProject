@@ -1,7 +1,7 @@
 -- -----------------------------------------------------
 -- Schema adoption_system
 -- -----------------------------------------------------
-
+-- drop database adoption_system;
 -- drop table Customer cascade constraint;
 -- drop table Request cascade;
 -- drop table Pet cascade;
@@ -121,5 +121,15 @@ ENGINE = InnoDB;
 
 
 -- ------------------
--- Insert stuffs here
+INSERT INTO Customer (name, phoneNumber, date_joined, birthday)
+VALUES ('Chase', '123-456-7890', '2022-07-08', '1999-08-31'), 
+("Diego", "234-567-8901", '2020-07-19', '2021-07-19'),
+("Chris", "334-577-8905", '1990-07-19', '2022-07-19'),
+("Felix", "234-567-8901", '2020-07-19', '2000-07-19');
+
+INSERT INTO Pet (requestID, requestCustomerID, name, age, species, breed, color, sex, neutered, vaccinated, date_acquired, cost)
+VALUES (1, 2, "Chase", 2, "Dog", "Cocker Spaniel", "Brown", "Male", 1, 1, '2022-05-20', 1500.01),
+(2, 3, "Phantom", 3, "Dog", "American Shorthair", "Gray", "Male", 1, 1, '2020-04-10', 2000.01);
+ 
+
 -- ------------------
