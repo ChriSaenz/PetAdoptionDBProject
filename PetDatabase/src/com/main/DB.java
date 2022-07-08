@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.objects.Employee;
+import com.objects.*;
 
 public class DB {
 	
@@ -12,7 +12,7 @@ public class DB {
 	
 	private static void dbConnect() {
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/adoption_sys","root","Password123");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/adoption_system","root","Password123");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -73,5 +73,38 @@ public class DB {
 			}
 		}
 		return false;
+	}
+
+
+	public static List<Pet> fetchPets() {
+		dbConnect();
+		String sql = "select * from pet";
+		List <Pet> list = new ArrayList<>();
+		try {
+			PreparedStatement s = con.prepareStatement(sql);
+			ResultSet r = s.executeQuery();
+			while (r.next() ) {
+				int id = r.getInt("id");
+				int request_id = r.getInt("Request_id");
+				String name = r.getString("name");
+				String species = r.getString("name");
+				int age = r.getInt("age");
+				String date_acquired = r.getString("date_acquired");
+				String sex = r.getString("sex");
+				String color = r.getString("color");
+				String breed = r.getString("breed");
+				boolean vaccinated = r.getBoolean("vaccinated");
+				boolean neutered = r.getBoolean("neutered");
+				double cost = r.getDouble("cost");
+				Pet p = new Pet(request_id, name, species, age, date_acquired, sex, color, breed, vaccinated, neutered, cost);
+				p.setId(id);
+				list.add(p);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		dbClose();
+		return list;
 	}
 }

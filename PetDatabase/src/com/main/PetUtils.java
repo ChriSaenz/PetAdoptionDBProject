@@ -1,7 +1,10 @@
 package com.main;
 
+import java.util.List;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import com.objects.*;
+
 
 public class PetUtils {
 
@@ -19,7 +22,7 @@ public class PetUtils {
 			System.out.println("6. Request adoption"); //prompts to either use pre-existing profile or create new
 			
 
-			System.out.print("0. Quit");
+			System.out.println("0. Quit");
 			System.out.print("Selection: ");
 			try {
 				int choice = scan.nextInt();
@@ -40,6 +43,10 @@ public class PetUtils {
 					}
 					break;
 				case 2:
+					List<Pet> pets = DB.fetchPets();
+					for (Pet p : pets) {
+						System.out.println(p);
+					}
 					break;
 				default:
 					System.out.println("Try again");
@@ -100,6 +107,7 @@ public class PetUtils {
 			System.out.println("1. Create employee");
 			System.out.println("2. Remove employee");
 			System.out.println("3. View employees");
+			break;
 
 
 		}	
