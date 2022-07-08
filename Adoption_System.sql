@@ -4,11 +4,14 @@
 
 -- drop database adoption_system;
 
--- drop table Customer cascade;
--- drop table Request cascade;
--- drop table Pet cascade;
--- drop table Employee cascade;
--- drop table Receipt cascade;
+-- -----Dropping tables
+-- set foreign_key_checks = 0;
+-- drop table Customer;
+-- drop table Request;
+-- drop table Pet;
+-- drop table Employee;
+-- drop table Receipt;
+-- set foreign_key_checks = 1;
 
 -- -----------------------------------------------------
 -- Schema adoption_system
@@ -131,20 +134,25 @@ ENGINE = InnoDB;
 -- ------------------
 -- Insert stuffs here
 -- ------------------
+
+
+
+
 insert into Employee(username, password, name, phone, salary, title, admin) values
-("T-User", "P42", "Trevor", "(555)", 80000.00, "Employee A", 0);
+("Boss", "P42", "Biggs", "(555)", 500000.00, "Big Boss", 1),
+("Linked", "33", "Stack", "(505)", 80000.00, "Employee A", 0),
+("Inn", "P42", "Over", "(755)", 50000.00, "Employee B", 0),
+("Pause", "P42", "Flow", "(855)", 70000.00, "Employee C", 0),
+("Menu", "P42", "Thanks", "(655)", 100000.00, "Employee D", 0);
+-- Employee Works!
 
-select * from Employee;
 
--- insert into Customer(name, phoneNumber, date_joined, birthday)--  values
--- ("Diego Cordova", "(555)", '2020-07-19', '2020-07-19'),
--- ;
+insert into Request(customer_id, pet_id, date, status, employee_id) values
+(2, 1, '2022-07-7', "Pending", 1),
+(2, 2, '2022-07-8', "Pending", 2),
+(2, 3, '2022-07-9', "Pending", 3),
+(1, 4, '2022-07-8', "Pending", 4),
+(3, 5, '2022-07-8', "Pending", 5);
 
-INSERT INTO Customer (name, phoneNumber, date_joined, birthday)
-VALUES ('Chase', '123-456-7890', '2022-07-08', '1999-08-31'), 
-("Diego", "234-567-8901", '2020-07-19', '2021-07-19'),
-("Chris", "334-577-8905", '1990-07-19', '2022-07-19'),
-("Felix", "234-567-8901", '2020-07-19', '2000-07-19');
-
-select * from Customer;
+select * from Request;
 
