@@ -2,6 +2,7 @@ package com.objects;
 
 public class Pet {
 	int id;
+	int request_id;
 	String name;
 	String species;
 	int age;
@@ -11,7 +12,7 @@ public class Pet {
 	public String toString() {
 		return "Pet [id=" + id + ", name=" + name + ", species=" + species + ", age=" + age + ", date_acquired="
 				+ date_acquired + ", sex=" + sex + ", color=" + color + ", breed=" + breed + ", vaccinated="
-				+ vaccinated + ", neutered=" + neutered + ", date_adopted=" + date_adopted + "]";
+				+ vaccinated + ", neutered=" + neutered + "]";
 	}
 	public Pet(String name, String species, int age, String date_acquired, String sex, String color, String breed,
 			boolean vaccinated, boolean neutered, String date_adopted) {
@@ -25,13 +26,12 @@ public class Pet {
 		this.breed = breed;
 		this.vaccinated = vaccinated;
 		this.neutered = neutered;
-		this.date_adopted = date_adopted;
 	}
 	String color;
 	String breed;
 	boolean vaccinated;
 	boolean neutered;
-	String date_adopted;
+	double cost;
 	public int getId() {
 		return id;
 	}
@@ -92,11 +92,4 @@ public class Pet {
 	public void setNeutered(boolean neutered) {
 		this.neutered = neutered;
 	}
-	public String getDate_adopted() {
-		return date_adopted;
-	}
-	public void setDate_adopted(String date_adopted) {
-		this.date_adopted = date_adopted;
-	}
-
 }
