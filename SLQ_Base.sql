@@ -1,18 +1,6 @@
 -- -----------------------------------------------------
 -- Schema adoption_system
 -- -----------------------------------------------------
-
--- drop database adoption_system;
-
--- drop table Customer cascade;
--- drop table Request cascade;
--- drop table Pet cascade;
--- drop table Employee cascade;
--- drop table Receipt cascade;
-
--- -----------------------------------------------------
--- Schema adoption_system
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `adoption_system` DEFAULT CHARACTER SET utf8 ;
 USE `adoption_system` ;
 
@@ -125,26 +113,3 @@ ENGINE = InnoDB;
 -- -----------------------------------------
 -- Copying Ends Here
 -- ----------------------------------------
-
-
-
--- ------------------
--- Insert stuffs here
--- ------------------
-insert into Employee(username, password, name, phone, salary, title, admin) values
-("T-User", "P42", "Trevor", "(555)", 80000.00, "Employee A", 0);
-
-select * from Employee;
-
--- insert into Customer(name, phoneNumber, date_joined, birthday)--  values
--- ("Diego Cordova", "(555)", '2020-07-19', '2020-07-19'),
--- ;
-
-INSERT INTO Customer (name, phoneNumber, date_joined, birthday)
-VALUES ('Chase', '123-456-7890', '2022-07-08', '1999-08-31'), 
-("Diego", "234-567-8901", '2020-07-19', '2021-07-19'),
-("Chris", "334-577-8905", '1990-07-19', '2022-07-19'),
-("Felix", "234-567-8901", '2020-07-19', '2000-07-19');
-
-select * from Customer;
-
