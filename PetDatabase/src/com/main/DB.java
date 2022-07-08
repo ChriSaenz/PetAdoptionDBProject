@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.objects.Employee;
+import com.objects.Pet;
 
 public class DB {
 	
@@ -49,6 +50,36 @@ public class DB {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		dbClose();
+		return list;
+	}
+	
+	private static List<Pet> fetchPets() {
+		dbConnect();
+		
+		String sql = "SELECT * FROM Pet";
+		List<Pet> list = new ArrayList<>();
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet r = s.executeQuery();
+			while(r.next()) {
+				Pet p = new Pet(r.getString("name"),
+								r.getString("species"),
+								r.getInt("age"),
+								r.getString("date_acquired"),
+								r.getString("sex"),
+								r.getString("color"),
+								r.getString("breed"),
+								r.getBoolean("vaccinated"),
+								r.getBoolean("neutered"),
+								r.getString("date_adopted"));
+				p.setId(r.getInt("id"));
+				list.add(p);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		dbClose();
 		return list;
 	}
