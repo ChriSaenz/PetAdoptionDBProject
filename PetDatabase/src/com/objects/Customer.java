@@ -5,11 +5,9 @@ public class Customer {
 	String name;
 	String phone;
 	String birthdate;
-	User user;
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", phone=" + phone + ", birthdate=" + birthdate + ", user="
-				+ user + "]";
+		return "Customer [id=" + id + ", name=" + name + ", phone=" + phone + ", birthdate=" + birthdate+"]";
 	}
 	public int getId() {
 		return id;
@@ -35,18 +33,12 @@ public class Customer {
 	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-	public Customer(String name, String phone, String birthdate, User user) {
+
+	public Customer(String name, String phone, String birthdate) {
 		super();
 		this.name = name;
 		this.phone = phone;
 		this.birthdate = birthdate;
-		this.user = user;
 	}
 
 }
