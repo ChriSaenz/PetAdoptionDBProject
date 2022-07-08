@@ -2,6 +2,12 @@
 -- Schema adoption_system
 -- -----------------------------------------------------
 
+-- drop table Customer cascade constraint;
+-- drop table Request cascade;
+-- drop table Pet cascade;
+-- drop table Employee cascade;
+-- drop table Receipt cascade;
+
 -- -----------------------------------------------------
 -- Schema adoption_system
 -- -----------------------------------------------------
