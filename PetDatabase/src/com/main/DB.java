@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.exceptions.InvalidSearchException;
+import com.objects.Customer;
 import com.objects.Employee;
 import com.objects.Pet;
+import com.objects.Receipt;
 
 public class DB {
 	
@@ -154,5 +156,82 @@ public class DB {
 		}
 		dbClose();
 		
+	}
+
+	public static List<Receipt> getReceipts() {
+		List<Receipt> list = new ArrayList<>();
+		dbConnect();
+		String sql = "select * from receipt";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet r = ps.executeQuery();
+			while(r.next()) {
+				Receipt re = new Receipt(
+								r.getInt("id"),
+								r.getInt("employee_id"),
+								r.getInt("customer_id"),
+								r.getInt("request_id"),
+								r.getString("date"),
+								r.getDouble("cost"));
+				list.add(re);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		dbClose();
+		return list;
+	}
+	
+	public static List<Customer> fetchCustomers() {
+		dbConnect();
+		String sql = "select * from customer";
+		List <Customer> list = new ArrayList<>();
+		try {
+			PreparedStatement s = con.prepareStatement(sql);
+			ResultSet r = s.executeQuery();
+			while (r.next() ) {
+				System.out.println("here");
+				int id = r.getInt("id");
+				String name = r.getString("name");
+				String phone = r.getString("phone_number");
+				Date date_joined = r.getDate("date_joined");
+				Date birthday = r.getDate("birthday");
+				Customer c = new Customer(id, name, phone, date_joined, birthday);
+				list.add(c);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		dbClose();
+		return list;
+	}
+
+	public static Customer findCustomer(int id) throws InvalidSearchException {
+		List<Customer> list = fetchCustomers();
+		for (Customer c : list) {
+			if (c.getId() == id) return c;
+		}
+		throw new InvalidSearchException("Customer not found.");
+	}
+
+	public static void insertCustomer(Customer customer) {
+		 dbConnect();
+		 String sql="insert into customer(name,phone_number,date_joined, birthday) "
+		 		+ "values (?,?,?,?)";
+
+		 try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, customer.getName());
+			pstmt.setString(2, customer.getPhone_number());
+			pstmt.setDate(3, customer.getDate_joined());
+			pstmt.setDate(4, customer.getBirthday());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		 
+		 dbClose();			
 	}
 }

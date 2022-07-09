@@ -1,12 +1,16 @@
 package com.main;
 
+import java.util.Calendar;
+import java.sql.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 import com.exceptions.InvalidSearchException;
+import com.objects.Customer;
 import com.objects.Employee;
 import com.objects.Pet;
+import com.objects.Receipt;
 
 public class PetUtils {
 
@@ -22,8 +26,7 @@ public class PetUtils {
 			System.out.println("4. Filter pets by age");
 			System.out.println("5. View pet by name");
 			System.out.println("6. Request adoption"); // prompts to either use pre-existing profile or create new
-
-			System.out.print("0. Quit");
+			System.out.println("0. Quit");
 			System.out.print("Selection: ");
 			try {
 				int choice = scan.nextInt();
@@ -47,8 +50,9 @@ public class PetUtils {
 					break;
 				case 2:
 					break;
-				case 5: {
+				case 5:
 					System.out.println("Enter the name of the pet.");
+					scan.nextLine();
 					String petName = scan.nextLine();
 					List<Pet> results = DB.fetchPetsByColumnValue("name", petName);
 					if (results.size() == 0) {
@@ -58,7 +62,29 @@ public class PetUtils {
 							System.out.println(p.toString());
 						}
 					break;
-				}
+				case 6:
+					while (true) {
+						System.out.print("Are you a returning customer? Type y or n: ");
+						String response = scan.next();
+						switch (response.toLowerCase()) {
+						case "y":
+							Customer c = promptOldCustomer();
+							if (c != null) {
+
+							}
+							break;
+						case "n":
+							c = promptNewCustomer();
+
+							break;
+						default:
+							System.out.println("Try again");
+							break;
+
+						}
+						break;
+					}
+					break;
 				default:
 					System.out.println("Try again");
 					break;
@@ -68,6 +94,48 @@ public class PetUtils {
 				System.out.println("Input an integer");
 			}
 		}
+	}
+
+	private static Customer promptNewCustomer() {
+		System.out.print("Input name: ");
+		scan.nextLine();
+		String name = scan.nextLine();
+		System.out.print("Input phone number: ");
+		String phone = scan.nextLine();
+		Date date = new Date(Calendar.getInstance().getTime().getTime());
+		System.out.print("Input birthdate (YYYY-DD-MM): ");
+		try {
+			String bday = scan.nextLine();
+			Date date1 = Date.valueOf(bday);
+			Customer c = new Customer(name, phone, date, date1);
+			DB.insertCustomer(c);
+			return c;
+		} catch (IllegalArgumentException e) {
+			System.out.println("Invalid birthdate");
+		}
+		return null;
+	}
+
+	private static Customer promptOldCustomer() {
+		Customer c;
+		while (true) {
+			System.out.print("Customer ID: ");
+			try {
+				int id = scan.nextInt();
+				try {
+					c = DB.findCustomer(id);
+					System.out.println("Welcome " + c.getName());
+					return c;
+				} catch (InvalidSearchException e) {
+					System.out.println(e.getMessage());
+					break;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Input an integer");
+			}
+
+		}
+		return null;
 	}
 
 	private static void employeeMenu() {
@@ -90,10 +158,16 @@ public class PetUtils {
 				switch (choice) {
 				case 0:
 					return;
-				case 1: {
+				case 1:
 					// SELECT * FROM <adoptionRequests> WHERE <isOpen>
 					break;
-				}
+				case 6:
+					List<Receipt> list = DB.getReceipts();
+					System.out.println("Adoption Logs");
+					for (Receipt r : list) {
+						System.out.println(r);
+					}
+					break;
 				case 8:
 					System.out.print("Enter username: ");
 					String username = scan.next();
