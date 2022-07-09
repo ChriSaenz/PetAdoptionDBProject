@@ -8,25 +8,6 @@ public class Pet {
 	int age;
 	String date_acquired;
 	String sex;
-	@Override
-	public String toString() {
-		return "Pet [id=" + id + ", name=" + name + ", species=" + species + ", age=" + age + ", date_acquired="
-				+ date_acquired + ", sex=" + sex + ", color=" + color + ", breed=" + breed + ", vaccinated="
-				+ vaccinated + ", neutered=" + neutered + "]";
-	}
-	public Pet(String name, String species, int age, String date_acquired, String sex, String color, String breed,
-			boolean vaccinated, boolean neutered, String date_adopted) {
-		super();
-		this.name = name;
-		this.species = species;
-		this.age = age;
-		this.date_acquired = date_acquired;
-		this.sex = sex;
-		this.color = color;
-		this.breed = breed;
-		this.vaccinated = vaccinated;
-		this.neutered = neutered;
-	}
 	String color;
 	String breed;
 	boolean vaccinated;
@@ -37,6 +18,12 @@ public class Pet {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getRequest_id() {
+		return request_id;
+	}
+	public void setRequest_id(int request_id) {
+		this.request_id = request_id;
 	}
 	public String getName() {
 		return name;
@@ -92,4 +79,37 @@ public class Pet {
 	public void setNeutered(boolean neutered) {
 		this.neutered = neutered;
 	}
+	public double getCost() {
+		return cost;
+	}
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+	public Pet(int request_id, String name, String species, int age, String date_acquired, String sex, String color,
+			String breed, boolean vaccinated, boolean neutered, double cost) {
+		super();
+		this.request_id = request_id;
+		this.name = name;
+		this.species = species;
+		this.age = age;
+		this.date_acquired = date_acquired;
+		this.sex = sex;
+		this.color = color;
+		this.breed = breed;
+		this.vaccinated = vaccinated;
+		this.neutered = neutered;
+		this.cost = cost;
+	}
+	@Override
+	public String toString() {
+		return "Pet [id=" + id + ", request_id=" + request_id + ", name=" + name + ", species=" + species + ", age="
+				+ age + ", date_acquired=" + date_acquired + ", sex=" + sex + ", color=" + color + ", breed=" + breed
+				+ ", vaccinated=" + vaccinated + ", neutered=" + neutered + ", cost=" + cost + "]";
+	}
+	
+	
+	
+	
+	
+	
 }
