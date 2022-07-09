@@ -5,21 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.exceptions.InvalidSearchException;
-import com.objects.*;
+import com.objects.Employee;
+import com.objects.Pet;
 
 public class DB {
-
+	
 	static Connection con;
-
+	
 	private static void dbConnect() {
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/adoption_system", "root", "Password123");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/adoption_sys","root","Password123");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
-
+	
 	private static void dbClose() {
 		try {
 			con.close();
@@ -27,15 +28,15 @@ public class DB {
 			e.printStackTrace();
 		}
 	}
-
+	
 	private static List<Employee> fetchUsers() {
 		dbConnect();
 		String sql = "select * from employee";
-		List<Employee> list = new ArrayList<>();
+		List <Employee> list = new ArrayList<>();
 		try {
 			PreparedStatement s = con.prepareStatement(sql);
 			ResultSet r = s.executeQuery();
-			while (r.next()) {
+			while (r.next() ) {
 				String name = r.getString("name");
 				double salary = r.getDouble("salary");
 				String phone = r.getString("phone");
@@ -53,53 +54,95 @@ public class DB {
 		dbClose();
 		return list;
 	}
-
-	private static Employee findEmployee(String username, String password) throws InvalidSearchException {
+	
+	public static List<Pet> fetchPets() {
+		dbConnect();
+		
+		String sql = "SELECT * FROM Pet";
+		List<Pet> list = new ArrayList<>();
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet r = ps.executeQuery();
+			while(r.next()) {
+				Pet p = new Pet(
+								r.getInt("request_id"),
+								r.getString("name"),
+								r.getString("species"),
+								r.getInt("age"),
+								r.getString("date_acquired"),
+								r.getString("sex"),
+								r.getString("color"),
+								r.getString("breed"),
+								r.getBoolean("vaccinated"),
+								r.getBoolean("neutered"),
+								r.getDouble("cost"));
+				p.setId(r.getInt("id"));
+				list.add(p);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return list;
+	}
+	
+	public static List<Pet> fetchPetsByColumnValue(String column, String value) {
+		dbConnect();
+		
+		String sql = "SELECT * FROM Pet WHERE ? = ?";
+		List<Pet> list = fetchPets();
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, column);
+			ps.setString(2, value);
+			ResultSet r = ps.executeQuery();
+			while(r.next()) {
+				Pet p = new Pet(r.getInt("request_id"),
+						r.getString("name"),
+						r.getString("species"),
+						r.getInt("age"),
+						r.getString("date_acquired"),
+						r.getString("sex"),
+						r.getString("color"),
+						r.getString("breed"),
+						r.getBoolean("vaccinated"),
+						r.getBoolean("neutered"),
+						r.getDouble("cost"));
+				p.setId(r.getInt("id"));
+				list.add(p);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return list;
+	}
+	
+	public static Employee findEmployee(String username, String password) throws InvalidSearchException{
 		List<Employee> users = fetchUsers();
 		for (Employee u : users) {
-			if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
+			if(u.getUsername().equals(username) && u.getPassword().equals(password)) {
 				return u;
 			}
 		}
-		throw new InvalidSearchException("Unable to retrieve emplyee from database");
-	}
-
-	public static boolean login(String username, String password) {
-		try {
-			Employee u = findEmployee(username, password);
-			System.out.println("Login successful! Hello " + u.getName());
-			return true;
-		} catch (InvalidSearchException e) {
-			System.out.println(e.getMessage());
-			return false;
-		}
-	}
-
-	public static boolean adminLogin(String username, String password) {
-		try {
-			Employee u = findEmployee(username, password);
-			if (u.isAdmin()) {
-				System.out.println("Login successful! Hello " + u.getName());
-				return true;
-			}
-			return false;
-		} catch (InvalidSearchException e) {
-			System.out.println(e.getMessage());
-			return false;
-		}
+		throw new InvalidSearchException("Employee "+ username +" does not exist");
 	}
 	
-	public static Employee findEmployeeL(int id) throws InvalidSearchException {
+
+
+	public static Employee findEmployee(int id) throws InvalidSearchException {
 		List<Employee> users = fetchUsers();
 		for (Employee u : users) {
-			if (u.getId() == id) {
+			if(u.getId() == id) {
 				return u;
 			}
 		}
-		throw new InvalidSearchException("Unable to retrieve emplyee from database");
+		throw new InvalidSearchException("Employee "+ id +" does not exist");
 	}
-	
-	public static void deleteEmployee(int id) {
+
+	public static void removeEmployee(int id) {
 		dbConnect();
 		String sql="delete from employee where id=?";
 		try {
@@ -110,38 +153,6 @@ public class DB {
 			e.printStackTrace();
 		}
 		dbClose();
-	}
-
-	public static List<Pet> fetchPets() {
-		dbConnect();
-		String sql = "select * from pet";
-		List<Pet> list = new ArrayList<>();
-		try {
-			PreparedStatement s = con.prepareStatement(sql);
-			ResultSet r = s.executeQuery();
-			while (r.next()) {
-				int id = r.getInt("id");
-				int request_id = r.getInt("Request_id");
-				String name = r.getString("name");
-				String species = r.getString("name");
-				int age = r.getInt("age");
-				String date_acquired = r.getString("date_acquired");
-				String sex = r.getString("sex");
-				String color = r.getString("color");
-				String breed = r.getString("breed");
-				boolean vaccinated = r.getBoolean("vaccinated");
-				boolean neutered = r.getBoolean("neutered");
-				double cost = r.getDouble("cost");
-				Pet p = new Pet(request_id, name, species, age, date_acquired, sex, color, breed, vaccinated, neutered,
-						cost);
-				p.setId(id);
-				list.add(p);
-
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		dbClose();
-		return list;
+		
 	}
 }
