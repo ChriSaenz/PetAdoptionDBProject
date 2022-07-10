@@ -7,11 +7,13 @@ import java.util.Scanner;
 import com.exceptions.InvalidSearchException;
 import com.objects.Employee;
 import com.objects.Pet;
+import com.objects.Request;
 
 public class PetUtils {
 
 	static Scanner scan = new Scanner(System.in);
 
+	//	Basic menu, before employee/admin login. Accessible to all customers by default.
 	public static void menu() {
 		System.out.println("Welcome to the pet adoption system");
 		while (true) {
@@ -28,10 +30,12 @@ public class PetUtils {
 			try {
 				int choice = scan.nextInt();
 				switch (choice) {
+				//	0. Quit
 				case 0:
 					System.out.println("Goodbye");
 					System.exit(0);
 					break;
+				//	1. Employee login
 				case 1:
 					System.out.print("Enter username: ");
 					String username = scan.next();
@@ -45,18 +49,24 @@ public class PetUtils {
 					}
 					employeeMenu();
 					break;
+				//	TODO: Write 2. View all pets
 				case 2:
 					break;
+				//	5. View pet by name
 				case 5: {
 					System.out.println("Enter the name of the pet.");
 					String petName = scan.nextLine();
-					List<Pet> results = DB.fetchPetsByColumnValue("name", petName);
-					if (results.size() == 0) {
-						System.out.println("Sorry, no pets were found with the name " + petName);
-					} else
-						for (Pet p : results) {
+					try {
+						List<Pet> results = DB.fetchPets("name", petName);
+						if (results.size() == 0) {
+							System.out.println("Sorry, no pets were found with the name " + petName);
+						}
+						else for (Pet p : results) {
 							System.out.println(p.toString());
 						}
+					} catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
 					break;
 				}
 				default:
@@ -88,12 +98,45 @@ public class PetUtils {
 			try {
 				int choice = scan.nextInt();
 				switch (choice) {
+				//	0. Logout (return to previous menu)
 				case 0:
 					return;
+				//	1. View open adoption requests
 				case 1: {
-					// SELECT * FROM <adoptionRequests> WHERE <isOpen>
+					try {
+						//	TODO: Is "Open" or "Pending" what we're looking for?
+						List<Request> requests = DB.fetchRequests("status", "Open");
+						if (requests.size() == 0) {
+							System.out.println("No open adoption requests");
+						}
+						else for (Request r : requests) {
+							System.out.println(r.toString());
+						}
+					} catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
 					break;
 				}
+				//	2. View all adoption requests
+				case 2: {
+					try {
+						List<Request> requests = DB.fetchRequests();
+						if (requests.size() == 0) {
+							System.out.println("No adoption requests found");
+						}
+						else for (Request r : requests) {
+							System.out.println(r.toString());
+						}
+					} catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
+					break;
+				}
+				//	TODO: 3. Approve/reject adoption request
+				//	TODO: 4. View all customers
+				//	TODO: 5. View specific customer
+				//	TODO: 6. View adoption logs
+				//	TODO: 7. Add new pet
 				case 8:
 					System.out.print("Enter username: ");
 					String username = scan.next();
@@ -136,8 +179,10 @@ public class PetUtils {
 				switch (choice) {
 				case 0:
 					return;
+				//	TODO: 1. Create employee
 				case 1:
 					break;
+				//	2. Remove employee
 				case 2:
 					System.out.print("Employee ID: ");
 					int id = scan.nextInt();
@@ -149,8 +194,22 @@ public class PetUtils {
 						System.out.println(e.getMessage());
 					}
 					break;
-				case 3:
+				//	3. View employees
+				case 3: {
+					try {
+						List<Employee> employees = DB.fetchUsers();
+						if (employees.size() == 0) {
+							System.out.println("No employees found");
+						}
+						else for (Employee emp : employees) {
+							System.out.println(emp.toString());
+						}
+					} catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
 					break;
+				}
+				default: break;
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("Try again.");

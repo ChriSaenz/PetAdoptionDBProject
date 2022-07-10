@@ -7,6 +7,7 @@ import java.util.List;
 import com.exceptions.InvalidSearchException;
 import com.objects.Employee;
 import com.objects.Pet;
+import com.objects.Request;
 
 public class DB {
 	
@@ -29,7 +30,8 @@ public class DB {
 		}
 	}
 	
-	private static List<Employee> fetchUsers() {
+	//	Creates and returns a list of all employees.
+	public static List<Employee> fetchUsers() {
 		dbConnect();
 		String sql = "select * from employee";
 		List <Employee> list = new ArrayList<>();
@@ -86,12 +88,11 @@ public class DB {
 		dbClose();
 		return list;
 	}
-	
-	public static List<Pet> fetchPetsByColumnValue(String column, String value) {
+	public static List<Pet> fetchPets(String column, String value) {
 		dbConnect();
 		
 		String sql = "SELECT * FROM Pet WHERE ? = ?";
-		List<Pet> list = fetchPets();
+		List<Pet> list = new ArrayList<>();
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, column);
@@ -111,6 +112,41 @@ public class DB {
 						r.getDouble("cost"));
 				p.setId(r.getInt("id"));
 				list.add(p);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return list;
+	}
+	
+	//	TODO: Test these methods for correctness
+	public static List<Request> fetchRequests() {
+		return fetchRequests(null, null);
+	}
+	public static List<Request> fetchRequests(String column, String value) {
+		dbConnect();
+		
+		String sql = "SELECT * FROM request";
+		List<Request> list = new ArrayList<>();
+		if(column != null && value != null)
+			sql = sql + " WHERE ? = ?";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			if(column != null && value != null) {
+				ps.setString(1, column);
+				ps.setString(2, value);
+			}
+			ResultSet r = ps.executeQuery();
+			while(r.next()) {
+				Request req = new Request(r.getInt("id"),
+							r.getInt("customer_id"),
+							r.getInt("pet_id"),
+							r.getString("date"),
+							r.getString("status"),
+							r.getInt("employee_id"));
+				list.add(req);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
