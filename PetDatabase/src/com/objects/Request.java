@@ -1,19 +1,19 @@
 package com.objects;
-
+import java.sql.Date;
+import java.util.Calendar;
 
 public class Request {
 	int id;
 	int customer_id;
 	int pet_id;
-	String date;
+	Date date;
 	String status;
 	int employee_id;	//	0 if request hasn't been handled yet?
 	
 	public Request() {
-		date = "";
-		status = "Invalid";
+		status = "Pending";
 	}
-	public Request(int i, int ci, int pi, String d, String s, int ei) {
+	public Request(int i, int ci, int pi, Date d, String s, int ei) {
 		id = i;
 		customer_id = ci;
 		pet_id = pi;
@@ -22,6 +22,15 @@ public class Request {
 		employee_id = ei;
 	}
 	
+
+	public Request(int customer_id, int pet_id, int employee_id) {
+		super();
+		this.customer_id = customer_id;
+		this.pet_id = pet_id;
+		date = new Date(Calendar.getInstance().getTime().getTime());
+		this.employee_id = employee_id;
+		status = "Pending";
+	}
 	public int getId() {
 		return id;
 	}
@@ -40,10 +49,10 @@ public class Request {
 	public void setPet_id(int pet_id) {
 		this.pet_id = pet_id;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public String getStatus() {
@@ -63,4 +72,5 @@ public class Request {
 		return "Request [id=" + id + ", customer_id=" + customer_id + ", pet_id=" + pet_id + ", date=" + date
 				+ ", status=" + status + ", employee_id=" + employee_id + "]";
 	}
+
 }

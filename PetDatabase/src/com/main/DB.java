@@ -5,23 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.exceptions.InvalidSearchException;
+import com.objects.Customer;
 import com.objects.Employee;
 import com.objects.Pet;
+import com.objects.Receipt;
 import com.objects.Request;
 
 public class DB {
-	
+
 	static Connection con;
-	
+
 	private static void dbConnect() {
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/adoption_sys","root","Password123");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/adoption_system", "root", "Password123");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	private static void dbClose() {
 		try {
 			con.close();
@@ -31,14 +33,15 @@ public class DB {
 	}
 	
 	//	Creates and returns a list of all employees.
+
 	public static List<Employee> fetchUsers() {
 		dbConnect();
 		String sql = "select * from employee";
-		List <Employee> list = new ArrayList<>();
+		List<Employee> list = new ArrayList<>();
 		try {
 			PreparedStatement s = con.prepareStatement(sql);
 			ResultSet r = s.executeQuery();
-			while (r.next() ) {
+			while (r.next()) {
 				String name = r.getString("name");
 				double salary = r.getDouble("salary");
 				String phone = r.getString("phone");
@@ -56,41 +59,35 @@ public class DB {
 		dbClose();
 		return list;
 	}
-	
+
 	public static List<Pet> fetchPets() {
 		dbConnect();
-		
+
 		String sql = "SELECT * FROM Pet";
 		List<Pet> list = new ArrayList<>();
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ResultSet r = ps.executeQuery();
-			while(r.next()) {
-				Pet p = new Pet(
-								r.getInt("request_id"),
-								r.getString("name"),
-								r.getString("species"),
-								r.getInt("age"),
-								r.getString("date_acquired"),
-								r.getString("sex"),
-								r.getString("color"),
-								r.getString("breed"),
-								r.getBoolean("vaccinated"),
-								r.getBoolean("neutered"),
-								r.getDouble("cost"));
+			while (r.next()) {
+				Pet p = new Pet(r.getInt("request_id"), r.getString("name"), r.getString("species"), r.getInt("age"),
+						r.getString("date_acquired"), r.getString("sex"), r.getString("color"), r.getString("breed"),
+						r.getBoolean("vaccinated"), r.getBoolean("neutered"), r.getDouble("cost"));
 				p.setId(r.getInt("id"));
 				list.add(p);
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		dbClose();
 		return list;
 	}
-	public static List<Pet> fetchPets(String column, String value) {
-		dbConnect();
 		
+
+
+	public static List<Pet> fetchPetsByColumnValue(String column, String value) {
+		dbConnect();
+
 		String sql = "SELECT * FROM Pet WHERE ? = ?";
 		List<Pet> list = new ArrayList<>();
 		try {
@@ -98,25 +95,17 @@ public class DB {
 			ps.setString(1, column);
 			ps.setString(2, value);
 			ResultSet r = ps.executeQuery();
-			while(r.next()) {
-				Pet p = new Pet(r.getInt("request_id"),
-						r.getString("name"),
-						r.getString("species"),
-						r.getInt("age"),
-						r.getString("date_acquired"),
-						r.getString("sex"),
-						r.getString("color"),
-						r.getString("breed"),
-						r.getBoolean("vaccinated"),
-						r.getBoolean("neutered"),
-						r.getDouble("cost"));
+			while (r.next()) {
+				Pet p = new Pet(r.getInt("request_id"), r.getString("name"), r.getString("species"), r.getInt("age"),
+						r.getString("date_acquired"), r.getString("sex"), r.getString("color"), r.getString("breed"),
+						r.getBoolean("vaccinated"), r.getBoolean("neutered"), r.getDouble("cost"));
 				p.setId(r.getInt("id"));
 				list.add(p);
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		dbClose();
 		return list;
 	}
@@ -143,7 +132,7 @@ public class DB {
 				Request req = new Request(r.getInt("id"),
 							r.getInt("customer_id"),
 							r.getInt("pet_id"),
-							r.getString("date"),
+							r.getDate("date"),
 							r.getString("status"),
 							r.getInt("employee_id"));
 				list.add(req);
@@ -156,31 +145,30 @@ public class DB {
 		return list;
 	}
 	
-	public static Employee findEmployee(String username, String password) throws InvalidSearchException{
+
+	public static Employee findEmployee(String username, String password) throws InvalidSearchException {
 		List<Employee> users = fetchUsers();
 		for (Employee u : users) {
-			if(u.getUsername().equals(username) && u.getPassword().equals(password)) {
+			if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
 				return u;
 			}
 		}
-		throw new InvalidSearchException("Employee "+ username +" does not exist");
+		throw new InvalidSearchException("Employee " + username + " does not exist");
 	}
-	
-
 
 	public static Employee findEmployee(int id) throws InvalidSearchException {
 		List<Employee> users = fetchUsers();
 		for (Employee u : users) {
-			if(u.getId() == id) {
+			if (u.getId() == id) {
 				return u;
 			}
 		}
-		throw new InvalidSearchException("Employee "+ id +" does not exist");
+		throw new InvalidSearchException("Employee " + id + " does not exist");
 	}
 
 	public static void removeEmployee(int id) {
 		dbConnect();
-		String sql="delete from employee where id=?";
+		String sql = "delete from employee where id=?";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, id);
@@ -189,6 +177,107 @@ public class DB {
 			e.printStackTrace();
 		}
 		dbClose();
-		
+
+	}
+
+	public static List<Receipt> getReceipts() {
+		List<Receipt> list = new ArrayList<>();
+		dbConnect();
+		String sql = "select * from receipt";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet r = ps.executeQuery();
+			while (r.next()) {
+				Receipt re = new Receipt(r.getInt("id"), r.getInt("employee_id"), r.getInt("customer_id"),
+						r.getInt("request_id"), r.getString("date"), r.getDouble("cost"));
+				list.add(re);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		dbClose();
+		return list;
+	}
+
+	public static List<Customer> fetchCustomers() {
+		dbConnect();
+		String sql = "select * from Customer";
+		List<Customer> list = new ArrayList<>();
+		try {
+			PreparedStatement s = con.prepareStatement(sql);
+			ResultSet r = s.executeQuery();
+			while (r.next()) {
+				int id = r.getInt("id");
+				String name = r.getString("name");
+				String phone = r.getString("phone_number");
+				Date date_joined = r.getDate("date_joined");
+				Date birthday = r.getDate("birthday");
+				Customer c = new Customer(id, name, phone, date_joined, birthday);
+				list.add(c);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		dbClose();
+		return list;
+	}
+
+	public static Customer findCustomer(int id) throws InvalidSearchException {
+		List<Customer> list = fetchCustomers();
+		for (Customer c : list) {
+			if (c.getId() == id)
+				return c;
+		}
+		throw new InvalidSearchException("Customer not found.");
+	}
+
+	public static void insertCustomer(Customer customer) {
+		dbConnect();
+		String sql = "insert into customer(name, phone_number, date_joined, birthday) " + "values (?,?,?,?)";
+
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, customer.getName());
+			pstmt.setString(2, customer.getPhone_number());
+			pstmt.setDate(3, customer.getDate_joined());
+			pstmt.setDate(4, customer.getBirthday());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		dbClose();
+	}
+
+	public static Pet findPet(int id) throws InvalidSearchException {
+		List<Pet> pets = fetchPets();
+		for (Pet pet : pets) {
+			if (pet.getId() == id)
+				return pet;
+		}
+		throw new InvalidSearchException("Pet not found");
+	}
+
+	public static void insertRequest(Request r) {
+		dbConnect();
+		String sql = "insert into request(customer_id, pet_id, date, status, employee_id) " + "values (?,?,?,?, ?)";
+
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, r.getCustomer_id());
+			pstmt.setInt(2, r.getPet_id());
+			pstmt.setDate(3, r.getDate());
+			pstmt.setString(4, r.getStatus());
+			pstmt.setInt(5, r.getEmployee_id());
+			pstmt.executeUpdate();
+			System.out.println("Request inserted successfully");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		dbClose();
 	}
 }
