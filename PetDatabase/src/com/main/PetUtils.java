@@ -1,16 +1,12 @@
 package com.main;
 
-import java.util.Calendar;
-import java.sql.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 import com.exceptions.InvalidSearchException;
-import com.objects.Customer;
 import com.objects.Employee;
 import com.objects.Pet;
-import com.objects.Receipt;
 import com.objects.Request;
 
 public class PetUtils {
@@ -27,12 +23,12 @@ public class PetUtils {
 			System.out.println("3. Filter pets by species");
 			System.out.println("4. Filter pets by age");
 			System.out.println("5. View pet by name");
-			// System.out.println("6. Request adoption"); // prompts to either use
-			// pre-existing profile or create new
-			System.out.println("0. Quit");
+			System.out.println("6. Request adoption"); // prompts to either use pre-existing profile or create new
+
+			System.out.print("0. Quit");
 			System.out.print("Selection: ");
 			try {
-				int choice = scan.nextInt();
+				int choice = Integer.parseInt(scan.nextLine());
 				switch (choice) {
 				//	0. Quit
 				case 0:
@@ -48,23 +44,23 @@ public class PetUtils {
 					try {
 						Employee e = DB.findEmployee(username, password);
 						System.out.println("Success! Hello " + e.getName());
-						employeeMenu(e);
 					} catch (InvalidSearchException i) {
 						System.out.println(i.getMessage());
 					}
+					employeeMenu();
 					break;
 				//	TODO: Write 2. View all pets
 				case 2:
 					break;
 				//	5. View pet by name
-				case 5:
+				case 5: {
 					System.out.println("Enter the name of the pet.");
-					scan.nextLine();
 					String petName = scan.nextLine();
+					System.out.println("Fetching results...");
 					try {
-						List<Pet> results = DB.fetchPetsByColumnValue("name", petName);
+						List<Pet> results = DB.fetchPets("name", petName);
 						if (results.size() == 0) {
-							System.out.println("Sorry, no pets were found with the name " + petName);
+							System.out.println("Sorry, no pets were found with the name " + petName + ".");
 						}
 						else for (Pet p : results) {
 							System.out.println(p.toString());
@@ -73,6 +69,7 @@ public class PetUtils {
 						System.out.println(e.getMessage());
 					}
 					break;
+				}
 				default:
 					System.out.println("Try again");
 					break;
@@ -84,53 +81,12 @@ public class PetUtils {
 		}
 	}
 
-	private static Customer promptNewCustomer() {
-		System.out.print("Input customer name: ");
-		scan.nextLine();
-		String name = scan.nextLine();
-		System.out.print("Input customer phone number: ");
-		String phone = scan.nextLine();
-		Date date = new Date(Calendar.getInstance().getTime().getTime());
-		System.out.print("Input customer birthdate (YYYY-MM-DD): ");
-		try {
-			String bday = scan.nextLine();
-			Date date1 = Date.valueOf(bday);
-			Customer c = new Customer(name, phone, date, date1);
-			DB.insertCustomer(c);
-			return c;
-		} catch (IllegalArgumentException e) {
-			System.out.println("Invalid birthdate");
-			return null;
-		}
-	}
-
-	private static Customer promptOldCustomer() {
-		Customer c;
-		while (true) {
-			System.out.print("Customer ID: ");
-			try {
-				int id = scan.nextInt();
-				try {
-					c = DB.findCustomer(id);
-					System.out.println("Found profile: " + c.getName());
-					return c;
-				} catch (InvalidSearchException e) {
-					System.out.println(e.getMessage());
-					break;
-				}
-			} catch (InputMismatchException e) {
-				System.out.println("Input an integer");
-			}
-
-		}
-		return null;
-	}
-
-	private static void employeeMenu(Employee employee) {
+	private static void employeeMenu() {
+		System.out.println("Welcome employee");
 		while (true) {
 			System.out.println("Choose from the following menu:");
 			System.out.println("0. Logout (return to previous menu)");
-			System.out.println("1. View open adoption requests");
+			System.out.println("1. View pending adoption requests");
 			System.out.println("2. View all adoption requests");
 			System.out.println("3. Approve/reject adoption request");
 			System.out.println("4. View all customers");
@@ -138,7 +94,6 @@ public class PetUtils {
 			System.out.println("6. View adoption logs");
 			System.out.println("7. Add new pet");
 			System.out.println("8. Admin login");
-			System.out.println("9. Enter adoption request");
 
 			System.out.print("Selection: ");
 			try {
@@ -150,8 +105,7 @@ public class PetUtils {
 				//	1. View open adoption requests
 				case 1: {
 					try {
-						//	TODO: Is "Open" or "Pending" what we're looking for?
-						List<Request> requests = DB.fetchRequests("status", "Open");
+						List<Request> requests = DB.fetchRequests("status", "Pending");
 						if (requests.size() == 0) {
 							System.out.println("No open adoption requests");
 						}
@@ -183,52 +137,21 @@ public class PetUtils {
 				//	TODO: 5. View specific customer
 				//	TODO: 6. View adoption logs
 				//	TODO: 7. Add new pet
-				case 6:
-					List<Receipt> list = DB.getReceipts();
-					System.out.println("Adoption Logs");
-					for (Receipt r : list) {
-						System.out.println(r);
-					}
-					break;
 				case 8:
+					System.out.print("Enter username: ");
+					String username = scan.next();
+					System.out.print("Enter password: ");
+					String password = scan.next();
 					try {
-						DB.findEmployee(employee.getUsername(), employee.getPassword());
-						if (employee.isAdmin()) {
-							System.out.println("Success! Hello " + employee.getName());
+						Employee e = DB.findEmployee(username, password);
+						if (e.isAdmin()) {
+							System.out.println("Success! Hello " + e.getName());
 							adminMenu();
 						} else {
-							System.out.println("Employee " + employee.getName() + " is not an admin");
+							System.out.println("Employee " + e.getName() + " is not an admin");
 						}
 					} catch (InvalidSearchException i) {
 						System.out.println(i.getMessage());
-					}
-					break;
-				case 9:
-					while (true) {
-						System.out.print("Is this a returning customer? Type y or n: ");
-						String response = scan.next();
-						Customer c = null;
-						switch (response.toLowerCase()) {
-						case "y":
-							c = promptOldCustomer();
-							break;
-						case "n":
-							c = promptNewCustomer();
-							break;
-						default:
-							System.out.println("Try again");
-							break;
-
-						}
-						Pet pet = promptPet();
-						if (c != null && pet != null) {
-							System.out.println("Found pet: " + pet.getName());
-							Request r = new Request(c.getId(), pet.getId(), employee.getId());
-							DB.insertRequest(r);
-						} else {
-							System.out.println("Encountered error");
-						}
-						break;
 					}
 					break;
 				default:
@@ -240,18 +163,6 @@ public class PetUtils {
 			}
 		}
 
-	}
-
-	private static Pet promptPet() {
-		System.out.print("Enter pet ID: ");
-		try {
-			return DB.findPet(scan.nextInt());
-		} catch (InputMismatchException e) {
-			System.out.println("Input an integer");
-		} catch (InvalidSearchException i){
-			System.out.println(i.getMessage());
-		}
-		return null;
 	}
 
 	private static void adminMenu() {
