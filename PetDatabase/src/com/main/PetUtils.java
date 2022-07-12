@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.exceptions.InvalidSearchException;
+import com.objects.Customer;
 import com.objects.Employee;
 import com.objects.Pet;
 import com.objects.Request;
@@ -25,7 +26,7 @@ public class PetUtils {
 			System.out.println("5. View pet by name");
 			System.out.println("6. Request adoption"); // prompts to either use pre-existing profile or create new
 
-			System.out.println("0. Quit");
+			System.out.print("0. Quit");
 			System.out.print("Selection: ");
 			try {
 				int choice = Integer.parseInt(scan.nextLine());
@@ -38,17 +39,16 @@ public class PetUtils {
 				//	1. Employee login
 				case 1:
 					System.out.print("Enter username: ");
-					String username = scan.nextLine();
+					String username = scan.next();
 					System.out.print("Enter password: ");
-					String password = scan.nextLine();
+					String password = scan.next();
 					try {
 						Employee e = DB.findEmployee(username, password);
 						System.out.println("Success! Hello " + e.getName());
-						employeeMenu();
 					} catch (InvalidSearchException i) {
-//						System.out.println(i.getMessage());
-						System.out.println("Invalid username or password");
+						System.out.println(i.getMessage());
 					}
+					employeeMenu();
 					break;
 				//	TODO: Write 2. View all pets
 				case 2:
@@ -78,8 +78,6 @@ public class PetUtils {
 
 			} catch (InputMismatchException e) {
 				System.out.println("Input an integer");
-			} catch (NumberFormatException e) {
-				System.out.println("Input an integer");
 			}
 		}
 	}
@@ -87,7 +85,7 @@ public class PetUtils {
 	private static void employeeMenu() {
 		System.out.println("Welcome employee");
 		while (true) {
-			System.out.println("Choose from the following menu:");
+			System.out.println("Choose from the following menuuuuu:");
 			System.out.println("0. Logout (return to previous menu)");
 			System.out.println("1. View pending adoption requests");
 			System.out.println("2. View all adoption requests");
@@ -135,11 +133,62 @@ public class PetUtils {
 					}
 					break;
 				}
+				
+				case 3:
+					System.out.println("Case 3");
+					break;
 				//	TODO: 3. Approve/reject adoption request
-				//	TODO: 4. View all customers
+	
+				case 4: 
+					try {
+						List<Customer> customers = DB.fetchCustomers();
+						if (customers.size() == 0) {
+							System.out.println("No customers found");
+						}
+						else for (Customer cus : customers) {
+							System.out.println(cus.toString());
+						}
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+					break;
+
+				
+				
 				//	TODO: 5. View specific customer
 				//	TODO: 6. View adoption logs
-				//	TODO: 7. Add new pet
+				
+				case 7: 
+					//Adding a new pet
+					
+					System.out.println("Enter Name: ");
+					String name = scan.next();
+					System.out.println("Enter Species: ");
+					String species = scan.next();
+					System.out.println("Enter age: ");
+					int age = scan.nextInt();
+					System.out.println("Enter date aquired: ");
+					String date_acquired = scan.next();
+					System.out.println("Enter sex: ");
+					String sex = scan.next();
+					System.out.println("Enter color: ");
+					String color = scan.next();
+					System.out.println("Enter breed: ");
+					String breed = scan.next();
+					System.out.println("Enter vaccinated: ");
+					boolean vaccinated = scan.nextBoolean();
+					System.out.println("Enter neutered: ");
+					boolean neutered = scan.nextBoolean();
+					System.out.println("Enter cost: ");
+					double cost = scan.nextDouble();
+					
+					Pet pet = new Pet(12, name, species, age, date_acquired, sex, color, breed,
+					vaccinated, neutered, cost);
+					DB.insertPet(pet);
+					System.out.println("Pet added to DB..");
+					break;
+				
+				
 				case 8:
 					System.out.print("Enter username: ");
 					String username = scan.next();
@@ -154,8 +203,7 @@ public class PetUtils {
 							System.out.println("Employee " + e.getName() + " is not an admin");
 						}
 					} catch (InvalidSearchException i) {
-//						System.out.println(i.getMessage());
-						System.out.println("Invalid username or password");
+						System.out.println(i.getMessage());
 					}
 					break;
 				default:

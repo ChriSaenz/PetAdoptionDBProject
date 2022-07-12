@@ -31,6 +31,9 @@ public class Request {
 		this.employee_id = employee_id;
 		status = "Pending";
 	}
+	public Request(int int1, int int2, int int3, String string, String string2, int int4) {
+		// TODO Auto-generated constructor stub
+	}
 	public int getId() {
 		return id;
 	}

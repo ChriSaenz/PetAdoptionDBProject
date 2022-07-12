@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.exceptions.InvalidSearchException;
+import com.objects.Customer;
 import com.objects.Employee;
 import com.objects.Pet;
 import com.objects.Request;
@@ -15,7 +16,7 @@ public class DB {
 	
 	private static void dbConnect() {
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/adoption_system","root","Password123");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/adoption_system","root","Atticus#12");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -189,4 +190,62 @@ public class DB {
 		dbClose();
 		
 	}
+	
+	public static void insertPet(Pet pet) {
+		 dbConnect();
+		 String sql="insert into pet(Request_id, name, species, age, date_acquired, sex, color, breed, vaccinated, neutered, cost) "
+		 		+ "values (?,?,?,?,?,?,?,?,?,?,?)";
+		 
+		 try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, 10);
+			pstmt.setString(2, pet.getName());
+			pstmt.setString(3, pet.getSpecies());
+			pstmt.setDouble(4, pet.getAge());
+			pstmt.setString(5, pet.getDate_acquired());
+			pstmt.setString(6, pet.getSex());
+			pstmt.setString(7, pet.getColor());
+			pstmt.setString(8, pet.getBreed());
+			pstmt.setBoolean(9, pet.isVaccinated());
+			pstmt.setBoolean(10, pet.isNeutered());
+			pstmt.setDouble(11, pet.getCost());
+			
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		 
+		 dbClose();
+	}
+	
+	public static List<Customer> fetchCustomers() {
+		dbConnect();
+		String sql = "SELECT * FROM Customer";
+		List <Customer> list = new ArrayList<>();
+		try {
+			PreparedStatement s = con.prepareStatement(sql);
+			ResultSet r = s.executeQuery();
+			while (r.next() ) {
+
+				String name = r.getString("name");
+				String phone = r.getString("phone_Number");
+				Date date_joined = r.getDate("date_joined");
+				Date birthdate = r.getDate("birthday");
+				
+				Customer c = new Customer(name, phone, date_joined, birthdate);
+				c.setId(r.getInt("id"));
+				list.add(c);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		dbClose();
+		return list;
+	}
+	
+	
+	
 }
