@@ -1,14 +1,14 @@
-package src.com.main;
+package com.main;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.com.exceptions.InvalidSearchException;
-import src.com.objects.Customer;
-import src.com.objects.Employee;
-import src.com.objects.Pet;
-import src.com.objects.Request;
+import com.exceptions.InvalidSearchException;
+import com.objects.Customer;
+import com.objects.Employee;
+import com.objects.Pet;
+import com.objects.Request;
 
 public class DB {
 	
@@ -16,7 +16,7 @@ public class DB {
 	
 	private static void dbConnect() {
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/adoption_sys","root","Password123");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/adoption_system","root","Password123");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -197,7 +197,7 @@ public class DB {
 	// Diego's note: Returns a list of all Pets name
 	public static List<String> getAllPetsName() 
 	{
-		System.out.print("[GetAllPetsName] ");
+		System.out.println("[GetAllPetsName]");
 		dbConnect();
 		
 		String sql = "select name from Pet";
@@ -223,7 +223,7 @@ public class DB {
 	
 	// Diego's note: Returns a list of all Species
 	public static List<String> getAllPetSpecies() {
-		System.out.print("[GetAllPetsSpecies] ");
+		System.out.println("[GetAllPetsSpecies]");
 		dbConnect();
 		
 		String sql = "select distinct species from Pet";
@@ -249,7 +249,7 @@ public class DB {
 	// Diego's note: Returns a list of all Pets name by Species
 	// (Does not check for Unlisted Species)
 	public static List<String> getAllPetsNameBySpecies(String species) {
-		System.out.print("[GetAllPetsNameBySpecies] ");
+		System.out.println("[GetAllPetsNameBySpecies]");
 		dbConnect();
 		
 		String sql = "select name from Pet where species = ?";
@@ -274,7 +274,7 @@ public class DB {
 	}
 
 	public static Customer findCustomer(int customerID) {
-		System.out.print("[findCustomer] ");
+		System.out.println("[findCustomer]");
 		dbConnect();
 		
 		Customer cus = new Customer();
@@ -307,7 +307,7 @@ public class DB {
 
 	// Diego's Note: Inserts a new employee into the Employee Table
 	public static void insertEmployee(Employee emp) {
-		System.out.print("[insertEmployee] ");
+		System.out.println("[insertEmployee]");
 		dbConnect();
 		
 		String sql = "insert into Employee (username, password, name, phone, salary, title, admin) values"
@@ -338,15 +338,15 @@ public class DB {
 
 	// Diego's Note: Takes a RequestID and EmployeeID to change
 	// Request Status to Approved or Rejected.
-	public static void changeRequestStatus(int requestNum, int empID, boolean status) {
-		System.out.print("[updateEmployee] ");
+	public static void changeRequestStatus(int requestNum, int empID, int status) {
+		System.out.println("[changeRequestStatus]");
 		dbConnect();
 		String sql = "update Request SET status = ? where id = ?";
 		
 		try 
 		{
 			PreparedStatement pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, (status) ? "Approved" : "Rejected");
+			pstmt.setString(1, (status == 1) ? "Approved" : "Rejected");
 			pstmt.setInt(2, requestNum);
 
 			pstmt.executeUpdate();

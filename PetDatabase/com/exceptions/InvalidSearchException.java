@@ -1,4 +1,4 @@
-package src.com.exceptions;
+package com.exceptions;
 
 public class InvalidSearchException extends Exception {
 

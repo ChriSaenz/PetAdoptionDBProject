@@ -1,13 +1,13 @@
-package src.com.main;
+package com.main;
 
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import src.com.exceptions.InvalidSearchException;
-import src.com.objects.Employee;
-import src.com.objects.Pet;
-import src.com.objects.Request;
+import com.exceptions.InvalidSearchException;
+import com.objects.Employee;
+import com.objects.Pet;
+import com.objects.Request;
 
 public class PetUtils {
 
@@ -68,17 +68,17 @@ public class PetUtils {
 					
 					
 					for(String s : allSpecies)
-						System.out.print(++speciesOption + ". " + s + "\n\t");
+						System.out.print("\t" + ++speciesOption + ". " + s + "\n");
 					
 					
 					System.out.print("Enter Species Number: ");
 					choice = scan.nextInt();
-					System.out.println("Displaying " + allSpecies.get(choice - 1) + " Pets");
+					System.out.println("Displaying " + allSpecies.get(choice - 1) + "s pet names");
 					
 					List<String> petNamesBySpecies = DB.getAllPetsNameBySpecies(allSpecies.get(choice - 1));
 					
 					for(String n : petNamesBySpecies)
-						System.out.print(n + "\n\t");
+						System.out.print("\t" + n + "\n");
 					
 					break;
 					
@@ -175,10 +175,12 @@ public class PetUtils {
 					
 					//Validate Employee ID
 					
-					System.out.println("Enter Status Decision\n\t0. Rejected\n\t1. Approved");
+					System.out.println("Enter Status Decisioooon\n\t0. Rejected\n\t1. Approved");
 					System.out.print("Your choice: ");
-					boolean isApproved = scan.nextBoolean();
+					int isApproved = scan.nextInt();
 					DB.changeRequestStatus(requestNum, empID, isApproved);
+					
+					System.out.println("Request has been " + ((isApproved == 0) ? "Rejected" : "Approved"));
 					
 					//Update: Change its String to Approved.
 					
@@ -190,10 +192,10 @@ public class PetUtils {
 					
 				//	TODO: 5. View specific customer (Doesn't check for invalid ID yet
 				case 5:
-					System.out.println("Enter Customer ID");
+					System.out.print("Enter Customer ID: ");
 					int customerID = scan.nextInt();
 					
-					System.out.println(DB.findCustomer(customerID));
+					System.out.println("Displaying info...\n" + DB.findCustomer(customerID));
 					
 					break;
 					
@@ -255,14 +257,14 @@ public class PetUtils {
 					System.out.println("Enter New Employee Name");
 					scan.nextLine();
 					String name = scan.nextLine();
-					System.out.println("Enter New Employee Phone Number");
-					scan.nextLine();
+					System.out.println("Enter New Employee Phone Number (Single String)");
+//					scan.nextLine();
 					String phone = scan.nextLine();
 					System.out.println("Enter New Employee Salary");
 					double salary = scan.nextDouble();
 					System.out.println("Enter New Employee Title");
 					String title = scan.next();
-					System.out.println("Enter Employee Admin Status (1 for yes. 0 for no)");
+					System.out.println("Enter Employee Admin Status (true or false)");
 					boolean admin = scan.nextBoolean();
 					
 					employee.setUsername(username);

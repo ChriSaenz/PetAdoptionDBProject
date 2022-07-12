@@ -1,4 +1,4 @@
-package src.com.objects;
+package com.objects;
 
 public class Pet {
 	private int id, request_id;
