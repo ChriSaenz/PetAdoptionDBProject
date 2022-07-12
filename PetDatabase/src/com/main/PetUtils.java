@@ -25,7 +25,7 @@ public class PetUtils {
 			System.out.println("5. View pet by name");
 			System.out.println("6. Request adoption"); // prompts to either use pre-existing profile or create new
 
-			System.out.print("0. Quit");
+			System.out.println("0. Quit");
 			System.out.print("Selection: ");
 			try {
 				int choice = Integer.parseInt(scan.nextLine());
@@ -38,16 +38,17 @@ public class PetUtils {
 				//	1. Employee login
 				case 1:
 					System.out.print("Enter username: ");
-					String username = scan.next();
+					String username = scan.nextLine();
 					System.out.print("Enter password: ");
-					String password = scan.next();
+					String password = scan.nextLine();
 					try {
 						Employee e = DB.findEmployee(username, password);
 						System.out.println("Success! Hello " + e.getName());
+						employeeMenu();
 					} catch (InvalidSearchException i) {
-						System.out.println(i.getMessage());
+//						System.out.println(i.getMessage());
+						System.out.println("Invalid username or password");
 					}
-					employeeMenu();
 					break;
 				//	TODO: Write 2. View all pets
 				case 2:
@@ -76,6 +77,8 @@ public class PetUtils {
 				}
 
 			} catch (InputMismatchException e) {
+				System.out.println("Input an integer");
+			} catch (NumberFormatException e) {
 				System.out.println("Input an integer");
 			}
 		}
@@ -151,7 +154,8 @@ public class PetUtils {
 							System.out.println("Employee " + e.getName() + " is not an admin");
 						}
 					} catch (InvalidSearchException i) {
-						System.out.println(i.getMessage());
+//						System.out.println(i.getMessage());
+						System.out.println("Invalid username or password");
 					}
 					break;
 				default:
