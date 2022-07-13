@@ -1,18 +1,18 @@
 package com.objects;
 
 public class Pet {
-	int id;
-	int request_id;
-	String name;
-	String species;
-	int age;
-	String date_acquired;
-	String sex;
-	String color;
-	String breed;
-	boolean vaccinated;
-	boolean neutered;
-	double cost;
+	private int id, request_id;
+	private String name, species;
+	private int age;
+	private String date_acquired;		//Diego's Note: Shouldn't this be Date type?
+	private String sex, color, breed;
+	private	boolean vaccinated, neutered;
+	private double cost;
+	
+	public Pet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public int getId() {
 		return id;
 	}

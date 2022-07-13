@@ -1,22 +1,31 @@
 package com.objects;
 
 public class Employee {
-
-	int id;
-	String name;
-	String phone;
-	double salary;
-	String username;
-	String password;
-	boolean admin;
-	String title;
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", phone=" + phone + ", salary=" + salary + ", username="
-				+ username + ", password=" + password + ", admin=" + admin + ", title=" + title + "]";
-	}
-	public Employee(String name, String phone, double salary, String username, String password, boolean admin,
+	private int id;
+	private String name, phone;
+	private double salary;
+	private String username, password;
+	private boolean admin;
+	private String title;
+	
+	public Employee() {}
+	
+	// Fetching
+	public Employee(int id, String name, String phone, double salary, String username, String password, boolean admin,
 			String title) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.phone = phone;
+		this.salary = salary;
+		this.username = username;
+		this.password = password;
+		this.admin = admin;
+		this.title = title;
+	}
+	
+	// Insert
+	public Employee(String name, String phone, double salary, String username, String password, boolean admin, String title) {
 		super();
 		this.name = name;
 		this.phone = phone;
@@ -26,6 +35,7 @@ public class Employee {
 		this.admin = admin;
 		this.title = title;
 	}
+	
 	public int getId() {
 		return id;
 	}
@@ -73,5 +83,10 @@ public class Employee {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", phone=" + phone + ", salary=" + salary + ", username="
+				+ username + ", password=" + password + ", admin=" + admin + ", title=" + title + "]";
 	}
 }

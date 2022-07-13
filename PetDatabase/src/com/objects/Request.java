@@ -3,12 +3,10 @@ import java.sql.Date;
 import java.util.Calendar;
 
 public class Request {
-	int id;
-	int customer_id;
-	int pet_id;
-	Date date;
-	String status;
-	int employee_id;	//	0 if request hasn't been handled yet?
+	private int id, customer_id, pet_id;
+	private Date date;
+	private String status;
+	private int employee_id;	//	0 if request hasn't been handled yet?
 	
 	public Request() {
 		status = "Pending";
@@ -33,6 +31,14 @@ public class Request {
 	}
 	public int getId() {
 		return id;
+	}
+	public Request(int customer_id, int pet_id, Date date, String status, int employee_id) {
+		super();
+		this.customer_id = customer_id;
+		this.pet_id = pet_id;
+		this.date = date;
+		this.status = status;
+		this.employee_id = employee_id;
 	}
 	public void setId(int id) {
 		this.id = id;

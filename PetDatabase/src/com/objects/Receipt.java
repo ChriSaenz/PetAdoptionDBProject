@@ -1,12 +1,10 @@
 package com.objects;
 
 public class Receipt {
-	int id;
-	int employee_id;
-	int customer_id;
-	int request_id;
-	String date;
-	double cost;
+	private int id, employee_id, customer_id, request_id;
+	private String date;
+	private double cost;
+	
 	public int getId() {
 		return id;
 	}
