@@ -53,6 +53,18 @@ public class PetUtils {
 				//	TODO: Write 2. View all pets
 				case 2:
 					break;
+					
+				// 4. View pet by age
+				case 4:
+					System.out.println("What age to filter by?: ");
+					int ageInput = scan.nextInt();
+					
+					List<String> petsByAge = DB.getPetsByAge(ageInput);
+					
+					for(String p : petsByAge)
+						System.out.println(p + "\n");
+							
+					break;
 				//	5. View pet by name
 				case 5: {
 					System.out.println("Enter the name of the pet.");

@@ -245,6 +245,27 @@ public class DB {
 		dbClose();
 		return list;
 	}
+
+	public static List<String> getPetsByAge(int age) {
+		
+		dbConnect();
+		String sql = "select name from Pet where age = ?";
+		List<String> list = new ArrayList<>();
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, age);
+			ResultSet rst = pstmt.executeQuery();	
+			while(rst.next())
+				list.add(rst.getString("name"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return list;
+	}
 	
 	
 	
