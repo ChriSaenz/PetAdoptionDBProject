@@ -16,7 +16,15 @@ public class DB {
 	
 	private static void dbConnect() {
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/adoption_system","root","Password123");
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			System.out.print("Driver loaded ||| ");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/adoption_system", "root", "Password123");
+			System.out.println("Connection Established\n");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
