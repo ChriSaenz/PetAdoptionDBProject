@@ -1,4 +1,4 @@
-package com.objects;
+package src.com.objects;
 
 
 public class Request {

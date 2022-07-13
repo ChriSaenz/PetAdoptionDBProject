@@ -1,13 +1,13 @@
-package com.main;
+package src.com.main;
 
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import com.exceptions.InvalidSearchException;
-import com.objects.Employee;
-import com.objects.Pet;
-import com.objects.Request;
+import src.com.exceptions.InvalidSearchException;
+import src.com.objects.Employee;
+import src.com.objects.Pet;
+import src.com.objects.Request;
 
 public class PetUtils {
 

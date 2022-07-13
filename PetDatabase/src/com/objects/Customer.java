@@ -1,4 +1,4 @@
-package com.objects;
+package src.com.objects;
 
 import java.sql.Date;
 

@@ -1,4 +1,4 @@
-package com.main;
+package src.com.main;
 
 public class App {
 	

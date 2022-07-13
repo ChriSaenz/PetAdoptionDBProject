@@ -1,14 +1,14 @@
-package com.main;
+package src.com.main;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.exceptions.InvalidSearchException;
-import com.objects.Customer;
-import com.objects.Employee;
-import com.objects.Pet;
-import com.objects.Request;
+import src.com.exceptions.InvalidSearchException;
+import src.com.objects.Customer;
+import src.com.objects.Employee;
+import src.com.objects.Pet;
+import src.com.objects.Request;
 
 public class DB {
 	
