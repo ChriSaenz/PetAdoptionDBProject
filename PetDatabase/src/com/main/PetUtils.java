@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.exceptions.InvalidSearchException;
+import com.objects.Customer;
 import com.objects.Employee;
 import com.objects.Pet;
 import com.objects.Request;
@@ -87,6 +88,19 @@ public class PetUtils {
 						System.out.print("\t" + n + "\n");
 					break;
 
+					
+					// 4. View pet by age
+				case 4:
+					System.out.println("What age to filter by?: ");
+					int ageInput = scan.nextInt();
+					
+					List<String> petsByAge = DB.getPetsByAge(ageInput);
+					
+					for(String p : petsByAge) {
+						System.out.println(p);
+					}
+					break;
+					
 				// 5. View pet by name
 				case 5: {
 					System.out.println("Enter the name of the pet.");
@@ -192,7 +206,19 @@ public class PetUtils {
 					// Update: Change its String to Approved.
 					break;
 
-				// TODO: 4. View all customers
+				case 4: 
+					try {
+						List<Customer> customers = DB.fetchCustomers();
+						if (customers.size() == 0) {
+							System.out.println("No customers found");
+						}
+						else for (Customer cus : customers) {
+							System.out.println(cus.toString());
+						}
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+					break;
 
 				// 5. View specific customer (Doesn't check for invalid ID yet
 				case 5:
@@ -203,7 +229,38 @@ public class PetUtils {
 					break;
 
 				// TODO: 6. View adoption logs
-				// TODO: 7. Add new pet
+			
+				case 7: 
+					//Adding a new pet
+					
+					System.out.println("Enter Name: ");
+					String name = scan.next();
+					System.out.println("Enter Species: ");
+					String species = scan.next();
+					System.out.println("Enter age: ");
+					int age = scan.nextInt();
+					System.out.println("Enter date aquired: ");
+					String date_acquired = scan.next();
+					System.out.println("Enter sex: ");
+					String sex = scan.next();
+					System.out.println("Enter color: ");
+					String color = scan.next();
+					System.out.println("Enter breed: ");
+					String breed = scan.next();
+					System.out.println("Enter vaccinated: ");
+					boolean vaccinated = scan.nextBoolean();
+					System.out.println("Enter neutered: ");
+					boolean neutered = scan.nextBoolean();
+					System.out.println("Enter cost: ");
+					double cost = scan.nextDouble();
+					
+					Pet pet = new Pet(12, name, species, age, date_acquired, sex, color, breed,
+					vaccinated, neutered, cost);
+					DB.insertPet(pet);
+					System.out.println("Pet added to DB..");
+					break;
+				
+					
 				case 8:
 					System.out.print("Enter username: ");
 					String username = scan.next();
