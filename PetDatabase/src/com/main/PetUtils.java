@@ -13,7 +13,8 @@ public class PetUtils {
 
 	static Scanner scan = new Scanner(System.in);
 
-	//	Basic menu, before employee/admin login. Accessible to all customers by default.
+	// Basic menu, before employee/admin login. Accessible to all customers by
+	// default.
 	public static void menu() {
 		System.out.println("Welcome to the pet adoption system");
 		while (true) {
@@ -30,12 +31,12 @@ public class PetUtils {
 			try {
 				int choice = Integer.parseInt(scan.nextLine());
 				switch (choice) {
-				//	0. Quit
+				// 0. Quit
 				case 0:
 					System.out.println("Goodbye");
 					System.exit(0);
 					break;
-				//	1. Employee login
+				// 1. Employee login
 				case 1:
 					System.out.print("Enter username: ");
 					String username = scan.nextLine();
@@ -46,20 +47,20 @@ public class PetUtils {
 						System.out.println("Success! Hello " + e.getName());
 						employeeMenu();
 					} catch (InvalidSearchException i) {
-//						System.out.println(i.getMessage());
+						// System.out.println(i.getMessage());
 						System.out.println("Invalid username or password");
 					}
 					break;
-				
-					//	Write 2. View all pets
+
+				// Write 2. View all pets
 				case 2:
 					System.out.print("Printing all Pets:\n\t");
 					List<String> petNames = DB.getAllPetsName();
-					
-					for(String n : petNames)
+
+					for (String n : petNames)
 						System.out.print(n + "\n\t");
 					break;
-				
+
 				// 3. Filter pets by species
 				case 3:
 					// First option among all species
@@ -67,28 +68,26 @@ public class PetUtils {
 					boolean isValidInput = false;
 					int speciesOption = 0;
 					List<String> allSpecies = DB.getAllPetSpecies();
-					for(String s : allSpecies)
+					for (String s : allSpecies)
 						System.out.print("\t" + ++speciesOption + ". " + s + "\n");
-					
-					//input validation
-					while(!isValidInput)
-					{
+
+					// input validation
+					while (!isValidInput) {
 						System.out.print("Enter Species Number: ");
 						choice = scan.nextInt();
-						if(choice > 0 && choice <= allSpecies.size())
+						if (choice > 0 && choice <= allSpecies.size())
 							isValidInput = true;
 						else
 							System.out.println("Out of range number, try again.");
 					}
 					System.out.println("Displaying all " + allSpecies.get(choice - 1) + "s names");
-					
+
 					List<String> petNamesBySpecies = DB.getAllPetsNameBySpecies(allSpecies.get(choice - 1));
-					for(String n : petNamesBySpecies)
+					for (String n : petNamesBySpecies)
 						System.out.print("\t" + n + "\n");
 					break;
-				
-					
-				//	5. View pet by name
+
+				// 5. View pet by name
 				case 5: {
 					System.out.println("Enter the name of the pet.");
 					String petName = scan.nextLine();
@@ -97,11 +96,11 @@ public class PetUtils {
 						List<Pet> results = DB.fetchPets("name", petName);
 						if (results.size() == 0) {
 							System.out.println("Sorry, no pets were found with the name " + petName + ".");
-						}
-						else for (Pet p : results) {
-							System.out.println(p.toString());
-						}
-					} catch(Exception e) {
+						} else
+							for (Pet p : results) {
+								System.out.println(p.toString());
+							}
+					} catch (Exception e) {
 						System.out.println(e.getMessage());
 					}
 					break;
@@ -137,35 +136,35 @@ public class PetUtils {
 			try {
 				int choice = scan.nextInt();
 				switch (choice) {
-				//	0. Logout (return to previous menu)
+				// 0. Logout (return to previous menu)
 				case 0:
 					return;
-				//	1. View open adoption requests
+				// 1. View open adoption requests
 				case 1: {
 					try {
 						List<Request> requests = DB.fetchRequests("status", "Pending");
 						if (requests.size() == 0) {
 							System.out.println("No open adoption requests");
-						}
-						else for (Request r : requests) {
-							System.out.println(r.toString());
-						}
-					} catch(Exception e) {
+						} else
+							for (Request r : requests) {
+								System.out.println(r.toString());
+							}
+					} catch (Exception e) {
 						System.out.println(e.getMessage());
 					}
 					break;
 				}
-				//	2. View all adoption requests
+				// 2. View all adoption requests
 				case 2: {
 					try {
 						List<Request> requests = DB.fetchRequests();
 						if (requests.size() == 0) {
 							System.out.println("No adoption requests found");
-						}
-						else for (Request r : requests) {
-							System.out.println(r.toString());
-						}
-					} catch(Exception e) {
+						} else
+							for (Request r : requests) {
+								System.out.println(r.toString());
+							}
+					} catch (Exception e) {
 						System.out.println(e.getMessage());
 					}
 					break;
@@ -173,38 +172,38 @@ public class PetUtils {
 
 				// 3. Approve/reject adoption request
 				case 3:
-					//Enter: Look for specific Request
-					//Enter: Get valid Employee ID to aprove it
+					// Enter: Look for specific Request
+					// Enter: Get valid Employee ID to aprove it
 					System.out.println("Enter Request Number");
 					int requestNum = scan.nextInt();
 					System.out.println("Enter Employee ID");
 					int empID = scan.nextInt();
-					
-					//TODO:
-					//Validate Employee ID and Request
+
+					// TODO:
+					// Validate Employee ID and Request
 					System.out.println("Enter Status Decision\n\t0. Rejected\n\t1. Approved");
 					System.out.print("Your choice: ");
 					int isApproved = scan.nextInt();
 					DB.changeRequestStatus(requestNum, empID, isApproved);
-					
+
 					System.out.println("Request has been " + ((isApproved == 0) ? "Rejected" : "Approved"));
-					
-					//TODO:
-					//Update: Change its String to Approved.
+
+					// TODO:
+					// Update: Change its String to Approved.
 					break;
-				
-				//	TODO: 4. View all customers
+
+				// TODO: 4. View all customers
 
 				// 5. View specific customer (Doesn't check for invalid ID yet
 				case 5:
 					System.out.print("Enter Customer ID: ");
 					int customerID = scan.nextInt();
-					//TODO: Validate ID
+					// TODO: Validate ID
 					System.out.println("Displaying Customer info...\n" + DB.findCustomer(customerID));
-					break;					
-					
-				//	TODO: 6. View adoption logs
-				//	TODO: 7. Add new pet
+					break;
+
+				// TODO: 6. View adoption logs
+				// TODO: 7. Add new pet
 				case 8:
 					System.out.print("Enter username: ");
 					String username = scan.next();
@@ -219,7 +218,7 @@ public class PetUtils {
 							System.out.println("Employee " + e.getName() + " is not an admin");
 						}
 					} catch (InvalidSearchException i) {
-//						System.out.println(i.getMessage());
+						// System.out.println(i.getMessage());
 						System.out.println("Invalid username or password");
 					}
 					break;
@@ -252,7 +251,7 @@ public class PetUtils {
 				// 1. Create employee
 				case 1:
 					Employee employee = new Employee();
-					
+
 					System.out.println("Enter New Employee Username");
 					String username = scan.next();
 					System.out.println("Enter New Employee Password");
@@ -261,7 +260,7 @@ public class PetUtils {
 					scan.nextLine();
 					String name = scan.nextLine();
 					System.out.println("Enter New Employee Phone Number (Single String)");
-//					scan.nextLine();
+					// scan.nextLine();
 					String phone = scan.nextLine();
 					System.out.println("Enter New Employee Salary");
 					double salary = scan.nextDouble();
@@ -269,7 +268,7 @@ public class PetUtils {
 					String title = scan.next();
 					System.out.println("Enter Employee Admin Status (true or false)");
 					boolean admin = scan.nextBoolean();
-					
+
 					employee.setUsername(username);
 					employee.setPassword(password);
 					employee.setName(name);
@@ -277,12 +276,12 @@ public class PetUtils {
 					employee.setSalary(salary);
 					employee.setTitle(title);
 					employee.setAdmin(admin);
-					
+
 					DB.insertEmployee(employee);
 					System.out.println("Employee added to DB");
 					return;
-					
-				//	2. Remove employee
+
+				// 2. Remove employee
 				case 2:
 					System.out.print("Employee ID: ");
 					int id = scan.nextInt();
@@ -294,22 +293,23 @@ public class PetUtils {
 						System.out.println(e.getMessage());
 					}
 					break;
-				//	3. View employees
+				// 3. View employees
 				case 3: {
 					try {
 						List<Employee> employees = DB.fetchUsers();
 						if (employees.size() == 0) {
 							System.out.println("No employees found");
-						}
-						else for (Employee emp : employees) {
-							System.out.println(emp.toString());
-						}
-					} catch(Exception e) {
+						} else
+							for (Employee emp : employees) {
+								System.out.println(emp.toString());
+							}
+					} catch (Exception e) {
 						System.out.println(e.getMessage());
 					}
 					break;
 				}
-				default: break;
+				default:
+					break;
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("Try again.");
