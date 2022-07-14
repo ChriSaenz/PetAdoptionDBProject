@@ -16,7 +16,7 @@ public class DB {
 	
 	private static void dbConnect() {
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/adoption_system","root","Atticus#12");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/adoption_system","root","Password123");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

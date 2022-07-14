@@ -61,9 +61,9 @@ public class PetUtils {
 					
 					List<String> petsByAge = DB.getPetsByAge(ageInput);
 					
-					for(String p : petsByAge)
-						System.out.println(p + "\n");
-							
+					for(String p : petsByAge) {
+						System.out.println(p);
+					}
 					break;
 				//	5. View pet by name
 				case 5: {
@@ -97,7 +97,7 @@ public class PetUtils {
 	private static void employeeMenu() {
 		System.out.println("Welcome employee");
 		while (true) {
-			System.out.println("Choose from the following menuuuuu:");
+			System.out.println("Choose from the following menu:");
 			System.out.println("0. Logout (return to previous menu)");
 			System.out.println("1. View pending adoption requests");
 			System.out.println("2. View all adoption requests");
