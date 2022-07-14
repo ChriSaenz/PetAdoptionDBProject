@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.exceptions.InvalidSearchException;
 import com.objects.Customer;
@@ -118,6 +120,8 @@ public class DB {
 		return list;
 	}
 
+	
+	// Diego: Amazing method idea!
 	// TODO: Test these methods for correctness
 	public static List<Request> fetchRequests() {
 		return fetchRequests(null, null);
@@ -150,6 +154,12 @@ public class DB {
 	}
 
 	public static Employee findEmployee(String username, String password) throws InvalidSearchException {
+		
+		// Diego: Might be wasteful if database is large to get a copy of all users everytime
+		// ask professor if its more efficient to get employee with sql query
+		// select name from employee where username = ? AND password = ?
+		// Name would only be used to check if rst is null (No results) and so on
+		
 		List<Employee> users = fetchUsers();
 		for (Employee u : users) {
 			if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
@@ -160,6 +170,8 @@ public class DB {
 	}
 
 	public static Employee findEmployee(int id) throws InvalidSearchException {
+		// Diego: Same as above
+		
 		List<Employee> users = fetchUsers();
 		for (Employee u : users) {
 			if (u.getId() == id) {
@@ -243,9 +255,9 @@ public class DB {
 	}
 
 	// Diego's note: Returns a list of all Pets name
-	public static List<String> getAllPetsName() {
+	public static List<String> getPetsName() {
 		if (debugPrints)
-			System.out.println("[GetAllPetsName]");
+			System.out.println("[GetPetsName]");
 		dbConnect();
 
 		String sql = "select name from Pet";
@@ -265,12 +277,15 @@ public class DB {
 	}
 
 	// Diego's note: Returns a list of all Species
-	public static List<String> getAllPetSpecies() {
+	public static List<String> getPetSpecies() {
 		if (debugPrints)
-			System.out.println("[GetAllPetsSpecies]");
+			System.out.println("[GetPetsSpecies]");
 		dbConnect();
 
 		String sql = "select distinct species from Pet";
+		// select name, id from Employee
+		// return Map<String, String>
+		// Key id and value is name
 		List<String> list = new ArrayList<>();
 
 		try {
@@ -384,6 +399,60 @@ public class DB {
 		dbClose();
 	}
 
+	/* Diego's Note: Returns a "Tutple" of 2 colums
+	 * <Key: id, Value: column>
+	 * 
+	 * @param table: Table name to fetch from
+	 * @param field: field you want along id
+	 */
+	public static Map<Integer, String> getXTuple(String table, String field) {
+		if (debugPrints)
+			System.out.println("[getXTuple]");
+		dbConnect();
+
+		String sql = "select id, " + field + " from " + table;
+		Map<Integer, String> tuples = new HashMap<>();
+
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rst = pstmt.executeQuery();
+
+			while (rst.next())
+				tuples.put(rst.getInt("id"), rst.getString(field));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		dbClose();
+		return tuples;
+	}
+	
+	/* Diego's Note: Returns tuple 
+	 * 
+	 * @param table: Table name to fetch from
+	 * @param field: field you want along id
+	 */
+	public static Map<Integer, Integer> getPendingRequests() {
+		if (debugPrints)
+			System.out.println("[getPendingRequests]");
+		dbConnect();
+
+		String sql = "select id, employee_id from Request where status = ?";
+		Map<Integer, Integer> tuples = new HashMap<>();
+
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "Pending");
+			ResultSet rst = pstmt.executeQuery();
+
+			while (rst.next())
+				tuples.put(rst.getInt("id"), rst.getInt("employee_id"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		dbClose();
+		return tuples;
+	}
+	
 	
 	//7. Filter pets by age - Chase
 	public static List<String> getPetsByAge(int age) {
@@ -464,6 +533,7 @@ public class DB {
 		 
 		 dbClose();
 	}
+
 	
 	// Validations
 
