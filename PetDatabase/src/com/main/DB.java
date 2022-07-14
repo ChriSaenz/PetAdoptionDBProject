@@ -13,6 +13,7 @@ import com.exceptions.InvalidSearchException;
 import com.objects.Customer;
 import com.objects.Employee;
 import com.objects.Pet;
+import com.objects.Receipt;
 import com.objects.Request;
 
 public class DB {
@@ -180,6 +181,55 @@ public class DB {
 		}
 		dbClose();
 
+	}
+	
+	//	I couldn't find these two methods anymore so I wrote new ones - Chris
+	public static List<Receipt> getReceipts() {
+		dbConnect();
+
+		String sql = "SELECT * FROM receipt";
+		List<Receipt> list = new ArrayList<>();
+//		if (column != null && value != null)
+//			sql = sql + " WHERE " + column + " = ?";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+//			if (column != null && value != null) {
+//				ps.setString(1, value);
+//			}
+			ResultSet r = ps.executeQuery();
+			while (r.next()) {
+				Receipt rec = new Receipt(r.getInt("employee_id"),
+										r.getInt("customer_id"),
+										r.getInt("requestId"),
+										r.getString("date"),
+										r.getDouble("cost"));
+				list.add(rec);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		dbClose();
+		return list;
+	}
+	public static void insertCustomer(Customer customer) {
+		dbConnect();
+		String sql = "insert into customer(name, phone_number, date_joined, birthday) " + "values (?,?,?,?)";
+
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, customer.getName());
+			pstmt.setString(2, customer.getPhone());
+			pstmt.setDate(3, customer.getDate_joined());
+			pstmt.setDate(4, customer.getBirthdate());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		dbClose();
 	}
 
 	// Diego's Additions
