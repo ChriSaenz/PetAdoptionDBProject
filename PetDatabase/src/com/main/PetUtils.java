@@ -33,6 +33,8 @@ public class PetUtils {
 			System.out.println("Input new customer ID: ");
 			int id = scan.nextInt();
 			c.setId(id);
+			Customer newC = DB.findCustomer(id);
+			if (!newC.equals(c)) return null;
 			return c;
 		} catch (IllegalArgumentException e) {
 			System.out.println("Invalid birthdate");
