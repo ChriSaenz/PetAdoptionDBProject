@@ -83,7 +83,7 @@ public class DB {
 			ResultSet r = ps.executeQuery();
 			while (r.next()) {
 				Pet p = new Pet(r.getInt("request_id"), r.getString("name"), r.getString("species"), r.getInt("age"),
-						r.getString("date_acquired"), r.getString("sex"), r.getString("color"), r.getString("breed"),
+						r.getDate("date_acquired"), r.getString("sex"), r.getString("color"), r.getString("breed"),
 						r.getBoolean("vaccinated"), r.getBoolean("neutered"), r.getDouble("cost"));
 				p.setId(r.getInt("id"));
 				list.add(p);
@@ -107,7 +107,7 @@ public class DB {
 			ResultSet r = ps.executeQuery();
 			while (r.next()) {
 				Pet p = new Pet(r.getInt("request_id"), r.getString("name"), r.getString("species"), r.getInt("age"),
-						r.getString("date_acquired"), r.getString("sex"), r.getString("color"), r.getString("breed"),
+						r.getDate("date_acquired"), r.getString("sex"), r.getString("color"), r.getString("breed"),
 						r.getBoolean("vaccinated"), r.getBoolean("neutered"), r.getDouble("cost"));
 				p.setId(r.getInt("id"));
 				list.add(p);
@@ -519,11 +519,11 @@ public class DB {
 		 try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			
-			pstmt.setInt(1, 10);
+			pstmt.setInt(1, 1);
 			pstmt.setString(2, pet.getName());
 			pstmt.setString(3, pet.getSpecies());
 			pstmt.setDouble(4, pet.getAge());
-			pstmt.setString(5, pet.getDate_acquired());
+			pstmt.setDate(5, pet.getDate_acquired());
 			pstmt.setString(6, pet.getSex());
 			pstmt.setString(7, pet.getColor());
 			pstmt.setString(8, pet.getBreed());

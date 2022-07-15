@@ -234,6 +234,7 @@ public class PetUtils {
 				switch (choice) {
 				// 0. Logout (return to previous menu)
 				case 0:
+					scan.nextLine();
 					return;
 				// 1. View open adoption requests
 				case 1: {
@@ -367,8 +368,8 @@ public class PetUtils {
 					} catch(Exception e) {
 						System.out.println("Invalid age input.");
 					}
-					System.out.println("Enter date aquired: ");
-					String date_acquired = scan.nextLine();
+					System.out.println("Enter date aquired (YYYY-MM-DD): ");
+					Date date_acquired = Date.valueOf(scan.nextLine());
 					System.out.println("Enter sex: ");
 					String sex = scan.nextLine();
 					System.out.println("Enter color: ");
@@ -457,8 +458,10 @@ public class PetUtils {
 			System.out.print("Selection: ");
 			try {
 				int choice = scan.nextInt();
+				
 				switch (choice) {
 				case 0:
+					scan.nextLine();
 					return;
 
 				// 1. Create employee
@@ -481,6 +484,7 @@ public class PetUtils {
 					String title = scan.next();
 					System.out.println("Enter Employee Admin Status (true or false)");
 					boolean admin = scan.nextBoolean();
+					scan.nextLine();
 
 					e.setUsername(username);
 					e.setPassword(password);
@@ -492,7 +496,7 @@ public class PetUtils {
 
 					DB.insertEmployee(e);
 					System.out.println("Employee added to DB");
-					return;
+					break;
 
 				// 2. Remove employee
 				case 2:
