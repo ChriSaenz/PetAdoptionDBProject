@@ -533,6 +533,38 @@ public class DB {
 		 
 		 dbClose();
 	}
+	
+	
+	public static Pet findPet(int id) throws InvalidSearchException {
+		List<Pet> pets = fetchPets();
+		for (Pet pet : pets) {
+			if (pet.getId() == id)
+				return pet;
+		}
+		throw new InvalidSearchException("Pet not found");
+	}
+
+	public static void insertRequest(Request r) {
+		dbConnect();
+		String sql = "insert into request(customer_id, pet_id, date, status, employee_id) " + "values (?,?,?,?, ?)";
+
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, r.getCustomer_id());
+			pstmt.setInt(2, r.getPet_id());
+			pstmt.setDate(3, r.getDate());
+			pstmt.setString(4, r.getStatus());
+			pstmt.setInt(5, r.getEmployee_id());
+			pstmt.executeUpdate();
+
+			System.out.println("Request inserted successfully");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		 
+		dbClose();
+	}
 
 	
 	// Validations

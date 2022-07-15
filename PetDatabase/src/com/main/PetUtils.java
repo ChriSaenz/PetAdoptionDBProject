@@ -71,7 +71,7 @@ public class PetUtils {
 			System.out.println("3. Filter pets by species");
 			System.out.println("4. Filter pets by age");
 			System.out.println("5. View pet by name");
-			System.out.println("6. Request adoption"); // prompts to either use pre-existing profile or create new
+			// System.out.println("6. Request adoption"); // prompts to either use pre-existing profile or create new
 
 			System.out.println("0. Quit");
 			System.out.print("Selection: ");
@@ -92,7 +92,7 @@ public class PetUtils {
 					try {
 						Employee e = DB.findEmployee(username, password);
 						System.out.println("Success! Hello " + e.getName());
-						employeeMenu();
+						employeeMenu(e);
 					} catch (InvalidSearchException i) {
 						// System.out.println(i.getMessage());
 						System.out.println("Invalid username or password");
@@ -174,31 +174,8 @@ public class PetUtils {
 					}
 					break;
 				}
-				
-				//	6. Request adoptions
-				case 6:
-					while (true) {
-						System.out.print("Are you a returning customer? Type y or n: ");
-						String response = scan.nextLine();
-						switch (response.toLowerCase()) {
-						case "y":
-							Customer c = promptOldCustomer();
-							if (c != null) {
+
 	
-							}
-							break;
-						case "n":
-							c = promptNewCustomer();
-	
-							break;
-						default:
-							System.out.println("Try again");
-							break;
-	
-						}
-						break;
-					}
-					break;
 				default:
 					System.out.println("Try again");
 					break;
@@ -211,8 +188,20 @@ public class PetUtils {
 			}
 		}
 	}
+	
+	private static Pet promptPet() {
+		System.out.print("Enter pet ID: ");
+		try {
+			return DB.findPet(scan.nextInt());
+		} catch (InputMismatchException e) {
+			System.out.println("Input an integer");
+		} catch (InvalidSearchException i){
+			System.out.println(i.getMessage());
+		}
+		return null;
+	}
 
-	private static void employeeMenu() {
+	private static void employeeMenu(Employee employee) {
 //		System.out.println("Welcome employee");
 		while (true) {
 			System.out.println("\n----- Employee Menu -----");
@@ -225,6 +214,7 @@ public class PetUtils {
 			System.out.println("6. View adoption logs");
 			System.out.println("7. Add new pet");
 			System.out.println("8. Admin login");
+			System.out.println("9. Create adoption request");
 
 			System.out.print("Selection: ");
 			try {
@@ -415,6 +405,34 @@ public class PetUtils {
 					} catch (InvalidSearchException i) {
 						// System.out.println(i.getMessage());
 						System.out.println("Invalid username or password");
+					}
+					break;
+				case 9:
+					while (true) {
+						System.out.print("Is this a returning customer? Type y or n: ");
+						String response = scan.next();
+						Customer c = null;
+						switch (response.toLowerCase()) {
+						case "y":
+							c = promptOldCustomer();
+							break;
+						case "n":
+							c = promptNewCustomer();
+							break;
+						default:
+							System.out.println("Try again");
+							break;
+
+						}
+						pet = promptPet();
+						if (c != null && pet != null) {
+							System.out.println("Found pet: " + pet.getName());
+							Request r = new Request(c.getId(), pet.getId(), employee.getId());
+							DB.insertRequest(r);
+						} else {
+							System.out.println("Encountered error");
+						}
+						break;
 					}
 					break;
 				default:
