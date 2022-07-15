@@ -30,6 +30,9 @@ public class PetUtils {
 			Date date1 = Date.valueOf(bday);
 			Customer c = new Customer(name, phone, date, date1);
 			DB.insertCustomer(c);
+			System.out.println("Input new customer ID: ");
+			int id = scan.nextInt();
+			c.setId(id);
 			return c;
 		} catch (IllegalArgumentException e) {
 			System.out.println("Invalid birthdate");
@@ -390,25 +393,16 @@ public class PetUtils {
 				
 					
 				case 8:
-					System.out.print("Enter username: ");
-					String username = scan.nextLine();
-					System.out.print("Enter password: ");
-					String password = scan.nextLine();
-					try {
-						Employee e = DB.findEmployee(username, password);
-						if (e.isAdmin()) {
-							System.out.println("Success! Hello " + e.getName());
-							adminMenu();
-						} else {
-							System.out.println("Employee " + e.getName() + " is not an admin");
-						}
-					} catch (InvalidSearchException i) {
-						// System.out.println(i.getMessage());
-						System.out.println("Invalid username or password");
+					if (employee.isAdmin()) {
+						System.out.println("Success! Hello " + employee.getName());
+						adminMenu();
+					} else {
+						System.out.println("Employee " + employee.getName() + " is not an admin");
 					}
 					break;
 				case 9:
-					while (true) {
+					boolean run = true;
+					while (run) {
 						System.out.print("Is this a returning customer? Type y or n: ");
 						String response = scan.next();
 						Customer c = null;
@@ -421,9 +415,11 @@ public class PetUtils {
 							break;
 						default:
 							System.out.println("Try again");
+							run = false;
 							break;
 
 						}
+						if (!run) break;
 						pet = promptPet();
 						if (c != null && pet != null) {
 							System.out.println("Found pet: " + pet.getName());
@@ -463,7 +459,7 @@ public class PetUtils {
 
 				// 1. Create employee
 				case 1:
-					Employee employee = new Employee();
+					Employee e = new Employee();
 
 					System.out.println("Enter New Employee Username");
 					String username = scan.next();
@@ -482,15 +478,15 @@ public class PetUtils {
 					System.out.println("Enter Employee Admin Status (true or false)");
 					boolean admin = scan.nextBoolean();
 
-					employee.setUsername(username);
-					employee.setPassword(password);
-					employee.setName(name);
-					employee.setPhone(phone);
-					employee.setSalary(salary);
-					employee.setTitle(title);
-					employee.setAdmin(admin);
+					e.setUsername(username);
+					e.setPassword(password);
+					e.setName(name);
+					e.setPhone(phone);
+					e.setSalary(salary);
+					e.setTitle(title);
+					e.setAdmin(admin);
 
-					DB.insertEmployee(employee);
+					DB.insertEmployee(e);
 					System.out.println("Employee added to DB");
 					return;
 
@@ -499,11 +495,11 @@ public class PetUtils {
 					System.out.print("Employee ID: ");
 					int id = scan.nextInt();
 					try {
-						Employee e = DB.findEmployee(id);
+						e = DB.findEmployee(id);
 						DB.removeEmployee(id);
 						System.out.println("Employee " + e.getName() + " deleted successfully.");
-					} catch (InvalidSearchException e) {
-						System.out.println(e.getMessage());
+					} catch (InvalidSearchException i) {
+						System.out.println(i.getMessage());
 					}
 					break;
 				// 3. View employees
@@ -516,8 +512,8 @@ public class PetUtils {
 							for (Employee emp : employees) {
 								System.out.println(emp.toString());
 							}
-					} catch (Exception e) {
-						System.out.println(e.getMessage());
+					} catch (Exception o) {
+						System.out.println(o.getMessage());
 					}
 					break;
 				}

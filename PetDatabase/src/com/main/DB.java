@@ -236,10 +236,21 @@ public class DB {
 			pstmt.setDate(4, customer.getBirthdate());
 
 			pstmt.executeUpdate();
+			
+			System.out.println("Customer added to DB");
+			
+			List<Customer> list = fetchCustomers();
+			for (Customer c : list) {
+				System.out.println(c);
+			}
+			
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		
 
 		dbClose();
 	}
