@@ -30,18 +30,17 @@ public class PetUtils {
 			Date date1 = Date.valueOf(bday);
 			Customer c = new Customer(name, phone, date, date1);
 			DB.insertCustomer(c);
-			System.out.println("Input new customer ID: ");
-			int id = scan.nextInt();
-			c.setId(id);
-			Customer newC = DB.findCustomer(id);
-			if (!newC.equals(c)) return null;
-			return c;
+			return promptOldCustomer();
 		} catch (IllegalArgumentException e) {
 			System.out.println("Invalid birthdate");
 			return null;
 		}
 	}
 	private static Customer promptOldCustomer() {
+		List<Customer> list = DB.fetchCustomers();
+		for (Customer c : list) {
+			System.out.println(c);
+		}
 		Customer c;
 		while (true) {
 			System.out.print("Customer ID: ");
@@ -58,7 +57,6 @@ public class PetUtils {
 			} catch (InputMismatchException e) {
 				System.out.println("Input an integer");
 			}
-
 		}
 		return null;
 	}
@@ -195,6 +193,10 @@ public class PetUtils {
 	}
 	
 	private static Pet promptPet() {
+		List<Pet> pets = DB.fetchPets();
+		for (Pet p : pets) {
+			System.out.println(p);
+		}
 		System.out.print("Enter pet ID: ");
 		try {
 			return DB.findPet(scan.nextInt());
@@ -225,7 +227,7 @@ public class PetUtils {
 			try {
 				int choice = 0;
 				try {
-					choice = Integer.parseInt(scan.nextLine());
+					choice = scan.nextInt();
 				} catch(Exception e) {
 					System.out.println("Invalid selection. Please enter an integer.");
 				}
