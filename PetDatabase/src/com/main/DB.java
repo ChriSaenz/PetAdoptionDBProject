@@ -141,7 +141,7 @@ public class DB {
 			}
 			ResultSet r = ps.executeQuery();
 			while (r.next()) {
-				Request req = new Request(r.getInt("customer_id"), r.getInt("pet_id"), r.getDate("date"),
+				Request req = new Request(r.getInt("id"), r.getInt("customer_id"), r.getInt("pet_id"), r.getDate("date"),
 						r.getString("status"), r.getInt("employee_id"));
 				list.add(req);
 			}
@@ -212,7 +212,7 @@ public class DB {
 			while (r.next()) {
 				Receipt rec = new Receipt(r.getInt("employee_id"),
 										r.getInt("customer_id"),
-										r.getInt("requestId"),
+										r.getInt("request_id"),
 										r.getString("date"),
 										r.getDouble("cost"));
 				list.add(rec);
@@ -257,7 +257,7 @@ public class DB {
 
 	// Diego's Additions
 	// field to print debug Text
-	static boolean debugPrints = true;
+	static boolean debugPrints = false;
 
 	// TODO: Maybe add this as an option
 	public static boolean switchDebugPrints() {
@@ -534,6 +534,9 @@ public class DB {
 			pstmt.setBoolean(9, pet.isVaccinated());
 			pstmt.setBoolean(10, pet.isNeutered());
 			pstmt.setDouble(11, pet.getCost());
+			
+			//String "1999-03-13".split("-")[0]
+			//Date d = new Date([0], 
 			
 			
 			pstmt.executeUpdate();

@@ -274,7 +274,7 @@ public class PetUtils {
 					//TODO: Try to print name and Employee ID
 					allRequest.entrySet().forEach(entry -> 
 						{System.out.println("\t[id: " + entry.getKey() + "] "
-								+ "Employee in charge of Request: " + entry.getValue());}
+								+ "ID of the Employee: " + entry.getValue());}
 						);
 
 					// input validation
