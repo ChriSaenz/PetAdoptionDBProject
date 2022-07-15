@@ -45,7 +45,7 @@ public class PetUtils {
 		while (true) {
 			System.out.print("Customer ID: ");
 			try {
-				int id = scan.nextInt();
+				int id = Integer.parseInt(scan.nextLine());
 				try {
 					c = DB.findCustomer(id);
 					System.out.println("Found profile: " + c.getName());
@@ -199,7 +199,7 @@ public class PetUtils {
 		}
 		System.out.print("Enter pet ID: ");
 		try {
-			return DB.findPet(scan.nextInt());
+			return DB.findPet(Integer.parseInt(scan.nextLine()));
 		} catch (InputMismatchException e) {
 			System.out.println("Input an integer");
 		} catch (InvalidSearchException i){
@@ -227,14 +227,13 @@ public class PetUtils {
 			try {
 				int choice = 0;
 				try {
-					choice = scan.nextInt();
+					choice = Integer.parseInt(scan.nextLine());
 				} catch(Exception e) {
 					System.out.println("Invalid selection. Please enter an integer.");
 				}
 				switch (choice) {
 				// 0. Logout (return to previous menu)
 				case 0:
-					scan.nextLine();
 					return;
 				// 1. View open adoption requests
 				case 1: {
@@ -457,11 +456,10 @@ public class PetUtils {
 			System.out.println("3. View employees");
 			System.out.print("Selection: ");
 			try {
-				int choice = scan.nextInt();
+				int choice = Integer.parseInt(scan.nextLine());
 				
 				switch (choice) {
 				case 0:
-					scan.nextLine();
 					return;
 
 				// 1. Create employee
@@ -501,7 +499,7 @@ public class PetUtils {
 				// 2. Remove employee
 				case 2:
 					System.out.print("Employee ID: ");
-					int id = scan.nextInt();
+					int id = Integer.parseInt(scan.nextLine());
 					try {
 						e = DB.findEmployee(id);
 						DB.removeEmployee(id);
