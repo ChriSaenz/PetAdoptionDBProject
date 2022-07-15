@@ -210,7 +210,8 @@ public class DB {
 //			}
 			ResultSet r = ps.executeQuery();
 			while (r.next()) {
-				Receipt rec = new Receipt(r.getInt("employee_id"),
+				Receipt rec = new Receipt(r.getInt("id"),
+										r.getInt("employee_id"),
 										r.getInt("customer_id"),
 										r.getInt("request_id"),
 										r.getString("date"),
