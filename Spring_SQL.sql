@@ -7,3 +7,6 @@ select * from categories;
 
 describe vendor;
 select * from vendor;
+
+
+
