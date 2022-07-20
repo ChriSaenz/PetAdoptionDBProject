@@ -61,7 +61,7 @@ public class RequestController {
 	}
 
 	// update request
-	@PutMapping("/request/{id}/{cid}/{pid}/{eid{")
+	@PutMapping("/request/{id}/{cid}/{pid}/{eid}")
 	public void updateRequest(@RequestBody Request request, @PathVariable("id") Long id, @PathVariable("cid") Long cid,
 			@PathVariable("pid") Long pid, @PathVariable("eid") Long eid) {
 		Request old = getSingleRequestById(id);
@@ -127,14 +127,8 @@ public class RequestController {
 		return requestRepository.findByCustomerId(id);
 	}
 
-	// find all requests by status id
-	@GetMapping("/request/status_id/{id}")
-	public List<Request> getRequestByStatusId(@PathVariable("id") Long id) {
-		return requestRepository.findByStatusId(id);
-	}
-
 	// find all requests by status type
-	@GetMapping("/request/status_id/{id}")
+	@GetMapping("/request/status/{id}")
 	public List<Request> getRequestByStatusType(@PathVariable("type") String type) {
 		return requestRepository.findByStatusType(type);
 	}
