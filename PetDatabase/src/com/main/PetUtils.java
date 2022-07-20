@@ -1,15 +1,65 @@
 package com.main;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import com.exceptions.InvalidSearchException;
+import com.objects.Customer;
 import com.objects.Employee;
 import com.objects.Pet;
+import com.objects.Receipt;
 import com.objects.Request;
 
 public class PetUtils {
+	
+	//	Old methods found in Felix's old code, used in adoption request part.
+	private static Customer promptNewCustomer() {
+		System.out.print("Input customer name: ");
+		scan.nextLine();
+		String name = scan.nextLine();
+		System.out.print("Input customer phone number: ");
+		String phone = scan.nextLine();
+		Date date = new Date(Calendar.getInstance().getTime().getTime());
+		System.out.print("Input customer birthdate (YYYY-MM-DD): ");
+		try {
+			String bday = scan.nextLine();
+			Date date1 = Date.valueOf(bday);
+			Customer c = new Customer(name, phone, date, date1);
+			DB.insertCustomer(c);
+			return promptOldCustomer();
+		} catch (IllegalArgumentException e) {
+			System.out.println("Invalid birthdate");
+			return null;
+		}
+	}
+	private static Customer promptOldCustomer() {
+		List<Customer> list = DB.fetchCustomers();
+		for (Customer c : list) {
+			System.out.println(c);
+		}
+		Customer c;
+		while (true) {
+			System.out.print("Customer ID: ");
+			try {
+				int id = Integer.parseInt(scan.nextLine());
+				try {
+					c = DB.findCustomer(id);
+					System.out.println("Found profile: " + c.getName());
+					return c;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					break;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Input an integer");
+			}
+		}
+		return null;
+	}
 
 	static Scanner scan = new Scanner(System.in);
 
@@ -18,13 +68,13 @@ public class PetUtils {
 	public static void menu() {
 		System.out.println("Welcome to the pet adoption system");
 		while (true) {
-			System.out.println("\nChoose from the following menu:");
+			System.out.println("\n----- Main Menu -----");
 			System.out.println("1. Employee login");
 			System.out.println("2. View all pets");
 			System.out.println("3. Filter pets by species");
 			System.out.println("4. Filter pets by age");
 			System.out.println("5. View pet by name");
-			System.out.println("6. Request adoption"); // prompts to either use pre-existing profile or create new
+			// System.out.println("6. Request adoption"); // prompts to either use pre-existing profile or create new
 
 			System.out.println("0. Quit");
 			System.out.print("Selection: ");
@@ -45,7 +95,7 @@ public class PetUtils {
 					try {
 						Employee e = DB.findEmployee(username, password);
 						System.out.println("Success! Hello " + e.getName());
-						employeeMenu();
+						employeeMenu(e);
 					} catch (InvalidSearchException i) {
 						// System.out.println(i.getMessage());
 						System.out.println("Invalid username or password");
@@ -55,7 +105,7 @@ public class PetUtils {
 				// Write 2. View all pets
 				case 2:
 					System.out.print("Printing all Pets:\n\t");
-					List<String> petNames = DB.getAllPetsName();
+					List<String> petNames = DB.getPetsName();
 
 					for (String n : petNames)
 						System.out.print(n + "\n\t");
@@ -67,18 +117,22 @@ public class PetUtils {
 					System.out.println("Select the species:");
 					boolean isValidInput = false;
 					int speciesOption = 0;
-					List<String> allSpecies = DB.getAllPetSpecies();
+					List<String> allSpecies = DB.getPetSpecies();
 					for (String s : allSpecies)
 						System.out.print("\t" + ++speciesOption + ". " + s + "\n");
 
 					// input validation
 					while (!isValidInput) {
 						System.out.print("Enter Species Number: ");
-						choice = scan.nextInt();
+						try {
+							choice = Integer.parseInt(scan.nextLine());
+						} catch(Exception e) {
+							System.out.println("Invalid species number.");
+						}
 						if (choice > 0 && choice <= allSpecies.size())
 							isValidInput = true;
 						else
-							System.out.println("Out of range number, try again.");
+							System.out.println("Out of range number, try again");
 					}
 					System.out.println("Displaying all " + allSpecies.get(choice - 1) + "s names");
 
@@ -87,6 +141,24 @@ public class PetUtils {
 						System.out.print("\t" + n + "\n");
 					break;
 
+					
+					// 4. View pet by age
+				case 4:
+					System.out.println("What age to filter by?: ");
+					int ageInput = 0;
+					try {
+						ageInput = Integer.parseInt(scan.nextLine());
+					} catch(Exception e) {
+						System.out.println("Invalid age input.");
+					}
+					
+					List<String> petsByAge = DB.getPetsByAge(ageInput);
+					
+					for(String p : petsByAge) {
+						System.out.println(p);
+					}
+					break;
+					
 				// 5. View pet by name
 				case 5: {
 					System.out.println("Enter the name of the pet.");
@@ -105,6 +177,8 @@ public class PetUtils {
 					}
 					break;
 				}
+
+	
 				default:
 					System.out.println("Try again");
 					break;
@@ -117,11 +191,27 @@ public class PetUtils {
 			}
 		}
 	}
+	
+	private static Pet promptPet() {
+		List<Pet> pets = DB.fetchPets();
+		for (Pet p : pets) {
+			System.out.println(p);
+		}
+		System.out.print("Enter pet ID: ");
+		try {
+			return DB.findPet(Integer.parseInt(scan.nextLine()));
+		} catch (InputMismatchException e) {
+			System.out.println("Input an integer");
+		} catch (InvalidSearchException i){
+			System.out.println(i.getMessage());
+		}
+		return null;
+	}
 
-	private static void employeeMenu() {
-		System.out.println("Welcome employee");
+	private static void employeeMenu(Employee employee) {
+//		System.out.println("Welcome employee");
 		while (true) {
-			System.out.println("\nChoose from the following menu:");
+			System.out.println("\n----- Employee Menu -----");
 			System.out.println("0. Logout (return to previous menu)");
 			System.out.println("1. View pending adoption requests");
 			System.out.println("2. View all adoption requests");
@@ -131,10 +221,16 @@ public class PetUtils {
 			System.out.println("6. View adoption logs");
 			System.out.println("7. Add new pet");
 			System.out.println("8. Admin login");
+			System.out.println("9. Create adoption request");
 
 			System.out.print("Selection: ");
 			try {
-				int choice = scan.nextInt();
+				int choice = 0;
+				try {
+					choice = Integer.parseInt(scan.nextLine());
+				} catch(Exception e) {
+					System.out.println("Invalid selection. Please enter an integer.");
+				}
 				switch (choice) {
 				// 0. Logout (return to previous menu)
 				case 0:
@@ -170,56 +266,173 @@ public class PetUtils {
 					break;
 				}
 
-				// 3. Approve/reject adoption request
+				// 3. Approve/reject Pending adoption request
 				case 3:
-					// Enter: Look for specific Request
-					// Enter: Get valid Employee ID to aprove it
-					System.out.println("Enter Request Number");
-					int requestNum = scan.nextInt();
-					System.out.println("Enter Employee ID");
-					int empID = scan.nextInt();
+					//TODO: Add Pages System
+					System.out.println("Pending Requests:"); //(10 per page):");
+					boolean isValidInput = false;
+					Map<Integer, Integer> allRequest = DB.getPendingRequests();
+					
+					//TODO: Try to print name and Employee ID
+					allRequest.entrySet().forEach(entry -> 
+						{System.out.println("\t[id: " + entry.getKey() + "] "
+								+ "ID of the Employee: " + entry.getValue());}
+						);
 
-					// TODO:
-					// Validate Employee ID and Request
+					// input validation
+					while (!isValidInput) {
+						System.out.print("Enter Request ID: ");
+						choice = Integer.parseInt(scan.nextLine());
+						if (allRequest.containsKey(choice))
+							isValidInput = true;
+						else
+							System.out.println("Invalid Request ID, try again.");
+					}
+					
+					isValidInput = false;
+  					// TODO: Display Customer, Pet, and fee
 					System.out.println("Enter Status Decision\n\t0. Rejected\n\t1. Approved");
-					System.out.print("Your choice: ");
-					int isApproved = scan.nextInt();
-					DB.changeRequestStatus(requestNum, empID, isApproved);
+					int choiceApproved = -1;
+					while (!isValidInput) {
+						System.out.println("Your choice: ");
+						choiceApproved = Integer.parseInt(scan.nextLine());
+						if (choiceApproved == 0 || choiceApproved == 1)
+							isValidInput = true;
+						else
+							System.out.println("Invalid input, try again.");
+					}
+					
+					DB.changeRequestStatus(choice, allRequest.get(choice), choiceApproved);
 
-					System.out.println("Request has been " + ((isApproved == 0) ? "Rejected" : "Approved"));
-
-					// TODO:
-					// Update: Change its String to Approved.
+					System.out.println("Request " + choice + " has been " + ((choiceApproved == 0) ? "Rejected" : "Approved"));
 					break;
 
-				// TODO: 4. View all customers
+				case 4: 
+					try {
+						List<Customer> customers = DB.fetchCustomers();
+						if (customers.size() == 0) {
+							System.out.println("No customers found");
+						}
+						else for (Customer cus : customers) {
+							System.out.println(cus.toString());
+						}
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+					break;
 
 				// 5. View specific customer (Doesn't check for invalid ID yet
 				case 5:
-					System.out.print("Enter Customer ID: ");
-					int customerID = scan.nextInt();
-					// TODO: Validate ID
-					System.out.println("Displaying Customer info...\n" + DB.findCustomer(customerID));
+					//TODO: Add Pages System
+					System.out.println("Customers:"); //(10 per page):");
+					isValidInput = false;
+					Map<Integer, String> allCustomers = DB.getXTuple("Customer", "name");  //String colum, String value);
+					allCustomers.entrySet().forEach(entry -> 
+						{System.out.println("\t[id: " + entry.getKey() + "] " + entry.getValue());}
+						);
+
+					// input validation
+					while (!isValidInput) {
+						System.out.print("Enter Customer ID: ");
+						choice = Integer.parseInt(scan.nextLine());
+						if (allCustomers.containsKey(choice))
+							isValidInput = true;
+						else
+							System.out.println("Out of range number, try again.");
+					}
+
+					System.out.println("Displaying " + allCustomers.get(choice) + " info...\n" + DB.findCustomer(choice));
 					break;
 
-				// TODO: 6. View adoption logs
-				// TODO: 7. Add new pet
-				case 8:
-					System.out.print("Enter username: ");
-					String username = scan.next();
-					System.out.print("Enter password: ");
-					String password = scan.next();
+				// 6. View adoption logs
+				case 6:
+					List<Receipt> list = DB.getReceipts();
+					System.out.println("Adoption Logs");
+					for (Receipt r : list) {
+						System.out.println(r);
+					}
+					break;
+			
+				case 7: 
+					//Adding a new pet
+					
+					System.out.println("Enter Name: ");
+					String name = scan.nextLine();
+					System.out.println("Enter Species: ");
+					String species = scan.nextLine();
+					System.out.println("Enter age: ");
+					int age = -1;
 					try {
-						Employee e = DB.findEmployee(username, password);
-						if (e.isAdmin()) {
-							System.out.println("Success! Hello " + e.getName());
-							adminMenu();
-						} else {
-							System.out.println("Employee " + e.getName() + " is not an admin");
+						age = Integer.parseInt(scan.nextLine());
+					} catch(Exception e) {
+						System.out.println("Invalid age input.");
+					}
+					System.out.println("Enter date aquired (YYYY-MM-DD): ");
+					Date date_acquired = Date.valueOf(scan.nextLine());
+					System.out.println("Enter sex: ");
+					String sex = scan.nextLine();
+					System.out.println("Enter color: ");
+					String color = scan.nextLine();
+					System.out.println("Enter breed: ");
+					String breed = scan.nextLine();
+					System.out.println("Enter vaccinated: ");
+					boolean vaccinated = scan.nextBoolean();
+					scan.nextLine();
+					System.out.println("Enter neutered: ");
+					boolean neutered = scan.nextBoolean();
+					scan.nextLine();
+					System.out.println("Enter cost: ");
+					double cost = 0.0;
+					try {
+						cost = Double.parseDouble(scan.nextLine());
+					} catch(Exception e) {
+						System.out.println("Invalid cost input");
+					}
+					
+					Pet pet = new Pet(12, name, species, age, date_acquired, sex, color, breed,
+					vaccinated, neutered, cost);
+					DB.insertPet(pet);
+					System.out.println("Pet added to DB..");
+					break;
+				
+					
+				case 8:
+					if (employee.isAdmin()) {
+						System.out.println("Success! Hello " + employee.getName());
+						adminMenu();
+					} else {
+						System.out.println("Employee " + employee.getName() + " is not an admin");
+					}
+					break;
+				case 9:
+					boolean run = true;
+					while (run) {
+						System.out.print("Is this a returning customer? Type y or n: ");
+						String response = scan.next();
+						Customer c = null;
+						switch (response.toLowerCase()) {
+						case "y":
+							c = promptOldCustomer();
+							break;
+						case "n":
+							c = promptNewCustomer();
+							break;
+						default:
+							System.out.println("Try again");
+							run = false;
+							break;
+
 						}
-					} catch (InvalidSearchException i) {
-						// System.out.println(i.getMessage());
-						System.out.println("Invalid username or password");
+						if (!run) break;
+						pet = promptPet();
+						if (c != null && pet != null) {
+							System.out.println("Found pet: " + pet.getName());
+							Request r = new Request(c.getId(), pet.getId(), employee.getId());
+							DB.insertRequest(r);
+						} else {
+							System.out.println("Encountered error");
+						}
+						break;
 					}
 					break;
 				default:
@@ -234,23 +447,24 @@ public class PetUtils {
 	}
 
 	private static void adminMenu() {
-		System.out.println("Welcome admin");
+//		System.out.println("Welcome admin");
 		while (true) {
-			System.out.println("Choose from the following menu:");
+			System.out.println("----- Administrator Menu -----:");
 			System.out.println("0. Logout (return to previous menu)");
 			System.out.println("1. Create employee");
 			System.out.println("2. Remove employee");
 			System.out.println("3. View employees");
 			System.out.print("Selection: ");
 			try {
-				int choice = scan.nextInt();
+				int choice = Integer.parseInt(scan.nextLine());
+				
 				switch (choice) {
 				case 0:
 					return;
 
 				// 1. Create employee
 				case 1:
-					Employee employee = new Employee();
+					Employee e = new Employee();
 
 					System.out.println("Enter New Employee Username");
 					String username = scan.next();
@@ -268,29 +482,30 @@ public class PetUtils {
 					String title = scan.next();
 					System.out.println("Enter Employee Admin Status (true or false)");
 					boolean admin = scan.nextBoolean();
+					scan.nextLine();
 
-					employee.setUsername(username);
-					employee.setPassword(password);
-					employee.setName(name);
-					employee.setPhone(phone);
-					employee.setSalary(salary);
-					employee.setTitle(title);
-					employee.setAdmin(admin);
+					e.setUsername(username);
+					e.setPassword(password);
+					e.setName(name);
+					e.setPhone(phone);
+					e.setSalary(salary);
+					e.setTitle(title);
+					e.setAdmin(admin);
 
-					DB.insertEmployee(employee);
+					DB.insertEmployee(e);
 					System.out.println("Employee added to DB");
-					return;
+					break;
 
 				// 2. Remove employee
 				case 2:
 					System.out.print("Employee ID: ");
-					int id = scan.nextInt();
+					int id = Integer.parseInt(scan.nextLine());
 					try {
-						Employee e = DB.findEmployee(id);
+						e = DB.findEmployee(id);
 						DB.removeEmployee(id);
 						System.out.println("Employee " + e.getName() + " deleted successfully.");
-					} catch (InvalidSearchException e) {
-						System.out.println(e.getMessage());
+					} catch (InvalidSearchException i) {
+						System.out.println(i.getMessage());
 					}
 					break;
 				// 3. View employees
@@ -303,8 +518,8 @@ public class PetUtils {
 							for (Employee emp : employees) {
 								System.out.println(emp.toString());
 							}
-					} catch (Exception e) {
-						System.out.println(e.getMessage());
+					} catch (Exception o) {
+						System.out.println(o.getMessage());
 					}
 					break;
 				}
@@ -312,7 +527,9 @@ public class PetUtils {
 					break;
 				}
 			} catch (InputMismatchException e) {
-				System.out.println("Try again.");
+				System.out.println("Try again");
+			} catch (Exception e) {
+				System.out.println("An error occurred. Please try again");
 			}
 		}
 	}

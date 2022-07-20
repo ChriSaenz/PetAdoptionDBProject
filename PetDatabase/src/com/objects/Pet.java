@@ -1,10 +1,12 @@
 package com.objects;
 
+import java.sql.Date;
+
 public class Pet {
 	private int id, request_id;
 	private String name, species;
 	private int age;
-	private String date_acquired; // Diego's Note: Shouldn't this be Date type?
+	private Date date_acquired; // Diego's Note: Shouldn't this be Date type?
 	private String sex, color, breed;
 	private boolean vaccinated, neutered;
 	private double cost;
@@ -54,11 +56,11 @@ public class Pet {
 		this.age = age;
 	}
 
-	public String getDate_acquired() {
+	public Date getDate_acquired() {
 		return date_acquired;
 	}
 
-	public void setDate_acquired(String date_acquired) {
+	public void setDate_acquired(Date date_acquired) {
 		this.date_acquired = date_acquired;
 	}
 
@@ -110,7 +112,7 @@ public class Pet {
 		this.cost = cost;
 	}
 
-	public Pet(int request_id, String name, String species, int age, String date_acquired, String sex, String color,
+	public Pet(int request_id, String name, String species, int age, Date date_acquired, String sex, String color,
 			String breed, boolean vaccinated, boolean neutered, double cost) {
 		super();
 		this.request_id = request_id;
