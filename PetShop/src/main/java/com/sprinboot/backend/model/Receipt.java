@@ -3,7 +3,7 @@ package com.sprinboot.backend.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "receipts")
+@Table(name = "receipt")
 public class Receipt {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
