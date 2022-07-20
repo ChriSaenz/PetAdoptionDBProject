@@ -10,13 +10,13 @@ public class Receipt {
 	private Long id;
 	
 	@Column(nullable = false)
-	private int employee_id;
+	private Long employee_id;
 	
 	@Column(nullable = false)
-	private int customer_id;
+	private Long customer_id;
 	
 	@Column(nullable = false)
-	private int request_id;
+	private Long request_id;
 	
 	@Column(length = 10, nullable = false)
 	private String date;
@@ -32,27 +32,27 @@ public class Receipt {
 		this.id = id;
 	}
 
-	public int getEmployee_id() {
+	public Long getEmployee_id() {
 		return employee_id;
 	}
 
-	public void setEmployee_id(int employee_id) {
+	public void setEmployee_id(Long employee_id) {
 		this.employee_id = employee_id;
 	}
 
-	public int getCustomer_id() {
+	public Long getCustomer_id() {
 		return customer_id;
 	}
 
-	public void setCustomer_id(int customer_id) {
+	public void setCustomer_id(Long customer_id) {
 		this.customer_id = customer_id;
 	}
 
-	public int getRequest_id() {
+	public Long getRequest_id() {
 		return request_id;
 	}
 
-	public void setRequest_id(int request_id) {
+	public void setRequest_id(Long request_id) {
 		this.request_id = request_id;
 	}
 

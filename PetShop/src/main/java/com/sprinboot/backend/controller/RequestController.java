@@ -1,6 +1,7 @@
 package com.sprinboot.backend.controller;
 
 import java.sql.Date;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,10 +18,12 @@ import com.sprinboot.backend.enums.Status;
 import com.sprinboot.backend.model.Customer;
 import com.sprinboot.backend.model.Employee;
 import com.sprinboot.backend.model.Pet;
+import com.sprinboot.backend.model.Receipt;
 import com.sprinboot.backend.model.Request;
 import com.sprinboot.backend.repository.CustomerRepository;
 import com.sprinboot.backend.repository.EmployeeRepository;
 import com.sprinboot.backend.repository.PetRepository;
+import com.sprinboot.backend.repository.ReceiptRepository;
 import com.sprinboot.backend.repository.RequestRepository;
 
 @RestController
@@ -31,6 +34,7 @@ public class RequestController {
 	private CustomerRepository customerRepository;
 	private EmployeeRepository employeeRepository;
 	private PetRepository petRepository;
+	private ReceiptRepository receiptRepository;
 
 	@GetMapping("/request")
 	public List<Request> getAllRequests() {
@@ -87,6 +91,14 @@ public class RequestController {
 		Request request = getSingleRequestById(id);
 		request.setStatus(Status.Approved);
 		requestRepository.save(request);
+				
+		Receipt receipt = new Receipt();
+		receipt.setCost(request.getPet().getCost());
+		receipt.setCustomer_id(request.getCustomer().getId());
+		receipt.setEmployee_id(request.getEmployee().getId());
+		receipt.setDate(LocalTime.now().toString());
+		receipt.setRequest_id(id);
+		receiptRepository.save(receipt);
 	}
 
 	// deny request
