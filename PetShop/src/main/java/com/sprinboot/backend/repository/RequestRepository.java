@@ -1,5 +1,6 @@
 package com.sprinboot.backend.repository;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,5 +24,14 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 
 	@Query("select r from request where request.status.type=?1")
 	List<Request> findByStatusType(String type);
+
+	@Query("select r from request where request.date<?1")
+	List<Request> findBeforeDate(Date date);
+
+	@Query("select r from request where request.date>?1")
+	List<Request> findAfterDate(Date date);
+
+	@Query("select r from request where request.date BETWEEN ?1 AND ?2")
+	List<Request> findBetweenDate(Date date1, Date date2);
 
 }

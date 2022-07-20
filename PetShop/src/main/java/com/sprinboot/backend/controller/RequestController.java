@@ -1,5 +1,6 @@
 package com.sprinboot.backend.controller;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,9 +64,12 @@ public class RequestController {
 		Optional<Customer> optionalC = customerRepository.findById(cid);
 		Optional<Pet> optionalP = petRepository.findById(pid);
 		Optional<Employee> optionalE = employeeRepository.findById(eid);
-		if (!optionalC.isPresent()) throw new RuntimeException("Unable to find customer ID");
-		if (!optionalP.isPresent()) throw new RuntimeException("Unable to find pet ID");
-		if (!optionalE.isPresent()) throw new RuntimeException("Unable to find employee ID");
+		if (!optionalC.isPresent())
+			throw new RuntimeException("Unable to find customer ID");
+		if (!optionalP.isPresent())
+			throw new RuntimeException("Unable to find pet ID");
+		if (!optionalE.isPresent())
+			throw new RuntimeException("Unable to find employee ID");
 		Customer customer = optionalC.get();
 		Pet pet = optionalP.get();
 		Employee employee = optionalE.get();
@@ -75,8 +79,6 @@ public class RequestController {
 		old.setPet(pet);
 		old.setStatus(request.getStatus());
 		requestRepository.save(old);
-		
-
 	}
 
 	// approve request
@@ -123,5 +125,23 @@ public class RequestController {
 	@GetMapping("/request/status_id/{id}")
 	public List<Request> getRequestByStatusType(@PathVariable("type") String type) {
 		return requestRepository.findByStatusType(type);
+	}
+
+	// before date
+	@GetMapping("/request/before")
+	public List<Request> getRequestBeforeDate(@RequestBody Date date) {
+		return requestRepository.findBeforeDate(date);
+	}
+
+	// after date
+	@GetMapping("/request/after")
+	public List<Request> getRequestAfterDate(@RequestBody Date date) {
+		return requestRepository.findAfterDate(date);
+	}
+
+	// between dates
+	@GetMapping("/request/between")
+	public List<Request> getRequestBetweenDate(@RequestBody Date date, @RequestBody Date date1) {
+		return requestRepository.findBetweenDate(date, date1);
 	}
 }

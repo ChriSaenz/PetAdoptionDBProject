@@ -15,10 +15,10 @@ import javax.persistence.Table;
 import com.sprinboot.backend.enums.Status;
 
 @Entity
-@Table(name="request")
+@Table(name = "request")
 public class Request {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@OneToOne
@@ -26,54 +26,68 @@ public class Request {
 
 	@OneToOne
 	private Pet pet;
-	@Column(nullable=false)
+	@Column(nullable = false)
 
 	private Date date;
 	@Enumerated(value = EnumType.STRING)
 	private Status status = Status.Pending;
 	@OneToOne
 	private Employee employee;
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public Customer getCustomer() {
 		return customer;
 	}
+
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
 	public Pet getPet() {
 		return pet;
 	}
+
 	public void setPet(Pet pet) {
 		this.pet = pet;
 	}
+
 	public Date getDate() {
 		return date;
 	}
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
 	public Status getStatus() {
 		return status;
 	}
+
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+
 	public Employee getEmployee() {
 		return employee;
 	}
+
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+
 	@Override
 	public String toString() {
 		return "Request [id=" + id + ", customer=" + customer + ", pet=" + pet + ", date=" + date + ", status=" + status
 				+ ", employee=" + employee + "]";
 	}
+
 	public Request(Long id, Customer customer, Pet pet, Date date, Status status, Employee employee) {
 		super();
 		this.id = id;
@@ -83,6 +97,7 @@ public class Request {
 		this.status = status;
 		this.employee = employee;
 	}
+
 	public Request(Customer customer, Pet pet, Date date, Status status, Employee employee) {
 		super();
 		this.customer = customer;
@@ -91,12 +106,9 @@ public class Request {
 		this.status = status;
 		this.employee = employee;
 	}
+
 	public Request() {
 		super();
 	}
-
-	
-	
-	
 
 }
