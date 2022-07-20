@@ -19,17 +19,6 @@ public class PetController {
 	@Autowired
 	private PetRepository petRepository;
 	
-	@PostMapping("/pet")
-	public void postPet(@RequestBody Pet pet) {
-		petRepository.save(pet);
-	}
-	
-	//****************Get All Pets************************
-	@GetMapping("/pet")
-	public List<Pet> getAllCategories() {
-		return petRepository.findAll();
-	}
-	
 	@GetMapping("/pet/{id}")
 	public Pet getPetById(@PathVariable("id") Long id) {
 		Optional<Pet> optional =  petRepository.findById(id);
@@ -38,9 +27,37 @@ public class PetController {
 		throw new RuntimeException("ID is invalid");
 	}
 	
+	//****************Add New Pet************************
+	@PostMapping("/pet")
+	public void postPet(@RequestBody Pet pet) {
+		petRepository.save(pet);
+	}
+	
+	//****************View All Pets**********************
+	@GetMapping("/pet")
+	public List<Pet> getAllCategories() {
+		return petRepository.findAll();
+	}
+	
+	//****************View Pet By Name*******************
 	@GetMapping("/pet/name/{name}")
 	public List<Pet> getPetByName(@PathVariable("name") String name) {
 		List<Pet> list = petRepository.findByName(name);
 		return list;
 	}
+	
+	//*************Filter Pets By Species****************
+	@GetMapping("/pet/species/{species}")
+	public List<Pet> filterPetBySpecies(@PathVariable("species") String species) {
+		List<Pet> list = petRepository.filterBySpecies(species);
+		return list;
+	}
+	
+	//*************Filter Pets By Species****************
+	@GetMapping("/pet/age/{age}")
+	public List<Pet> filterPetByAge(@PathVariable("age") int age) {
+		List<Pet> list = petRepository.filterByAge(age);
+		return list;
+	}
+	
 }
