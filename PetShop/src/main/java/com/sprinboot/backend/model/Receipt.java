@@ -1,8 +1,13 @@
 package com.sprinboot.backend.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "receipt")
@@ -20,8 +25,8 @@ public class Receipt {
 	@Column(nullable = false)
 	private Long request_id;
 	
-	@Column(length = 10, nullable = false)
-	private Date date;
+	@Column(nullable = false)
+	private LocalDate date;
 	
 	@Column(nullable = true)
 	private double cost;
@@ -58,11 +63,11 @@ public class Receipt {
 		this.request_id = request_id;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

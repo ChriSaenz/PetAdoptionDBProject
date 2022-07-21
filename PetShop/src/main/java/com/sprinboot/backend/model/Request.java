@@ -1,6 +1,6 @@
 package com.sprinboot.backend.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,16 +21,22 @@ public class Request {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	public Request(Customer customer, Pet pet, LocalDate date, Employee employee) {
+		super();
+		this.customer = customer;
+		this.pet = pet;
+		this.date = date;
+		this.employee = employee;
+	}
+
 	@OneToOne
 	private Customer customer;
-
 	@OneToOne
 	private Pet pet;
 	@Column(nullable = false)
-
-	private Date date;
+	private LocalDate date;
 	@Enumerated(value = EnumType.STRING)
-	private Status status = Status.Pending;
+	private Status status;
 	@OneToOne
 	private Employee employee;
 
@@ -58,11 +64,11 @@ public class Request {
 		this.pet = pet;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
@@ -88,7 +94,7 @@ public class Request {
 				+ ", employee=" + employee + "]";
 	}
 
-	public Request(Long id, Customer customer, Pet pet, Date date, Status status, Employee employee) {
+	public Request(Long id, Customer customer, Pet pet, LocalDate date, Status status, Employee employee) {
 		super();
 		this.id = id;
 		this.customer = customer;
@@ -98,7 +104,7 @@ public class Request {
 		this.employee = employee;
 	}
 
-	public Request(Customer customer, Pet pet, Date date, Status status, Employee employee) {
+	public Request(Customer customer, Pet pet, LocalDate date, Status status, Employee employee) {
 		super();
 		this.customer = customer;
 		this.pet = pet;

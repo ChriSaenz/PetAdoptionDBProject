@@ -1,6 +1,6 @@
 package com.sprinboot.backend.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +16,7 @@ public class Pet {
 	private Long id;
 	private String name, species;
 	private int age;
-	private Date date_acquired; // Diego's Note: Shouldn't this be Date type?
+	private LocalDate date_acquired; // Diego's Note: Shouldn't this be Date type?
 	private String sex, color, breed;
 	private boolean vaccinated, neutered;
 	private double cost;
@@ -53,11 +53,11 @@ public class Pet {
 		this.age = age;
 	}
 
-	public Date getDate_acquired() {
+	public LocalDate getDate_acquired() {
 		return date_acquired;
 	}
 
-	public void setDate_acquired(Date date_acquired) {
+	public void setDate_acquired(LocalDate date_acquired) {
 		this.date_acquired = date_acquired;
 	}
 
@@ -113,7 +113,7 @@ public class Pet {
 		super();
 	}
 
-	public Pet(String name, String species, int age, Date date_acquired, String sex, String color, String breed,
+	public Pet(String name, String species, int age, LocalDate date_acquired, String sex, String color, String breed,
 			boolean vaccinated, boolean neutered, double cost) {
 		super();
 		this.name = name;

@@ -1,7 +1,6 @@
 package com.sprinboot.backend.controller;
 
-import java.sql.Date;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprinboot.backend.enums.Status;
@@ -31,22 +31,33 @@ public class RequestController {
 
 	@Autowired
 	private RequestRepository requestRepository;
+	@Autowired
 	private CustomerRepository customerRepository;
+	@Autowired
 	private EmployeeRepository employeeRepository;
+	@Autowired
 	private PetRepository petRepository;
+	@Autowired
 	private ReceiptRepository receiptRepository;
 
+	// tested: works
 	@GetMapping("/request")
 	public List<Request> getAllRequests() {
 		return requestRepository.findAll();
 	}
 
+	// tested: works
 	@PostMapping("/request/{cid}/{pid}/{eid}")
-	public void postRequest(@RequestBody Request request,@PathVariable("id") Long id, @PathVariable("cid") Long cid,
+	public Request postRequest(@RequestBody Request request, @PathVariable("cid") Long cid,
 			@PathVariable("pid") Long pid, @PathVariable("eid") Long eid) {
-		requestRepository.save(fixRequest(request, cid, pid, eid));
+		if (request.getDate() == null)
+			request.setDate(LocalDate.now());
+		if (request.getStatus() == null)
+			request.setStatus(Status.Pending);
+		return requestRepository.save(fixRequest(request, cid, pid, eid));
 	}
 
+	// tested: works
 	@GetMapping("/request/single/{id}")
 	public Request getSingleRequestById(@PathVariable("id") Long id) {
 		Optional<Request> optional = requestRepository.findById(id);
@@ -55,12 +66,14 @@ public class RequestController {
 		return optional.get();
 	}
 
+	// tested: works
 	// delete request
 	@DeleteMapping("/request/{id}")
 	public void deleteRequestById(@PathVariable("id") Long id) {
 		requestRepository.deleteById(id);
 	}
-	
+
+	// helper method
 	private Request fixRequest(Request old, Long cid, Long pid, Long eid) {
 		Optional<Customer> optionalC = customerRepository.findById(cid);
 		Optional<Pet> optionalP = petRepository.findById(pid);
@@ -80,39 +93,45 @@ public class RequestController {
 		return old;
 	}
 
+	// tested: works
 	// update request
 	@PutMapping("/request/{id}/{cid}/{pid}/{eid}")
 	public void updateRequest(@RequestBody Request request, @PathVariable("id") Long id, @PathVariable("cid") Long cid,
 			@PathVariable("pid") Long pid, @PathVariable("eid") Long eid) {
 		Request old = getSingleRequestById(id);
 		fixRequest(old, cid, pid, eid);
-		old.setDate(request.getDate());
-		old.setStatus(request.getStatus());
+		if (request.getDate() != null)
+			old.setDate(request.getDate());
+		if (request.getStatus() != null)
+			old.setStatus(request.getStatus());
 		requestRepository.save(old);
 	}
 
+	// tested: works
 	// approve request
 	@PutMapping("/request/approve/{id}")
-	public void approveRequest(@PathVariable("id") Long id) {
+	public Request approveRequest(@PathVariable("id") Long id) {
 		Request request = getSingleRequestById(id);
 		request.setStatus(Status.Approved);
 		requestRepository.save(request);
-				
+
 		Receipt receipt = new Receipt();
 		receipt.setCost(request.getPet().getCost());
 		receipt.setCustomer_id(request.getCustomer().getId());
 		receipt.setEmployee_id(request.getEmployee().getId());
-		receipt.setDate(new Date(Calendar.getInstance().getTime().getTime()));
+		receipt.setDate(LocalDate.now());
 		receipt.setRequest_id(id);
 		receiptRepository.save(receipt);
+		return requestRepository.save(request);
 	}
 
+	// tested: works
 	// deny request
 	@PutMapping("/request/reject/{id}")
-	public void rejectRequest(@PathVariable("id") Long id) {
+	public Request rejectRequest(@PathVariable("id") Long id) {
 		Request request = getSingleRequestById(id);
 		request.setStatus(Status.Rejected);
-		requestRepository.save(request);
+		return requestRepository.save(request);
 	}
 
 	// find all requests by pet
@@ -127,33 +146,41 @@ public class RequestController {
 		return requestRepository.findByEmployeeId(id);
 	}
 
+	// tested: works
 	// find all requests by customer
 	@GetMapping("/request/customer/{id}")
 	public List<Request> getRequestByCustomerId(@PathVariable("id") Long id) {
 		return requestRepository.findByCustomerId(id);
 	}
 
+	// tested: works
 	// find all requests by status type
-	@GetMapping("/request/status/{id}")
+	@GetMapping("/request/status/{type}")
 	public List<Request> getRequestByStatusType(@PathVariable("type") String type) {
-		return requestRepository.findByStatusType(type);
+		String strType = type.toString().toLowerCase();
+		strType = strType.substring(0, 1).toUpperCase() + strType.substring(1);
+		return requestRepository.findByStatusType(Status.valueOf(strType));
 	}
 
+	// tested: works
 	// before date
 	@GetMapping("/request/before")
-	public List<Request> getRequestBeforeDate(@RequestBody Date date) {
-		return requestRepository.findBeforeDate(date);
+	public List<Request> getRequestBeforeDate(@RequestParam("date") String date) {
+		return requestRepository.findBeforeDate(LocalDate.parse(date));
 	}
 
+	// tested: works
 	// after date
 	@GetMapping("/request/after")
-	public List<Request> getRequestAfterDate(@RequestBody Date date) {
-		return requestRepository.findAfterDate(date);
+	public List<Request> getRequestAfterDate(@RequestParam("date") String date) {
+		return requestRepository.findAfterDate(LocalDate.parse(date));
 	}
 
+	// tested: works
 	// between dates
 	@GetMapping("/request/between")
-	public List<Request> getRequestBetweenDate(@RequestBody Date date, @RequestBody Date date1) {
-		return requestRepository.findBetweenDate(date, date1);
+	public List<Request> getRequestBetweenDate(@RequestParam("from") String date,
+			@RequestParam("to") String date1) {
+		return requestRepository.findBetweenDate(LocalDate.parse(date), LocalDate.parse(date1));
 	}
 }
