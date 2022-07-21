@@ -1,7 +1,7 @@
 package com.sprinboot.backend.controller;
 
 import java.sql.Date;
-import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,9 +41,10 @@ public class RequestController {
 		return requestRepository.findAll();
 	}
 
-	@PostMapping("/request")
-	public void postRequest(@RequestBody Request request) {
-		requestRepository.save(request);
+	@PostMapping("/request/{cid}/{pid}/{eid}")
+	public void postRequest(@RequestBody Request request,@PathVariable("id") Long id, @PathVariable("cid") Long cid,
+			@PathVariable("pid") Long pid, @PathVariable("eid") Long eid) {
+		requestRepository.save(fixRequest(request, cid, pid, eid));
 	}
 
 	@GetMapping("/request/single/{id}")
@@ -59,12 +60,8 @@ public class RequestController {
 	public void deleteRequestById(@PathVariable("id") Long id) {
 		requestRepository.deleteById(id);
 	}
-
-	// update request
-	@PutMapping("/request/{id}/{cid}/{pid}/{eid}")
-	public void updateRequest(@RequestBody Request request, @PathVariable("id") Long id, @PathVariable("cid") Long cid,
-			@PathVariable("pid") Long pid, @PathVariable("eid") Long eid) {
-		Request old = getSingleRequestById(id);
+	
+	private Request fixRequest(Request old, Long cid, Long pid, Long eid) {
 		Optional<Customer> optionalC = customerRepository.findById(cid);
 		Optional<Pet> optionalP = petRepository.findById(pid);
 		Optional<Employee> optionalE = employeeRepository.findById(eid);
@@ -78,9 +75,18 @@ public class RequestController {
 		Pet pet = optionalP.get();
 		Employee employee = optionalE.get();
 		old.setCustomer(customer);
-		old.setDate(request.getDate());
 		old.setEmployee(employee);
 		old.setPet(pet);
+		return old;
+	}
+
+	// update request
+	@PutMapping("/request/{id}/{cid}/{pid}/{eid}")
+	public void updateRequest(@RequestBody Request request, @PathVariable("id") Long id, @PathVariable("cid") Long cid,
+			@PathVariable("pid") Long pid, @PathVariable("eid") Long eid) {
+		Request old = getSingleRequestById(id);
+		fixRequest(old, cid, pid, eid);
+		old.setDate(request.getDate());
 		old.setStatus(request.getStatus());
 		requestRepository.save(old);
 	}
@@ -96,7 +102,7 @@ public class RequestController {
 		receipt.setCost(request.getPet().getCost());
 		receipt.setCustomer_id(request.getCustomer().getId());
 		receipt.setEmployee_id(request.getEmployee().getId());
-		receipt.setDate(LocalTime.now().toString());
+		receipt.setDate(new Date(Calendar.getInstance().getTime().getTime()));
 		receipt.setRequest_id(id);
 		receiptRepository.save(receipt);
 	}

@@ -1,5 +1,7 @@
 package com.sprinboot.backend.model;
 
+import java.sql.Date;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,7 +21,7 @@ public class Receipt {
 	private Long request_id;
 	
 	@Column(length = 10, nullable = false)
-	private String date;
+	private Date date;
 	
 	@Column(nullable = true)
 	private double cost;
@@ -56,11 +58,11 @@ public class Receipt {
 		this.request_id = request_id;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
