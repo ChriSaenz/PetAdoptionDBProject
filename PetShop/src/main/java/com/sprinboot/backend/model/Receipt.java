@@ -1,25 +1,32 @@
 package com.sprinboot.backend.model;
 
-import javax.persistence.*;
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "receipts")
+@Table(name = "receipt")
 public class Receipt {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@Column(nullable = false)
-	private int employee_id;
+	private Long employee_id;
 	
 	@Column(nullable = false)
-	private int customer_id;
+	private Long customer_id;
 	
 	@Column(nullable = false)
-	private int request_id;
+	private Long request_id;
 	
-	@Column(length = 10, nullable = false)
-	private String date;
+	@Column(nullable = false)
+	private LocalDate date;
 	
 	@Column(nullable = true)
 	private double cost;
@@ -32,35 +39,35 @@ public class Receipt {
 		this.id = id;
 	}
 
-	public int getEmployee_id() {
+	public Long getEmployee_id() {
 		return employee_id;
 	}
 
-	public void setEmployee_id(int employee_id) {
+	public void setEmployee_id(Long employee_id) {
 		this.employee_id = employee_id;
 	}
 
-	public int getCustomer_id() {
+	public Long getCustomer_id() {
 		return customer_id;
 	}
 
-	public void setCustomer_id(int customer_id) {
+	public void setCustomer_id(Long customer_id) {
 		this.customer_id = customer_id;
 	}
 
-	public int getRequest_id() {
+	public Long getRequest_id() {
 		return request_id;
 	}
 
-	public void setRequest_id(int request_id) {
+	public void setRequest_id(Long request_id) {
 		this.request_id = request_id;
 	}
 
-	public String getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
