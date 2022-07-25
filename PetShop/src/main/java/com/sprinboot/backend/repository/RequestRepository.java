@@ -1,3 +1,11 @@
+/**
+* RequestRepository holds and retrieves all request entries
+* in the database.
+*
+* @author  Felix Taylor
+* @since   2022-07-25
+*/
+
 package com.sprinboot.backend.repository;
 
 import java.time.LocalDate;
