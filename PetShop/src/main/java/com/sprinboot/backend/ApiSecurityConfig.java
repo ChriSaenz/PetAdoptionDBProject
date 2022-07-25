@@ -20,8 +20,9 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/pet").authenticated()
-				.antMatchers(HttpMethod.POST, "/pet").hasAnyAuthority("EMPLOYEE").antMatchers(HttpMethod.PUT, "/pet")
-				.hasAnyRole("EMPLOYEE").antMatchers(HttpMethod.DELETE, "/pet").hasAnyAuthority("EMPLOYEE")
+				.antMatchers(HttpMethod.POST, "/pet").hasAnyAuthority("EMPLOYEE")
+				.antMatchers(HttpMethod.PUT, "/pet").hasAnyAuthority("EMPLOYEE")
+				.antMatchers(HttpMethod.DELETE, "/pet").hasAnyAuthority("EMPLOYEE")
 				.antMatchers("/request").hasAnyAuthority("EMPLOYEE")
 				.antMatchers("/receipt").hasAnyAuthority("EMPLOYEE")
 				.antMatchers("/employee").hasAnyAuthority("ADMIN")
@@ -31,12 +32,6 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		/*
-		 * auth.inMemoryAuthentication().withUser("Boss")
-		 * .password(getPasswordEncoder().encode("P42")) .roles("EMPLOYEE")
-		 * .roles("ADMIN") .and() .withUser("Firestar")
-		 * .password(getPasswordEncoder().encode("pretty")) .roles("EMPLOYEE");
-		 */
 		auth.authenticationProvider(getCustomProvider());
 	}
 
