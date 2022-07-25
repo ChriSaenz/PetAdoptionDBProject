@@ -1,3 +1,9 @@
+/**
+* An exception that is thrown when an ID can't be found in the DB
+*
+* @author  Felix Taylor
+* @since   2022-07-25
+*/
 package com.sprinboot.backend.exceptions;
 
 public class MissingIDException extends RuntimeException {

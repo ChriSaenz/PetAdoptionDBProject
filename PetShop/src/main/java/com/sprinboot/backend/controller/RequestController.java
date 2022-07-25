@@ -1,3 +1,10 @@
+/**
+* RequestController handles enpoints related to
+* creating and retrieving requests in the DB
+*
+* @author  Felix Taylor
+* @since   2022-07-25
+*/
 package com.sprinboot.backend.controller;
 
 import java.time.LocalDate;

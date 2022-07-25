@@ -1,3 +1,9 @@
+/**
+* Request objects that are put into the database
+*
+* @author  Felix Taylor
+* @since   2022-07-25
+*/
 package com.sprinboot.backend.model;
 
 import java.time.LocalDate;
