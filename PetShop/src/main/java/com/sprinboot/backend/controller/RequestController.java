@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprinboot.backend.enums.Status;
-import com.sprinboot.backend.exceptions.MissingIDException;
+import com.sprinboot.backend.exceptions.MissingEntryException;
 import com.sprinboot.backend.model.Customer;
 import com.sprinboot.backend.model.Employee;
 import com.sprinboot.backend.model.Pet;
@@ -82,7 +82,7 @@ public class RequestController {
 	public Request getSingleRequestById(@PathVariable("id") Long id) {
 		Optional<Request> optional = requestRepository.findById(id);
 		if (!optional.isPresent())
-			throw new MissingIDException("Unable to find request ID");
+			throw new MissingEntryException("Unable to find request ID");
 		return optional.get();
 	}
 
@@ -103,11 +103,11 @@ public class RequestController {
 		Optional<Pet> optionalP = petRepository.findById(pid);
 		Optional<Employee> optionalE = employeeRepository.findById(eid);
 		if (!optionalC.isPresent())
-			throw new MissingIDException("Unable to find customer ID");
+			throw new MissingEntryException("Unable to find customer ID");
 		if (!optionalP.isPresent())
-			throw new MissingIDException("Unable to find pet ID");
+			throw new MissingEntryException("Unable to find pet ID");
 		if (!optionalE.isPresent())
-			throw new MissingIDException("Unable to find employee ID");
+			throw new MissingEntryException("Unable to find employee ID");
 		old.setCustomer(optionalC.get());
 		old.setEmployee(optionalE.get());
 		old.setPet(optionalP.get());

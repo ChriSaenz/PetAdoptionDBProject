@@ -105,11 +105,12 @@ public class Employee {
 		this.salary = salary;
 	}
 
-	public Boolean getAdmin() {
+	public Boolean isAdmin() {
 		return admin;
 	}
 
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
 	}
+
 }

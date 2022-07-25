@@ -6,7 +6,7 @@
 */
 package com.sprinboot.backend.exceptions;
 
-public class MissingIDException extends RuntimeException {
+public class MissingEntryException extends RuntimeException {
 	/**
 	 * 
 	 */
@@ -15,10 +15,10 @@ public class MissingIDException extends RuntimeException {
 	
 	//********** CONSTRUCTORS **********/
 	
-	public MissingIDException() {
+	public MissingEntryException() {
 		super();
 	}
-	public MissingIDException(String message) {
+	public MissingEntryException(String message) {
 		super();
 		this.message = message;
 	}
