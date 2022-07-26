@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="employee")
+@Table(name = "employee")
 public class Employee {
 
 	@Id
@@ -20,10 +20,6 @@ public class Employee {
 	private Double salary;
 	private String title;
 	private Boolean admin;
-	
-	
-	
-
 
 	public Employee(Long id, String username, String password, String name, String phone, Double salary, String title,
 			Boolean admin) {
