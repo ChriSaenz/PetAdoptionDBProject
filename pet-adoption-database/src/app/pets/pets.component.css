@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 10px;
+}
+
+.pets-card {
+  max-width: 400px;
+}

@@ -1,0 +1,17 @@
+<div class="container">
+  <mat-card class="pets-card" *ngFor="let p of pets">
+    <mat-card-title>{{ p.name }}</mat-card-title>
+    <img
+      mat-card-image
+      src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+      alt="Photo of a Shiba Inu"
+    />
+    <mat-card-content>Age: {{ p.id }}</mat-card-content>
+    <mat-card-content>Species: {{ p.species }}</mat-card-content>
+    <mat-card-content>Breed: {{ p.breed }} </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>ADOPT</button>
+      <button mat-button>MORE INFO</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

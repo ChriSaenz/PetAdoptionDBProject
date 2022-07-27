@@ -37,6 +37,6 @@ public class CustomerController {
 
 		if(optional.isPresent())
 			return optional.get();
-		throw new RuntimeException("ID is invalid");
+		throw new RuntimeException("Invalid customer ID " + id);
 	}
 }
