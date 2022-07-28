@@ -1,0 +1,8 @@
+<div class="request-box" *ngFor="let r of requests">
+    <p>Request ID: {{r.id}}</p>
+    <p>Request Date: {{r.date}}</p>
+    <p>Request status: {{r.status}}</p>
+    <p>${{r.p_cost}}</p>
+    <button *ngIf="r.status==='Pending'" class="approve">APPROVE</button>&nbsp;
+    <button *ngIf="r.status==='Pending'" class="reject">REJECT</button>
+</div>

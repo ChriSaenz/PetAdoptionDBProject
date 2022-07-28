@@ -1,0 +1,25 @@
+<h2>File New Request</h2>
+<form (submit)="onFormSubmit()" [formGroup]="requestForm">
+    <label>Enter customer ID</label>
+    <br />
+    <input type="text" name="c_id" formControlName="c_id">
+
+    <span *ngIf="requestForm.controls['c_id'].invalid && requestForm.controls['c_id'].touched">
+        <span *ngIf="requestForm.controls['c_id'].errors['required']">Field required</span>
+        <span *ngIf="requestForm.controls['c_id'].errors['pattern']">Digits only</span>
+    </span>
+
+    <br /> <br />
+
+    <label>Enter pet ID</label>
+    <br />
+    <input type="text" name="p_id" formControlName="p_id">
+
+    <span *ngIf="requestForm.controls['p_id'].invalid && requestForm.controls['p_id'].touched">
+        <span *ngIf="requestForm.controls['p_id'].errors['required']">Field required</span>
+        <span *ngIf="requestForm.controls['p_id'].errors['pattern']">Digits only</span>
+    </span>
+
+
+
+</form>
