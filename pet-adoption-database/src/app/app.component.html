@@ -1,3 +1,9 @@
+<div class="navbar">
+  <a routerLink="/requests">Requests</a>
+</div>
+
+
+<!--
 <h1>Pet Adoption Database</h1>
 <h2>Main Menu</h2>
 <div class="pet-list-with-sorting">
@@ -15,9 +21,10 @@
     <label>Age</label>
     <input type="text">
   </form>
-  <!--<button (click)="applySorts()")>SORT</button>-->
+  <button (click)="applySorts()")>SORT</button>
 </div>
+-->
 
-
-<app-request-list></app-request-list>
-<app-request-form></app-request-form>
+<div>
+  <router-outlet></router-outlet>
+</div>

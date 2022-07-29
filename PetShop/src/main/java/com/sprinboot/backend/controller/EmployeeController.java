@@ -22,7 +22,7 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeRepository categoryRepository;
 	private PasswordEncoder passwordEncoder;
-	
+
 	private EmployeeDto convertToDto(Employee e) {
 		EmployeeDto dto = new EmployeeDto();
 		dto.setAdmin(e.isAdmin());
@@ -34,7 +34,7 @@ public class EmployeeController {
 		dto.setUsername(e.getUsername());
 		return dto;
 	}
-	
+
 	private List<EmployeeDto> convertToDtoList(List<Employee> list) {
 		List<EmployeeDto> dtoList = new ArrayList<>();
 		for (Employee e : list) {
@@ -45,10 +45,12 @@ public class EmployeeController {
 
 	@PostMapping("/employee")
 	public void postEmployee(@RequestBody Employee category) {
-		String pw = category.getPassword();
-		pw = passwordEncoder.encode(pw);
-		category.setPassword(pw);
-		categoryRepository.save(category);
+		if (category.getPassword() != null) {
+			String pw = category.getPassword();
+			pw = passwordEncoder.encode(pw);
+			category.setPassword(pw);
+			categoryRepository.save(category);
+		}
 	}
 
 	@GetMapping("/employee")
@@ -69,7 +71,7 @@ public class EmployeeController {
 	public EmployeeDto getEmployeeDtoByUsername(@PathVariable("id") String id) {
 		return convertToDto(getEmployeeByUsername(id));
 	}
-	
+
 	public Employee getEmployeeByUsername(String id) {
 		Optional<Employee> optional = categoryRepository.findByUsername(id);
 

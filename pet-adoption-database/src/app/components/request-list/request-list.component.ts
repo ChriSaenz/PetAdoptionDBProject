@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PetRequest } from 'src/app/model/petrequest.model';
-import { requestData } from '../../data';
-
+import { RequestService } from 'src/app/service/request.service';
 
 @Component({
   selector: 'app-request-list',
@@ -9,12 +8,33 @@ import { requestData } from '../../data';
   styleUrls: ['./request-list.component.css']
 })
 export class RequestListComponent implements OnInit {
-
-  requests:PetRequest[];
-  constructor() { }
+  errorMsg: string;
+  requests: PetRequest[];
+  constructor(private requestService: RequestService) { }
 
   ngOnInit(): void {
-    this.requests = requestData;
+    this.errorMsg = "";
+    this.requestService.fetchRequests().subscribe({
+      next: (data) => {
+        this.requests = data;
+      },
+      error: (e) => {
+        this.errorMsg = "Requests could not be fetched"
+      }
+    });
+
+  }
+
+  delete(id:number) {
+    console.log("clicked");
+    this.requestService.delete(id).subscribe({
+      next: (data) => {
+        this.errorMsg = "Deletion successful"
+      },
+      error: (e) => {
+        this.errorMsg = "Deletion unsuccessful"
+      }
+    })
   }
 
 }

@@ -7,12 +7,14 @@ import { RequestListComponent } from './components/request-list/request-list.com
 import { RequestFormComponent } from './components/request-form/request-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
+import { RequestPageComponent } from './components/request-page/request-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RequestListComponent,
-    RequestFormComponent
+    RequestFormComponent,
+    RequestPageComponent
   ],
   imports: [
     BrowserModule,
