@@ -11,8 +11,10 @@
     <p>Pet ID: {{r.p_id}}</p>
     <p>Pet Name: {{r.p_name}}</p>
     <p>Pet Cost: ${{r.p_cost}}</p>
+    <p>Employee ID: {{r.e_id}}</p>
+    <p>Employee Name: {{r.e_name}}</p>
     <div>
-        <button *ngIf="r.status==='Pending'" class="approve">APPROVE</button>&nbsp;
-        <button *ngIf="r.status==='Pending'" class="reject">REJECT</button>
+        <button (click)="approve(r.id)" *ngIf="r.status==='Pending'" class="approve">APPROVE</button>&nbsp;
+        <button (click)="reject(r.id)" *ngIf="r.status==='Pending'" class="reject">REJECT</button>
     </div>
 </div>

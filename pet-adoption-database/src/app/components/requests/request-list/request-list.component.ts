@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PetRequest } from 'src/app/model/petrequest.model';
-import { RequestService } from 'src/app/service/request.service';
+import { PetRequest } from '../model/petrequest.model';
+import { RequestService } from '../service/request.service';
 
 @Component({
   selector: 'app-request-list',
@@ -13,6 +13,12 @@ export class RequestListComponent implements OnInit {
   constructor(private requestService: RequestService) { }
 
   ngOnInit(): void {
+    this.requestService.request$.subscribe(data=>{
+        this.requests = data;
+    });
+  }
+
+ /* ngOnInit(): void {
     this.errorMsg = "";
     this.requestService.fetchRequests().subscribe({
       next: (data) => {
@@ -23,10 +29,9 @@ export class RequestListComponent implements OnInit {
       }
     });
 
-  }
+  }*/
 
   delete(id:number) {
-    console.log("clicked");
     this.requestService.delete(id).subscribe({
       next: (data) => {
         this.errorMsg = "Deletion successful"
@@ -35,6 +40,31 @@ export class RequestListComponent implements OnInit {
         this.errorMsg = "Deletion unsuccessful"
       }
     })
+    console.log(this.errorMsg);
+  }
+
+  approve(id:number) {
+    this.requestService.approve(id).subscribe({
+      next: (data) => {
+        this.errorMsg = "Approval successful"
+      },
+      error: (e) => {
+        this.errorMsg = "Approval unsuccessful"
+      }
+    })
+    console.log(this.errorMsg);
+  }
+
+  reject(id:number) {
+    this.requestService.reject(id).subscribe({
+      next: (data) => {
+        this.errorMsg = "Rejection successful"
+      },
+      error: (e) => {
+        this.errorMsg = "Rejection unsuccessful"
+      }
+    })
+    console.log(this.errorMsg);
   }
 
 }

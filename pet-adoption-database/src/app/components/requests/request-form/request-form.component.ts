@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PetRequest } from 'src/app/model/petrequest.model';
-import { RequestService } from 'src/app/service/request.service';
+import { PetRequest } from '../model/petrequest.model';
+import { RequestService } from '../service/request.service';
 
 @Component({
   selector: 'app-request-form',
@@ -11,6 +11,7 @@ import { RequestService } from 'src/app/service/request.service';
 export class RequestFormComponent implements OnInit {
   requestForm: FormGroup;
   message:string;
+  request:PetRequest;
   constructor(private requestService:RequestService) { }
 
   ngOnInit(): void {
@@ -22,7 +23,30 @@ export class RequestFormComponent implements OnInit {
     })
   }
 
-  onFormSubmit(): void {
+
+  onFormSubmit(){
+    this.request = this.requestForm.value;
+     this.requestService.postRequest(this.request, this.requestForm.value.e_id, this.requestForm.value.p_id, this.requestForm.value.c_id).subscribe( {
+        next: (data)=> {
+          this.request = data;
+          this.message='request added in the system';
+          //Read the value from the Subject
+          let requestArry = this.requestService.request$.getValue();
+          //update the value: add request to request[]
+          requestArry.push(this.request);
+          //update the subject value
+          this.requestService.request$.next(requestArry);
+
+          //update the value of $stat
+          //this.requestService.stat$.next(true);
+        },
+        error: (e)=>{
+          this.message='Operation Failed';
+        }
+     });
+  }
+
+ /* onFormSubmit(): void {
     let request = new PetRequest();
     this.requestService.postRequest(request, this.requestForm.value.e_id, this.requestForm.value.p_id, this.requestForm.value.c_id).subscribe({
       next: (data) => {
@@ -32,6 +56,6 @@ export class RequestFormComponent implements OnInit {
         this.message="Could not perform operation"
       }
     })
-  }
+  }*/
 
 }

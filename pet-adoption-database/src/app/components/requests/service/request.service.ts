@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { PetRequest } from '../model/petrequest.model';
 
 @Injectable({
@@ -9,11 +9,13 @@ import { PetRequest } from '../model/petrequest.model';
 export class RequestService {
   url: string;
 
+  request$ =  new BehaviorSubject<PetRequest[]>([]);
+
   constructor(private http: HttpClient) {
     this.url = "http://localhost:8824/request";
   }
 
-  delete(id: number) : Observable<any> {
+  delete(id: number): Observable<any> {
     return this.http.delete(this.url + "/" + id);
   }
 
@@ -22,6 +24,12 @@ export class RequestService {
   }
 
   postRequest(request: PetRequest, eid: number, cid: number, pid: number): Observable<PetRequest> {
-    return this.http.post(this.url + "/" + cid + "/" + pid + "/" + eid, request);
+    return this.http.post<PetRequest>(this.url + "/" + cid + "/" + pid + "/" + eid, request);
+  }
+  approve(id: number): Observable<any> {
+    return this.http.put(this.url + "/approve/" + id, null);
+  }
+  reject(id: number): Observable<any> {
+    return this.http.put(this.url + "/reject/" + id, null);
   }
 }

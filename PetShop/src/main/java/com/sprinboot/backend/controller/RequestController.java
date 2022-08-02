@@ -240,10 +240,10 @@ public class RequestController {
 	 */
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/request/reject/{id}")
-	public RequestDto rejectRequest(@PathVariable("id") Long id) {
+	public void rejectRequest(@PathVariable("id") Long id) {
 		Request request = getRequestById(id); // find the request
 		request.setStatus(Status.Rejected); // change status to rejected
-		return convertToDto(requestRepository.save(request)); // save request
+		convertToDto(requestRepository.save(request)); // save request
 	}
 
 	/*
@@ -334,6 +334,7 @@ public class RequestController {
 	 * @return list of request DTOs
 	 */
 	@GetMapping("/request/between")
+	@CrossOrigin(origins = "http://localhost:4200")
 	public List<RequestDto> getRequestBetweenDate(@RequestParam("from") String date, @RequestParam("to") String date1) {
 		return convertListToDto(requestRepository.findBetweenDate(LocalDate.parse(date), LocalDate.parse(date1)));
 	}
@@ -346,6 +347,7 @@ public class RequestController {
 	 * @return list of request DTOs
 	 */
 	@GetMapping("/request/species/{species}")
+	@CrossOrigin(origins = "http://localhost:4200")
 	public List<RequestDto> getRequestBySpecies(@PathVariable("species") String species) {
 		return convertListToDto(requestRepository.findBySpecies(species));
 	}
@@ -357,7 +359,8 @@ public class RequestController {
 	 * 
 	 * @return list of request DTOs
 	 */
-	@GetMapping("/request/species/{breed}")
+	@GetMapping("/request/breed/{breed}")
+	@CrossOrigin(origins = "http://localhost:4200")
 	public List<RequestDto> getRequestByBreed(@PathVariable("breed") String breed) {
 		return convertListToDto(requestRepository.findByBreed(breed));
 	}
@@ -369,7 +372,8 @@ public class RequestController {
 	 * 
 	 * @return list of request DTOs
 	 */
-	@GetMapping("/request/species/{color}")
+	@GetMapping("/request/color/{color}")
+	@CrossOrigin(origins = "http://localhost:4200")
 	public List<RequestDto> getRequestByColor(@PathVariable("color") String color) {
 		return convertListToDto(requestRepository.findByColor(color));
 	}
