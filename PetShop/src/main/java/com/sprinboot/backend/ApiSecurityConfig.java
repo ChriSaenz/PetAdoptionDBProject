@@ -1,5 +1,6 @@
 package com.sprinboot.backend;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -15,19 +16,22 @@ import com.sprinboot.backend.service.MyUserDetailService;
 @SuppressWarnings("deprecation")
 public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	MyUserDetailService myUserDetailService = new MyUserDetailService();
-
+	@Autowired
+	private MyUserDetailService myUserDetailService;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/pet").authenticated()
-				.antMatchers(HttpMethod.POST, "/pet").hasAnyAuthority("EMPLOYEE")
-				.antMatchers(HttpMethod.PUT, "/pet").hasAnyAuthority("EMPLOYEE")
-				.antMatchers(HttpMethod.DELETE, "/pet").hasAnyAuthority("EMPLOYEE")
-				.antMatchers("/request").hasAnyAuthority("EMPLOYEE")
-				.antMatchers("/receipt").hasAnyAuthority("EMPLOYEE")
-				.antMatchers("/employee").hasAnyAuthority("ADMIN")
-				.anyRequest().permitAll().and().httpBasic().and()
-				.csrf().disable();
+		http.authorizeRequests()
+//				.antMatchers(HttpMethod.GET, "/pet").authenticated()
+//				.antMatchers(HttpMethod.POST, "/pet").hasAnyAuthority("EMPLOYEE")
+//				.antMatchers(HttpMethod.PUT, "/pet").hasAnyAuthority("EMPLOYEE")
+//				.antMatchers(HttpMethod.DELETE, "/pet").hasAnyAuthority("EMPLOYEE")
+//				.antMatchers("/request").hasAnyAuthority("EMPLOYEE")
+//				.antMatchers("/receipt").hasAnyAuthority("EMPLOYEE")
+//				.antMatchers("/employee").hasAnyAuthority("ADMIN")
+				.anyRequest().permitAll()
+				.and().httpBasic()
+				.and().csrf().disable();
 	}
 
 	@Override

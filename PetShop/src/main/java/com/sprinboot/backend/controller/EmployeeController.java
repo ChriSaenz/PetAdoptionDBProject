@@ -72,7 +72,7 @@ public class EmployeeController {
 	}
 	
 	public Employee getEmployeeByUsername(String id) {
-		Optional<Employee> optional = categoryRepository.findByUsername(id);
+		Optional<Employee> optional = employeeRepository.findByUsername(id);
 
 		if (optional.isPresent())
 			return optional.get();
