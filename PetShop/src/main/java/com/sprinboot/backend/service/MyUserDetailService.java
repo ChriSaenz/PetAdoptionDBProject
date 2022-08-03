@@ -13,15 +13,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.sprinboot.backend.controller.EmployeeController;
 import com.sprinboot.backend.model.Employee;
 import com.sprinboot.backend.repository.EmployeeRepository;
 
 @Service
 public class MyUserDetailService implements UserDetailsService{
 
-	@Autowired
-	private EmployeeController employeeController;
+//	@Autowired
+//	private EmployeeController employeeController;
 	
 	@Autowired 
 	private EmployeeRepository employeeRepository;
@@ -36,13 +35,13 @@ public class MyUserDetailService implements UserDetailsService{
 		Employee emp = optional.get();
 		
 		List<GrantedAuthority> list = new ArrayList<>();
-		SimpleGrantedAuthority sga = new SimpleGrantedAuthority(ui.getRole());
+		SimpleGrantedAuthority sga = new SimpleGrantedAuthority((emp.isAdmin()) ? "ADMIN" : "EMPLOYEE");
+		list.add(sga);
 		
-		String role = "EMPLOYEE";
-		if (employee.isAdmin()) role = "ADMIN";
-		List<GrantedAuthority> list = new ArrayList<>();
-		list.add(new SimpleGrantedAuthority(role));
-		return new User(username, employee.getPassword(), list);
+		//User class from Springframework
+		User user = new User(emp.getUsername(), emp.getPassword(), list);
+		
+		return user;
 	}
 	
 

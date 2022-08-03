@@ -2,8 +2,8 @@ package com.sprinboot.backend;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.sprinboot.backend.service.MyUserDetailService;
 
 @SuppressWarnings("deprecation")
+@Configuration
 public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -39,16 +40,18 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.authenticationProvider(getCustomProvider());
 	}
 
-	private AuthenticationProvider getCustomProvider() {
+	@Bean
+	public PasswordEncoder getPasswordEncoder()
+	{
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		
+		return passwordEncoder;
+	}
+	
+	private DaoAuthenticationProvider getCustomProvider() {
 		DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
 		dao.setPasswordEncoder(getPasswordEncoder());
 		dao.setUserDetailsService(myUserDetailService);
 		return dao;
 	}
-
-	@Bean
-	private PasswordEncoder getPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
 }
