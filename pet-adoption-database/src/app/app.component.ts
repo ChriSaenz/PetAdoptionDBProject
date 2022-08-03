@@ -11,16 +11,17 @@ import { AuthService } from './auth/service/auth.service';
 
 export class AppComponent implements OnInit {
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
   employees: Employee[];
   username: string;
 
   ngOnInit(): void {
     // this.emplyoees = this.employeeService.fetchEmployees();
     this.authService.username$.subscribe(data => {
-      this.username = data;
+      if (data != "") this.username = data;
+      console.log("Username: " + this.username);
     })
-   }
+  }
   title = 'pet-adoption-database';
 
 }

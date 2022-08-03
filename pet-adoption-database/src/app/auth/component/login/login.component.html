@@ -2,10 +2,10 @@
 <p>{{message}}</p>
 <form (submit)="onFormSubmit()" [formGroup]="loginForm">
     <label>Enter username</label>
-    <input type="text" name="username" formControllerName="username">
+    <input type="text" name="username" formControlName="username">
     <br/><br/>
     <label>Enter password</label>
-    <input type="password" name="password" formControllerName="password">
+    <input type="password" name="password" formControlName="password">
     <br/><br/>
-    <input type="submit" value="Add Employee" [disabled]="!loginForm.valid">
+    <input type="submit" value="Login" [disabled]="!loginForm.valid">
 </form>

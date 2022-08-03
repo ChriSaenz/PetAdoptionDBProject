@@ -37,6 +37,7 @@ import com.sprinboot.backend.repository.PetRepository;
 import com.sprinboot.backend.repository.ReceiptRepository;
 import com.sprinboot.backend.repository.RequestRepository;
 
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 public class RequestController {
 
@@ -104,7 +105,6 @@ public class RequestController {
 	 * 
 	 * @return List<RequestDto> - all request DTOs
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/request")
 	public List<RequestDto> getAllRequests() {
 		return convertListToDto(requestRepository.findAll());
@@ -115,7 +115,6 @@ public class RequestController {
 	 * 
 	 * @return RequestDto - newly created object
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/request/{cid}/{pid}/{eid}")
 	public RequestDto postRequest(@RequestBody Request request, @PathVariable("cid") Long cid,
 			@PathVariable("pid") Long pid, @PathVariable("eid") Long eid) {
@@ -148,7 +147,6 @@ public class RequestController {
 	 * @return RequestDto - resulting object Throws MissingIDException if ID not
 	 * found
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/request/{id}")
 	public RequestDto getRequestDtoById(@PathVariable("id") Long id) {
 		return convertToDto(getRequestById(id));
@@ -157,7 +155,6 @@ public class RequestController {
 	/*
 	 * Deletes a single request from the DB
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/request/{id}")
 	public void deleteRequestById(@PathVariable("id") Long id) {
 		requestRepository.deleteById(id);
@@ -195,7 +192,6 @@ public class RequestController {
 	 * 
 	 * @return updated request DTO
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/request/{id}/{cid}/{pid}/{eid}")
 	public RequestDto updateRequest(@RequestBody Request request, @PathVariable("id") Long id,
 			@PathVariable("cid") Long cid, @PathVariable("pid") Long pid, @PathVariable("eid") Long eid) {
@@ -215,9 +211,8 @@ public class RequestController {
 	 * 
 	 * @return newly-created receipt
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/request/approve/{id}")
-	public void approveRequest(@PathVariable("id") Long id) {
+	public RequestDto approveRequest(@PathVariable("id") Long id) {
 		Request request = getRequestById(id); // find the request
 		request.setStatus(Status.Approved); // change status to approved
 		requestRepository.save(request); // save to DB
@@ -229,6 +224,7 @@ public class RequestController {
 		receipt.setDate(LocalDate.now());
 		receipt.setRequest(request);
 		receiptRepository.save(receipt); // save receipt
+		return convertToDto(requestRepository.save(request)); // save to DB
 	}
 
 	/*
@@ -238,7 +234,6 @@ public class RequestController {
 	 * 
 	 * @return updated request DTO
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/request/reject/{id}")
 	public void rejectRequest(@PathVariable("id") Long id) {
 		Request request = getRequestById(id); // find the request
@@ -253,7 +248,6 @@ public class RequestController {
 	 * 
 	 * @return list of request DTOs
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/request/pet/{id}")
 	public List<RequestDto> getRequestByPetId(@PathVariable("id") Long id) {
 		return convertListToDto(requestRepository.findByPetId(id));
@@ -277,7 +271,6 @@ public class RequestController {
 	 * 
 	 * @return list of request DTOs
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/request/customer/{id}")
 	public List<RequestDto> getRequestByCustomerId(@PathVariable("id") Long id) {
 		return convertListToDto(requestRepository.findByCustomerId(id));
@@ -290,7 +283,6 @@ public class RequestController {
 	 * 
 	 * @return list of request DTOs
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/request/status/{type}")
 	public List<RequestDto> getRequestByStatusType(@PathVariable("type") String type) {
 		String strType = type.toString().toLowerCase();
@@ -305,7 +297,6 @@ public class RequestController {
 	 * 
 	 * @return list of request DTOs
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/request/before")
 	public List<RequestDto> getRequestBeforeDate(@RequestParam("date") String date) {
 		return convertListToDto(requestRepository.findBeforeDate(LocalDate.parse(date)));
@@ -318,7 +309,6 @@ public class RequestController {
 	 * 
 	 * @return list of request DTOs
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/request/after")
 	public List<RequestDto> getRequestAfterDate(@RequestParam("date") String date) {
 		return convertListToDto(requestRepository.findAfterDate(LocalDate.parse(date)));
@@ -334,7 +324,6 @@ public class RequestController {
 	 * @return list of request DTOs
 	 */
 	@GetMapping("/request/between")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public List<RequestDto> getRequestBetweenDate(@RequestParam("from") String date, @RequestParam("to") String date1) {
 		return convertListToDto(requestRepository.findBetweenDate(LocalDate.parse(date), LocalDate.parse(date1)));
 	}
@@ -347,7 +336,6 @@ public class RequestController {
 	 * @return list of request DTOs
 	 */
 	@GetMapping("/request/species/{species}")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public List<RequestDto> getRequestBySpecies(@PathVariable("species") String species) {
 		return convertListToDto(requestRepository.findBySpecies(species));
 	}
@@ -360,7 +348,6 @@ public class RequestController {
 	 * @return list of request DTOs
 	 */
 	@GetMapping("/request/breed/{breed}")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public List<RequestDto> getRequestByBreed(@PathVariable("breed") String breed) {
 		return convertListToDto(requestRepository.findByBreed(breed));
 	}
@@ -373,7 +360,6 @@ public class RequestController {
 	 * @return list of request DTOs
 	 */
 	@GetMapping("/request/color/{color}")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public List<RequestDto> getRequestByColor(@PathVariable("color") String color) {
 		return convertListToDto(requestRepository.findByColor(color));
 	}

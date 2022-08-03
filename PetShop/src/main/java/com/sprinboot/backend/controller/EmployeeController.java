@@ -19,14 +19,14 @@ import com.sprinboot.backend.exceptions.MissingEntryException;
 import com.sprinboot.backend.model.Employee;
 import com.sprinboot.backend.repository.EmployeeRepository;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 public class EmployeeController {
 	@Autowired
 	private EmployeeRepository categoryRepository;
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	private EmployeeDto convertToDto(Employee e) {
 		EmployeeDto dto = new EmployeeDto();
 		dto.setAdmin(e.isAdmin());
@@ -48,24 +48,21 @@ public class EmployeeController {
 		return dtoList;
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/employee")
-	public void postEmployee(@RequestBody Employee category) {
+	public EmployeeDto postEmployee(@RequestBody Employee category) {
 		if (category.getPassword() != null) {
 			String pw = category.getPassword();
 			pw = passwordEncoder.encode(pw);
 			category.setPassword(pw);
-			categoryRepository.save(category);
 		}
+		return convertToDto(categoryRepository.save(category));
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/employee")
 	public List<EmployeeDto> getAllEmployees() {
 		return convertToDtoList(categoryRepository.findAll());
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/employee/{id}")
 	public EmployeeDto getEmployeeById(@PathVariable("id") Long id) {
 		Optional<Employee> optional = categoryRepository.findById(id);
@@ -75,7 +72,6 @@ public class EmployeeController {
 		throw new MissingEntryException("ID is invalid");
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/employee/username/{id}")
 	public EmployeeDto getEmployeeDtoByUsername(@PathVariable("id") String id) {
 		return convertToDto(getEmployeeByUsername(id));
@@ -91,8 +87,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/login")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public EmployeeDto login(Principal pricipal) {
-		return getEmployeeDtoByUsername(pricipal.getName());		
+		return getEmployeeDtoByUsername(pricipal.getName());
 	}
 }
