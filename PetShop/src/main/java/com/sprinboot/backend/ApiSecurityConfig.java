@@ -22,18 +22,14 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		//TODO Figure out how to limit extra instructions (/customer/{id})
 		http.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/pet").authenticated()
-//				.antMatchers(HttpMethod.POST, "/pet").authenticated()
-//				.antMatchers(HttpMethod.PUT, "/pet").authenticated()
-//				.antMatchers(HttpMethod.DELETE, "/pet").authenticated()
-//				.antMatchers("/request").authenticated()
-//				.antMatchers("/receipt").authenticated()
-//				.antMatchers(HttpMethod.GET, "/employee").hasAnyAuthority("ADMIN")
-		
+				.antMatchers("/pet").authenticated()
+				.antMatchers("/customer").authenticated()
+				.antMatchers("/request").authenticated()
+				.antMatchers("/receipt").authenticated()
 				// For multiple roles to have authority: .hasAnyAuthority("ADMIN","USER")
-				.antMatchers(HttpMethod.GET, "/employee").hasAnyAuthority("ADMIN")
-				
+				.antMatchers("/employee").hasAnyAuthority("ADMIN")		
 				.anyRequest().permitAll()
 				.and().httpBasic()
 				.and().csrf().disable();
