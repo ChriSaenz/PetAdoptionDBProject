@@ -1,13 +1,15 @@
 package com.sprinboot.backend.controller;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
+import org.springframework.web.bind.annotation.DeleteMapping;
+=======
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
+>>>>>>> main
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,14 +21,32 @@ import com.sprinboot.backend.exceptions.MissingEntryException;
 import com.sprinboot.backend.model.Employee;
 import com.sprinboot.backend.repository.EmployeeRepository;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 public class EmployeeController {
 	@Autowired
+<<<<<<< HEAD
 	private EmployeeRepository employeeRepository;
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 
+	@PostMapping("/employee")
+	public void postCategory(@RequestBody Employee category)
+	{
+		employeeRepository.save(category);
+	}
+
+	@GetMapping("/employee")
+	public List<Employee> getAllEmployees()
+	{
+		return employeeRepository.findAll();
+	}
+
+	@GetMapping("/employee/{id}")
+	public Employee getEmployeeById(@PathVariable("id") Long id)
+	{
+		Optional<Employee> optional =  employeeRepository.findById(id);
+=======
+	private EmployeeRepository categoryRepository;
+	private PasswordEncoder passwordEncoder;
+	
 	private EmployeeDto convertToDto(Employee e) {
 		EmployeeDto dto = new EmployeeDto();
 		dto.setAdmin(e.isAdmin());
@@ -38,8 +58,7 @@ public class EmployeeController {
 		dto.setUsername(e.getUsername());
 		return dto;
 	}
-
-	@CrossOrigin(origins = "http://localhost:4200")
+	
 	private List<EmployeeDto> convertToDtoList(List<Employee> list) {
 		List<EmployeeDto> dtoList = new ArrayList<>();
 		for (Employee e : list) {
@@ -49,21 +68,22 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/employee")
-	public void postEmployee(@RequestBody Employee employee) {
-		String pw = employee.getPassword();
+	public void postEmployee(@RequestBody Employee category) {
+		String pw = category.getPassword();
 		pw = passwordEncoder.encode(pw);
-		employee.setPassword(pw);
-		employeeRepository.save(employee);
+		category.setPassword(pw);
+		categoryRepository.save(category);
 	}
 
 	@GetMapping("/employee")
 	public List<EmployeeDto> getAllEmployees() {
-		return convertToDtoList(employeeRepository.findAll());
+		return convertToDtoList(categoryRepository.findAll());
 	}
 
 	@GetMapping("/employee/{id}")
 	public EmployeeDto getEmployeeById(@PathVariable("id") Long id) {
-		Optional<Employee> optional = employeeRepository.findById(id);
+		Optional<Employee> optional = categoryRepository.findById(id);
+>>>>>>> main
 
 		if (optional.isPresent())
 			return convertToDto(optional.get());
@@ -74,18 +94,18 @@ public class EmployeeController {
 	public EmployeeDto getEmployeeDtoByUsername(@PathVariable("id") String id) {
 		return convertToDto(getEmployeeByUsername(id));
 	}
-
-	@CrossOrigin(origins = "http://localhost:4200")
+	
 	public Employee getEmployeeByUsername(String id) {
-		Optional<Employee> optional = employeeRepository.findByUsername(id);
+		Optional<Employee> optional = categoryRepository.findByUsername(id);
 
 		if (optional.isPresent())
 			return optional.get();
 		throw new MissingEntryException("Username is invalid");
 	}
 	
-	@GetMapping("/login")
-	public EmployeeDto login(Principal pricipal) {
-		return getEmployeeDtoByUsername(pricipal.getName());
+	@DeleteMapping("/employee/{id}")
+	public void deleteEmployeeById(@PathVariable("id")Long id)
+	{
+		employeeRepository.deleteById(id);
 	}
 }

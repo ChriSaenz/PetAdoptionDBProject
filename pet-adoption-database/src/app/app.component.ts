@@ -24,4 +24,11 @@ export class AppComponent implements OnInit {
   }
   title = 'pet-adoption-database';
 
+<<<<<<< HEAD
+=======
+  applySorts(): void
+  {
+    console.log("Test")
+  }
+>>>>>>> origin/diego-spring
 }
