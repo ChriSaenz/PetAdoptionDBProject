@@ -23,13 +23,17 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-//				.antMatchers(HttpMethod.GET, "/pet").authenticated()
-//				.antMatchers(HttpMethod.POST, "/pet").hasAnyAuthority("EMPLOYEE")
-//				.antMatchers(HttpMethod.PUT, "/pet").hasAnyAuthority("EMPLOYEE")
-//				.antMatchers(HttpMethod.DELETE, "/pet").hasAnyAuthority("EMPLOYEE")
-//				.antMatchers("/request").hasAnyAuthority("EMPLOYEE")
-//				.antMatchers("/receipt").hasAnyAuthority("EMPLOYEE")
-//				.antMatchers("/employee").hasAnyAuthority("ADMIN")
+				.antMatchers(HttpMethod.GET, "/pet").authenticated()
+//				.antMatchers(HttpMethod.POST, "/pet").authenticated()
+//				.antMatchers(HttpMethod.PUT, "/pet").authenticated()
+//				.antMatchers(HttpMethod.DELETE, "/pet").authenticated()
+//				.antMatchers("/request").authenticated()
+//				.antMatchers("/receipt").authenticated()
+//				.antMatchers(HttpMethod.GET, "/employee").hasAnyAuthority("ADMIN")
+		
+				// For multiple roles to have authority: .hasAnyAuthority("ADMIN","USER")
+				.antMatchers(HttpMethod.GET, "/employee").hasAnyAuthority("ADMIN")
+				
 				.anyRequest().permitAll()
 				.and().httpBasic()
 				.and().csrf().disable();

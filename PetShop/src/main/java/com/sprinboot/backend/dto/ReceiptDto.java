@@ -1,19 +1,18 @@
 package com.sprinboot.backend.dto;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class ReceiptDto {
 	private Long id;
-	private LocalDate date;
+	private LocalDate LocalDate;
 	private double cost;
 	private Long e_id;
 	private String e_name;
 	private Long c_id;
 	private String c_name;
 	private String c_phone;
-	private Date c_date_joined;
-	private Date c_birthday;
+	private LocalDate c_date_joined;
+	private LocalDate c_birthday;
 	private Long r_id;
 	private LocalDate r_date;
 	private Long p_id;
@@ -33,10 +32,10 @@ public class ReceiptDto {
 		this.id = id;
 	}
 	public LocalDate getDate() {
-		return date;
+		return LocalDate;
 	}
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setDate(LocalDate LocalDate) {
+		this.LocalDate = LocalDate;
 	}
 	public double getCost() {
 		return cost;
@@ -74,16 +73,16 @@ public class ReceiptDto {
 	public void setC_phone(String c_phone) {
 		this.c_phone = c_phone;
 	}
-	public Date getC_date_joined() {
+	public LocalDate getC_date_joined() {
 		return c_date_joined;
 	}
-	public void setC_date_joined(Date c_date_joined) {
+	public void setC_date_joined(LocalDate c_date_joined) {
 		this.c_date_joined = c_date_joined;
 	}
-	public Date getC_birthday() {
+	public LocalDate getC_birthday() {
 		return c_birthday;
 	}
-	public void setC_birthday(Date c_birthday) {
+	public void setC_birthday(LocalDate c_birthday) {
 		this.c_birthday = c_birthday;
 	}
 	public Long getR_id() {

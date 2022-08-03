@@ -22,6 +22,8 @@ import com.sprinboot.backend.repository.EmployeeRepository;
 public class EmployeeController {
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	private EmployeeDto convertToDto(Employee e) {
@@ -45,11 +47,11 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/employee")
-	public void postEmployee(@RequestBody Employee employee) {
+	public Employee postEmployee(@RequestBody Employee employee) {
 		String pw = employee.getPassword();
 		pw = passwordEncoder.encode(pw);
 		employee.setPassword(pw);
-		employeeRepository.save(employee);
+		return employeeRepository.save(employee);
 	}
 
 	@GetMapping("/employee")
