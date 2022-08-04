@@ -23,4 +23,25 @@ export const petsData: Pet[] = [
     species: 'Dog',
     breed: 'Shiba Inu',
   },
+  {
+    id: 4,
+    name: 'Ace',
+    age: 1,
+    species: 'Dog',
+    breed: 'Shiba Inu',
+  },
+  {
+    id: 5,
+    name: 'Ace',
+    age: 1,
+    species: 'Dog',
+    breed: 'Shiba Inu',
+  },
+  {
+    id: 6,
+    name: 'Ace',
+    age: 1,
+    species: 'Dog',
+    breed: 'Shiba Inu',
+  },
 ];

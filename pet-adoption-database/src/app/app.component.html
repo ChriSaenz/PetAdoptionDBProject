@@ -1,7 +1,21 @@
+<div class="banner">
+  <span class="closebutton" onclick="this.parentElement.style.display='none';"
+    >&times;</span
+  >
+  <b>UPDATE: </b>Due to high summer traffic, it may take a little longer to
+  process adoption requests. Thank you for your patience!
+</div>
 <mat-toolbar class="toolbar-container" color="primary">
-  <a class="toolbar-item" routerLink="/home">Pet Adoption Database</a>
-  <a class="toolbar-item" routerLink="/pets">All Pets</a>
-  <span class="toolbar-item">Sign Up/Login</span>
+  <div class="item-container">
+    <div class="logo-container">
+      <a class="logo toolbar-item" routerLink="/home">Pet Adoption Database</a>
+    </div>
+    <div class="toolbar-item-container">
+      <a class="toolbar-item" routerLink="/pets">All Pets</a>
+      <a class="toolbar-item" routerLink="/login">Sign Up/Login</a>
+      <a class="toolbar-item" routerLink="/employeeDashboard">Dashboard</a>
+    </div>
+  </div>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
