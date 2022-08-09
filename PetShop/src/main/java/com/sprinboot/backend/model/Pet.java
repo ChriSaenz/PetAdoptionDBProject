@@ -16,7 +16,7 @@ public class Pet {
 	private Long id;
 	private String name, species;
 	private int age;
-	private LocalDate date_acquired; // Diego's Note: Shouldn't this be Date type?
+	private LocalDate date_acquired;
 	private String sex, color, breed;
 	private boolean vaccinated, neutered;
 	private double cost;

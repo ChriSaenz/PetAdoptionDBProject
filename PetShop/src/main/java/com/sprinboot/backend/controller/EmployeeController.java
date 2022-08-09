@@ -1,11 +1,11 @@
 package com.sprinboot.backend.controller;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +23,10 @@ import com.sprinboot.backend.repository.EmployeeRepository;
 public class EmployeeController {
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
+	
 	private EmployeeDto convertToDto(Employee e) {
 		EmployeeDto dto = new EmployeeDto();
 		dto.setAdmin(e.isAdmin());
@@ -37,8 +38,7 @@ public class EmployeeController {
 		dto.setUsername(e.getUsername());
 		return dto;
 	}
-
-	@CrossOrigin(origins = "http://localhost:4200")
+	
 	private List<EmployeeDto> convertToDtoList(List<Employee> list) {
 		List<EmployeeDto> dtoList = new ArrayList<>();
 		for (Employee e : list) {
@@ -48,11 +48,11 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/employee")
-	public void postEmployee(@RequestBody Employee employee) {
+	public Employee postEmployee(@RequestBody Employee employee) {
 		String pw = employee.getPassword();
 		pw = passwordEncoder.encode(pw);
 		employee.setPassword(pw);
-		employeeRepository.save(employee);
+		return employeeRepository.save(employee);
 	}
 
 	@GetMapping("/employee")
@@ -73,18 +73,12 @@ public class EmployeeController {
 	public EmployeeDto getEmployeeDtoByUsername(@PathVariable("id") String id) {
 		return convertToDto(getEmployeeByUsername(id));
 	}
-
-	@CrossOrigin(origins = "http://localhost:4200")
+	
 	public Employee getEmployeeByUsername(String id) {
 		Optional<Employee> optional = employeeRepository.findByUsername(id);
 
 		if (optional.isPresent())
 			return optional.get();
 		throw new MissingEntryException("Username is invalid");
-	}
-	
-	@GetMapping("/login")
-	public EmployeeDto login(Principal pricipal) {
-		return getEmployeeDtoByUsername(pricipal.getName());
 	}
 }

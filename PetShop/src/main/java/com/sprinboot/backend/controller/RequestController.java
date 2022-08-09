@@ -49,12 +49,10 @@ public class RequestController {
 	private PetRepository petRepository;
 	@Autowired
 	private ReceiptRepository receiptRepository;
-
+	
 	/*
 	 * Converts a request to a DTO
-	 * 
 	 * @param request object
-	 * 
 	 * @return resulting DTO
 	 */
 	private RequestDto convertToDto(Request request) {
@@ -82,12 +80,10 @@ public class RequestController {
 		dto.setE_name(request.getEmployee().getName());
 		return dto;
 	}
-
+	
 	/*
 	 * Converts a list of requests to a list of DTOs
-	 * 
 	 * @param list of requests
-	 * 
 	 * @return list of dtos
 	 */
 	private List<RequestDto> convertListToDto(List<Request> list) {
@@ -100,7 +96,6 @@ public class RequestController {
 
 	/*
 	 * End point to receive all request DTOs
-	 * 
 	 * @return List<RequestDto> - all request DTOs
 	 */
 	@GetMapping("/request")
@@ -110,7 +105,6 @@ public class RequestController {
 
 	/*
 	 * End point to post a new request
-	 * 
 	 * @return RequestDto - newly created object
 	 */
 	@PostMapping("/request/{cid}/{pid}/{eid}")
@@ -124,12 +118,10 @@ public class RequestController {
 		fixRequest(request, cid, pid, eid);
 		return convertToDto(requestRepository.save(request)); // save request
 	}
-
+	
 	/*
 	 * Retrieves a request by its ID
-	 * 
 	 * @param id
-	 * 
 	 * @return resulting request
 	 */
 	private Request getRequestById(Long id) {
@@ -141,28 +133,26 @@ public class RequestController {
 
 	/*
 	 * Finds a single request that matches an ID
-	 * 
-	 * @return RequestDto - resulting object Throws MissingIDException if ID not
-	 * found
+	 * @return RequestDto - resulting object
+	 * Throws MissingIDException if ID not found
 	 */
 	@GetMapping("/request/{id}")
 	public RequestDto getRequestDtoById(@PathVariable("id") Long id) {
-		return convertToDto(getRequestById(id));
 	}
+
 
 	/*
 	 * Deletes a single request from the DB
-	 */
 	@DeleteMapping("/request/{id}")
 	public void deleteRequestById(@PathVariable("id") Long id) {
 		requestRepository.deleteById(id);
 	}
 
+
 	/*
-	 * Helper method: adds customer, pet, and employee to a request Throws
-	 * MissingIDException if any of the three IDs can't be found in the DB
+	 * Helper method: adds customer, pet, and employee to a request
+	 * Throws MissingIDException if any of the three IDs can't be found in the DB
 	 */
-	private void fixRequest(Request old, Long cid, Long pid, Long eid) {
 		Optional<Customer> optionalC = customerRepository.findById(cid);
 		Optional<Pet> optionalP = petRepository.findById(pid);
 		Optional<Employee> optionalE = employeeRepository.findById(eid);
@@ -179,20 +169,15 @@ public class RequestController {
 
 	/*
 	 * Updates a request with new data
-	 * 
 	 * @param request ID
-	 * 
 	 * @param customer ID
-	 * 
 	 * @param pet ID
-	 * 
 	 * @param employee ID
-	 * 
 	 * @return updated request DTO
 	 */
 	@PutMapping("/request/{id}/{cid}/{pid}/{eid}")
-	public RequestDto updateRequest(@RequestBody Request request, @PathVariable("id") Long id,
-			@PathVariable("cid") Long cid, @PathVariable("pid") Long pid, @PathVariable("eid") Long eid) {
+	public RequestDto updateRequest(@RequestBody Request request, @PathVariable("id") Long id, @PathVariable("cid") Long cid,
+			@PathVariable("pid") Long pid, @PathVariable("eid") Long eid) {
 		Request old = getRequestById(id); // find the request
 		fixRequest(old, cid, pid, eid); // Save new customer, employee, and/or pet
 		if (request.getDate() != null) // if date provided
@@ -203,14 +188,13 @@ public class RequestController {
 	}
 
 	/*
-	 * Approve a request that matches an id then create a new receipt
-	 * 
+	 * Approve a request that matches an id
+	 * then create a new receipt
 	 * @param request ID
-	 * 
 	 * @return newly-created receipt
 	 */
 	@PutMapping("/request/approve/{id}")
-	public RequestDto approveRequest(@PathVariable("id") Long id) {
+	public void approveRequest(@PathVariable("id") Long id) {
 		Request request = getRequestById(id); // find the request
 		request.setStatus(Status.Approved); // change status to approved
 		requestRepository.save(request); // save to DB
@@ -222,28 +206,22 @@ public class RequestController {
 		receipt.setDate(LocalDate.now());
 		receipt.setRequest(request);
 		receiptRepository.save(receipt); // save receipt
-		return convertToDto(requestRepository.save(request)); // save to DB
 	}
 
 	/*
 	 * Reject a request that matches an ID
-	 * 
 	 * @param request ID
-	 * 
 	 * @return updated request DTO
 	 */
 	@PutMapping("/request/reject/{id}")
-	public void rejectRequest(@PathVariable("id") Long id) {
+	public RequestDto rejectRequest(@PathVariable("id") Long id) {
 		Request request = getRequestById(id); // find the request
 		request.setStatus(Status.Rejected); // change status to rejected
-		convertToDto(requestRepository.save(request)); // save request
 	}
 
 	/*
 	 * Find requests with a particular pet ID
-	 * 
 	 * @param pet ID
-	 * 
 	 * @return list of request DTOs
 	 */
 	@GetMapping("/request/pet/{id}")
@@ -253,20 +231,14 @@ public class RequestController {
 
 	/*
 	 * Find requests with a particular employee ID
-	 * 
 	 * @param employee ID
-	 * 
 	 * @return list of request DTOs
-	 */ @GetMapping("/request/employee/{id}")
-	public List<RequestDto> getRequestByEmployeeId(@PathVariable("id") Long id) {
-		return convertListToDto(requestRepository.findByEmployeeId(id));
+	 */	@GetMapping("/request/employee/{id}")
 	}
 
 	/*
 	 * Find requests with a particular customer ID
-	 * 
 	 * @param customer ID
-	 * 
 	 * @return list of request DTOs
 	 */
 	@GetMapping("/request/customer/{id}")
@@ -276,9 +248,7 @@ public class RequestController {
 
 	/*
 	 * Find requests with a particular status
-	 * 
 	 * @param status type
-	 * 
 	 * @return list of request DTOs
 	 */
 	@GetMapping("/request/status/{type}")
@@ -289,10 +259,18 @@ public class RequestController {
 	}
 
 	/*
-	 * Find requests before a date
-	 * 
+	 * Find requests at certain date
 	 * @param date
-	 * 
+	 * @return list of request DTOs
+	 */
+	@GetMapping("/request/at")
+	public List<RequestDto> getRequestAtDate(@RequestParam("date") String date) {
+		return convertListToDto(requestRepository.findAtDate(LocalDate.parse(date)));
+	}
+	
+	/*
+	 * Find requests before a date
+	 * @param date
 	 * @return list of request DTOs
 	 */
 	@GetMapping("/request/before")
@@ -302,9 +280,7 @@ public class RequestController {
 
 	/*
 	 * Find requests after a date
-	 * 
 	 * @param date
-	 * 
 	 * @return list of request DTOs
 	 */
 	@GetMapping("/request/after")
@@ -314,50 +290,41 @@ public class RequestController {
 
 	/*
 	 * Find requests between two dates
-	 * 
 	 * @param date - start date
-	 * 
 	 * @param date1 - end date
-	 * 
 	 * @return list of request DTOs
 	 */
 	@GetMapping("/request/between")
 	public List<RequestDto> getRequestBetweenDate(@RequestParam("from") String date, @RequestParam("to") String date1) {
 		return convertListToDto(requestRepository.findBetweenDate(LocalDate.parse(date), LocalDate.parse(date1)));
 	}
-
+	
 	/*
 	 * Find requests of a particular pet species
-	 * 
 	 * @param species string
-	 * 
 	 * @return list of request DTOs
 	 */
 	@GetMapping("/request/species/{species}")
 	public List<RequestDto> getRequestBySpecies(@PathVariable("species") String species) {
 		return convertListToDto(requestRepository.findBySpecies(species));
 	}
-
+	
 	/*
 	 * Find requests of a particular pet breed
-	 * 
 	 * @param breed string
-	 * 
 	 * @return list of request DTOs
-	 */
-	@GetMapping("/request/breed/{breed}")
+	 */	
+	@GetMapping("/request/species/{breed}")
 	public List<RequestDto> getRequestByBreed(@PathVariable("breed") String breed) {
 		return convertListToDto(requestRepository.findByBreed(breed));
 	}
-
+	
 	/*
 	 * Find requests of a particular pet color
-	 * 
 	 * @param color string
-	 * 
 	 * @return list of request DTOs
-	 */
-	@GetMapping("/request/color/{color}")
+	 */	
+	@GetMapping("/request/species/{color}")
 	public List<RequestDto> getRequestByColor(@PathVariable("color") String color) {
 		return convertListToDto(requestRepository.findByColor(color));
 	}

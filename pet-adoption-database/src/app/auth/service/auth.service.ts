@@ -4,17 +4,16 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Employee } from 'src/app/model/employee.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  username$ = new BehaviorSubject<string>("")
-  message$ = new BehaviorSubject<string>("");
+  username$ = new BehaviorSubject<string>('');
+  message$ = new BehaviorSubject<string>('');
   loginApi: string;
 
   constructor(private http: HttpClient) {
-    this.username$.next("");
-    this.loginApi = 'http://localhost:8824/login'
+    this.username$.next('');
+    this.loginApi = 'http://localhost:8824/login';
   }
 
   isLoggedIn(): boolean {
@@ -24,13 +23,13 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<Employee> {
-    let encoded = btoa(username + ":" + password);
+    let encoded = btoa(username + ':' + password);
     let httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + encoded
-      })
-    }
+        Authorization: 'Basic ' + encoded,
+      }),
+    };
     return this.http.get<Employee>(this.loginApi, httpOptions);
   }
 }

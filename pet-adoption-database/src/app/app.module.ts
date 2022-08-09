@@ -3,45 +3,45 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RequestListComponent } from './components/requests/request-list/request-list.component';
-import { RequestFormComponent } from './components/requests/request-form/request-form.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule} from '@angular/common/http';
-import { RequestPageComponent } from './components/requests/request-page/request-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { PetsComponent } from './pets/pets.component';
+import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/component/login/login.component';
-import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { LogoutComponent } from './auth/component/logout/logout.component';
-import { DashboardComponent } from './test/components/dashboard/dashboard.component';
-import { EmployeeLoginComponent } from './test/components/employee-login/employee-login.component';
-import { CartComponent } from './test/components/cart/cart.component';
-import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
-import { EmployeeMenuComponent } from './test/components/employee-menu/employee-menu.component';
-import { RequestSearchComponent } from './components/requests/request-search/request-search.component';
+import { ProfileComponent } from './auth/component/profile/profile.component';
+import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
+import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RequestListComponent,
-    RequestFormComponent,
-    RequestPageComponent,
+    PetsComponent,
+    HomeComponent,
     LoginComponent,
-    EmployeeDashboardComponent,
     LogoutComponent,
-    DashboardComponent,
-    EmployeeLoginComponent,
-    CartComponent,
-    ViewPetsComponent,
-    EmployeeMenuComponent,
-    RequestSearchComponent
+    ProfileComponent,
+    SignUpComponent,
+    EmployeeDashboardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
-    ],
+  ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

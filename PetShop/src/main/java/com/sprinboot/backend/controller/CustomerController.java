@@ -1,5 +1,6 @@
 package com.sprinboot.backend.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,24 +17,26 @@ import com.sprinboot.backend.repository.CustomerRepository;
 @RestController
 public class CustomerController {
 	@Autowired
-	private CustomerRepository categoryRepository;
+	private CustomerRepository customerRepository;
 
 	@PostMapping("/customer")
-	public void postCategory(@RequestBody Customer category)
+	public Customer postCustomer(@RequestBody Customer customer)
 	{
-		categoryRepository.save(category);
+		//Date_Joined is set automatically now
+		customer.setDate_joined(LocalDate.now());
+		return customerRepository.save(customer);
 	}
 
 	@GetMapping("/customer")
-	public List<Customer> getAllCategories()
+	public List<Customer> getAllCustomers()
 	{
-		return categoryRepository.findAll();
+		return customerRepository.findAll();
 	}
 
 	@GetMapping("/customer/{id}")
 	public Customer getCustomerById(@PathVariable("id") Long id)
 	{
-		Optional<Customer> optional =  categoryRepository.findById(id);
+		Optional<Customer> optional =  customerRepository.findById(id);
 
 		if(optional.isPresent())
 			return optional.get();
