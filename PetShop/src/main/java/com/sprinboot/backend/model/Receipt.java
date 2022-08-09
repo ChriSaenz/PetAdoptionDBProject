@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,14 +17,14 @@ public class Receipt {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(nullable = false)
-	private Long employee_id;
+	@OneToOne
+	private Employee employee;
 	
-	@Column(nullable = false)
-	private Long customer_id;
+	@OneToOne
+	private Customer customer;
 	
-	@Column(nullable = false)
-	private Long request_id;
+	@OneToOne
+	private Request request;
 	
 	@Column(nullable = false)
 	private LocalDate date;
@@ -37,30 +38,6 @@ public class Receipt {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getEmployee_id() {
-		return employee_id;
-	}
-
-	public void setEmployee_id(Long employee_id) {
-		this.employee_id = employee_id;
-	}
-
-	public Long getCustomer_id() {
-		return customer_id;
-	}
-
-	public void setCustomer_id(Long customer_id) {
-		this.customer_id = customer_id;
-	}
-
-	public Long getRequest_id() {
-		return request_id;
-	}
-
-	public void setRequest_id(Long request_id) {
-		this.request_id = request_id;
 	}
 
 	public LocalDate getDate() {
@@ -78,4 +55,30 @@ public class Receipt {
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public Request getRequest() {
+		return request;
+	}
+
+	public void setRequest(Request request) {
+		this.request = request;
+	}
+	
+	
 }

@@ -35,7 +35,7 @@ public class PetController {
 	
 	//****************View All Pets**********************
 	@GetMapping("/pet")
-	public List<Pet> getAllCategories() {
+	public List<Pet> getAllPets() {
 		return petRepository.findAll();
 	}
 	

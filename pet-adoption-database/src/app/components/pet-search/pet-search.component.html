@@ -1,0 +1,53 @@
+<h1>Pet Adoption Database</h1>
+<h2>Pet Search</h2>
+<div class="pets-filters">
+  <h4>Available Pets</h4><br />
+  
+    <!-- Change these <form>s to get their <option>s from DB -->
+  <form>
+    <label>Filter by Species</label>
+    <select multiple>
+      <option value="cat">Cat</option>
+      <option value="dog">Dog</option>
+      <option value="fish">Fish</option>
+      <option value="monkey">Monkey</option>
+    </select>
+  </form>
+  <form>
+    <label>Filter by Color</label>
+    <select multiple>
+      <option value="white">White</option>
+      <option value="black">Black</option>
+      <option value="red">Red</option>
+      <option value="blue">Blue</option>
+    </select>
+  </form>
+  <form>
+    <label>Search by Age</label>
+    <input type="number">
+  </form>
+  <button (click)="searchForPets()")>SORT</button>
+</div>
+<div class="pets-table">
+  <style>
+    table {
+        border-collapse: collapse;
+      }
+      th {
+        border: 1px solid #000000;
+        text-align: left;
+        padding: 5px;
+      }
+  </style>
+	<table>
+    <tr>
+      <!-- SELECT name FROM sys.columns -->
+      <div></div>
+    </tr>
+    <div *ngFor="let p of pets">
+    	<tr>
+        <th>{{p.name}}</th>
+      </tr>
+    </div>
+    </table>
+</div>
