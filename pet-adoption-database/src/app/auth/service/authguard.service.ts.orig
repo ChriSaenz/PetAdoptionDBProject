@@ -1,0 +1,47 @@
+import { Injectable } from '@angular/core';
+<<<<<<< HEAD
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { AuthService } from './auth.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthguardService implements CanActivate{
+
+  constructor(private authService: AuthService, private router: Router) { }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    let status = this.authService.isLoggedIn();
+    if (!status) {
+      this.authService.message$.next("Login to continue");
+      this.router.navigateByUrl("/login")
+    }
+    return status;
+
+=======
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthguardService implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean {
+    let status = this.authService.isLoggedIn();
+    if (!status) {
+      this.authService.message$.next('Login to continue');
+      this.router.navigateByUrl('/login');
+    }
+    return status;
+>>>>>>> 58c549c70d5990e4b6a2c3c17a5d74b7fff8fc15
+  }
+}
