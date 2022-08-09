@@ -19,7 +19,6 @@ import com.sprinboot.backend.exceptions.MissingEntryException;
 import com.sprinboot.backend.model.Employee;
 import com.sprinboot.backend.repository.EmployeeRepository;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 public class EmployeeController {
 	@Autowired

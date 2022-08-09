@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { PetRequest } from '../model/petrequest.model';
 import { RequestService } from '../service/request.service';
 
@@ -7,32 +8,25 @@ import { RequestService } from '../service/request.service';
   templateUrl: './request-list.component.html',
   styleUrls: ['./request-list.component.css']
 })
-export class RequestListComponent implements OnInit {
+export class RequestListComponent implements OnInit, OnDestroy {
   errorMsg: string;
   requests: PetRequest[];
   request: PetRequest;
+  subscriptions:Subscription[]=[];
   constructor(private requestService: RequestService) { }
-
-  ngOnInit(): void {
-    this.requestService.request$.subscribe(data => {
-      this.requests = data;
-    });
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub=>sub.unsubscribe);
   }
 
-  /* ngOnInit(): void {
-     this.errorMsg = "";
-     this.requestService.fetchRequests().subscribe({
-       next: (data) => {
-         this.requests = data;
-       },
-       error: (e) => {
-         this.errorMsg = "Requests could not be fetched"
-       }
-     });
- 
-   }*/
+  ngOnInit(): void {
+    this.subscriptions.push(
+    this.requestService.request$.subscribe(data => {
+      this.requests = data;
+    }))
+  }
 
   delete(id: number) {
+    this.subscriptions.push(
     this.requestService.delete(id).subscribe({
       next: (data) => {
         let requestArry = this.requestService.request$.getValue();
@@ -49,11 +43,12 @@ export class RequestListComponent implements OnInit {
       error: (e) => {
         this.errorMsg = "Deletion unsuccessful"
       }
-    })
+    }))
     console.log(this.errorMsg);
   }
 
   approve(id: number) {
+    this.subscriptions.push(
     this.requestService.approve(id).subscribe({
       next: (data) => {
         let requestArry = this.requestService.request$.getValue();
@@ -66,11 +61,12 @@ export class RequestListComponent implements OnInit {
       error: (e) => {
         this.errorMsg = "Approval unsuccessful"
       }
-    })
+    }))
     console.log(this.errorMsg);
   }
 
   reject(id: number) {
+    this.subscriptions.push(
     this.requestService.reject(id).subscribe({
       next: (data) => {
         let requestArry = this.requestService.request$.getValue();
@@ -83,7 +79,7 @@ export class RequestListComponent implements OnInit {
       error: (e) => {
         this.errorMsg = "Rejection unsuccessful"
       }
-    })
+    }))
     console.log(this.errorMsg);
   }
 

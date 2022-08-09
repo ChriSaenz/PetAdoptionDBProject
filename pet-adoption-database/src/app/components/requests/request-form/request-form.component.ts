@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { PetRequest } from '../model/petrequest.model';
 import { RequestService } from '../service/request.service';
 
@@ -8,11 +9,15 @@ import { RequestService } from '../service/request.service';
   templateUrl: './request-form.component.html',
   styleUrls: ['./request-form.component.css']
 })
-export class RequestFormComponent implements OnInit {
+export class RequestFormComponent implements OnInit, OnDestroy {
   requestForm: FormGroup;
   message:string;
+  subscriptions:Subscription[]=[];
   request:PetRequest;
   constructor(private requestService:RequestService) { }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub=>sub.unsubscribe);
+  }
 
   ngOnInit(): void {
     this.message="";
@@ -23,10 +28,11 @@ export class RequestFormComponent implements OnInit {
     })
   }
 
-
   onFormSubmit(){
     this.request = this.requestForm.value;
-     this.requestService.postRequest(this.request, this.requestForm.value.e_id, this.requestForm.value.p_id, this.requestForm.value.c_id).subscribe( {
+    this.subscriptions.push(
+     this.requestService.postRequest(this.request, this.requestForm.value.e_id, this.requestForm.value.p_id, 
+      this.requestForm.value.c_id).subscribe( {
         next: (data)=> {
           this.request = data;
           this.message='request added in the system';
@@ -43,19 +49,6 @@ export class RequestFormComponent implements OnInit {
         error: (e)=>{
           this.message='Operation Failed';
         }
-     });
+     }))
   }
-
- /* onFormSubmit(): void {
-    let request = new PetRequest();
-    this.requestService.postRequest(request, this.requestForm.value.e_id, this.requestForm.value.p_id, this.requestForm.value.c_id).subscribe({
-      next: (data) => {
-        this.message="Request added successfully"
-      },
-      error: (e) => {
-        this.message="Could not perform operation"
-      }
-    })
-  }*/
-
 }

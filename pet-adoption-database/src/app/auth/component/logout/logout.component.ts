@@ -12,8 +12,8 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.clear();
+    this.authService.username$.next(null);
     this.authService.message$.next("Log out successful");
-
   }
 
 

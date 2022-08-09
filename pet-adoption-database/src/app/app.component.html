@@ -1,14 +1,6 @@
-<<<<<<< HEAD
-<div class="navbar">
-  <a routerLink="/login">Employee Login</a>
-</div>
-
 
 <!--
-<h1>Pet Adoption Database</h1>
-=======
-<!-- <h1>Pet Adoption Database</h1>
->>>>>>> origin/diego-spring
+<h1>Pet Adopstion Database</h1>
 <h2>Main Menu</h2>
 <div class="pet-list-with-sorting">
   <h4>Available Pets</h4><br />
@@ -27,9 +19,6 @@
   </form>
   <button (click)="applySorts()")>SORT</button>
 </div>
-<<<<<<< HEAD
--->
-=======
  -->
 
  <div class="navbar">
@@ -37,14 +26,14 @@
       <a routerLink="">DashboardTest</a> &nbsp;&nbsp;&nbsp;
       <a routerLink="/viewPetsTest">View Pets</a> &nbsp;&nbsp;&nbsp;
       <a routerLink="/cartTest">CartTest</a> &nbsp;&nbsp;&nbsp;
-      <a routerLink="/empoloyeeLoginTest">Employee Login</a> &nbsp;&nbsp;&nbsp;
+      <a routerLink="/login" *ngIf="username==null">Employee Login</a>
+     <!-- <a routerLink="/empoloyeeLoginTest">Employee Login</a> &nbsp;&nbsp;&nbsp; -->
       <!-- <a routerLink="/employeeMenuTest">Employee Menu</a> &nbsp;&nbsp;&nbsp; -->
   
   </span>
 
   <hr>
 </div>
->>>>>>> origin/diego-spring
 
 <div>
   <router-outlet></router-outlet>
