@@ -1,0 +1,61 @@
+<<<<<<< HEAD
+<div class="banner">
+  <span class="closebutton" onclick="this.parentElement.style.display='none';"
+    >&times;</span
+  >
+  <b>UPDATE: </b>Due to high summer traffic, it may take a little longer to
+  process adoption requests. Thank you for your patience!
+</div>
+<mat-toolbar class="toolbar-container" color="primary">
+  <div class="item-container">
+    <div class="logo-container">
+      <a class="logo toolbar-item" routerLink="/home">Pet Adoption Database</a>
+    </div>
+    <div class="toolbar-item-container">
+      <a class="toolbar-item" routerLink="/pets">All Pets</a>
+      <a class="toolbar-item" routerLink="/login">Sign Up/Login</a>
+      <a class="toolbar-item" routerLink="/employeeDashboard">Dashboard</a>
+    </div>
+  </div>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
+=======
+<!-- <h1>Pet Adoption Database</h1>
+<h2>Main Menu</h2>
+<div class="pet-list-with-sorting">
+  <h4>Available Pets</h4><br />
+  <form>
+    <label>Breed</label>
+    <select>
+      <option value="cat">Cat</option>
+      <option value="dog">Dog</option>
+      <option value="fish">Fish</option>
+      <option value="monkey">Monkey</option>
+    </select>
+  </form>
+  <form>
+    <label>Age</label>
+    <input type="text">
+  </form>
+  <button (click)="applySorts()")>SORT</button>
+</div>
+ -->
+
+ <div class="navbar">
+  <span>
+      <a routerLink="">DashboardTest</a> &nbsp;&nbsp;&nbsp;
+      <a routerLink="/viewPetsTest">View Pets</a> &nbsp;&nbsp;&nbsp;
+      <a routerLink="/cartTest">CartTest</a> &nbsp;&nbsp;&nbsp;
+      <a routerLink="/empoloyeeLoginTest">Employee Login</a> &nbsp;&nbsp;&nbsp;
+      <!-- <a routerLink="/employeeMenuTest">Employee Menu</a> &nbsp;&nbsp;&nbsp; -->
+  
+  </span>
+
+  <hr>
+</div>
+
+<div>
+  <router-outlet></router-outlet>
+</div>
+>>>>>>> 167170d20231432695c4bf2fdd4da95ebda32d05

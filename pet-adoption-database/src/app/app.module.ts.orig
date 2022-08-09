@@ -1,0 +1,71 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+<<<<<<< HEAD
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { PetsComponent } from './pets/pets.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './auth/component/login/login.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { LogoutComponent } from './auth/component/logout/logout.component';
+import { ProfileComponent } from './auth/component/profile/profile.component';
+import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
+import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+=======
+import { DashboardComponent } from './test/components/dashboard/dashboard.component';
+import { EmployeeLoginComponent } from './test/components/employee-login/employee-login.component';
+import { CartComponent } from './test/components/cart/cart.component';
+import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
+import { EmployeeMenuComponent } from './test/components/employee-menu/employee-menu.component';
+>>>>>>> 167170d20231432695c4bf2fdd4da95ebda32d05
+
+@NgModule({
+  declarations: [
+    AppComponent,
+<<<<<<< HEAD
+    PetsComponent,
+    HomeComponent,
+    LoginComponent,
+    LogoutComponent,
+    ProfileComponent,
+    SignUpComponent,
+    EmployeeDashboardComponent,
+=======
+    DashboardComponent,
+    EmployeeLoginComponent,
+    CartComponent,
+    ViewPetsComponent,
+    EmployeeMenuComponent
+>>>>>>> 167170d20231432695c4bf2fdd4da95ebda32d05
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+<<<<<<< HEAD
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+=======
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+>>>>>>> 167170d20231432695c4bf2fdd4da95ebda32d05

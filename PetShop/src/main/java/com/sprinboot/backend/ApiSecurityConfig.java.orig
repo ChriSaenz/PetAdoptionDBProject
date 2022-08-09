@@ -1,0 +1,98 @@
+package com.sprinboot.backend;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+<<<<<<< HEAD
+=======
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+>>>>>>> 167170d20231432695c4bf2fdd4da95ebda32d05
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.sprinboot.backend.service.MyUserDetailService;
+
+<<<<<<< HEAD
+public class ApiSecurityConfig extends WebSecurityConfigurerAdapter{
+=======
+@SuppressWarnings("deprecation")
+@Configuration
+public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
+
+>>>>>>> 167170d20231432695c4bf2fdd4da95ebda32d05
+	@Autowired
+	private MyUserDetailService myUserDetailService;
+	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+<<<<<<< HEAD
+		http.authorizeRequests()
+//		.antMatchers(HttpMethod.GET, "/pet").authenticated()
+//		.antMatchers(HttpMethod.POST, "/pet").hasAnyAuthority("EMPLOYEE")
+//		.antMatchers(HttpMethod.PUT, "/pet").hasAnyAuthority("EMPLOYEE")
+//		.antMatchers(HttpMethod.DELETE, "/pet").hasAnyAuthority("EMPLOYEE")
+//		.antMatchers("/request").hasAnyAuthority("EMPLOYEE")
+//		.antMatchers("/receipt").hasAnyAuthority("EMPLOYEE")
+//		.antMatchers("/employee").hasAnyAuthority("ADMIN")
+		.anyRequest().permitAll()
+		.and().httpBasic()
+		.and().csrf().disable();
+	}
+		
+		@Override
+		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+			auth.authenticationProvider(getCustomProvider());
+		}
+		
+		private DaoAuthenticationProvider getCustomProvider() {
+			DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
+			dao.setPasswordEncoder(getPasswordEncoder());
+			dao.setUserDetailService(myUserDetailService);
+			return dao;
+		}
+
+	    @Bean
+	    PasswordEncoder getPasswordEncoder() {
+	        return new BCryptPasswordEncoder();
+	    }
+
+	}
+=======
+		//TODO Figure out how to limit extra instructions (/customer/{id})
+		http.authorizeRequests()
+				.antMatchers("/pet").authenticated()
+				.antMatchers("/customer").authenticated()
+				.antMatchers("/request").authenticated()
+				.antMatchers("/receipt").authenticated()
+				// For multiple roles to have authority: .hasAnyAuthority("ADMIN","USER")
+				.antMatchers("/employee").hasAnyAuthority("ADMIN")		
+				.anyRequest().permitAll()
+				.and().httpBasic()
+				.and().csrf().disable();
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(getCustomProvider());
+	}
+
+	@Bean
+	public PasswordEncoder getPasswordEncoder()
+	{
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		
+		return passwordEncoder;
+	}
+	
+	private DaoAuthenticationProvider getCustomProvider() {
+		DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
+		dao.setPasswordEncoder(getPasswordEncoder());
+		dao.setUserDetailsService(myUserDetailService);
+		return dao;
+	}
+}
+>>>>>>> 167170d20231432695c4bf2fdd4da95ebda32d05
