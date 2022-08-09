@@ -36,22 +36,21 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and().csrf().disable();
 	}
 		
-		@Override
-		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-			auth.authenticationProvider(getCustomProvider());
-		}
-		
-		private DaoAuthenticationProvider getCustomProvider() {
-			DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
-			dao.setPasswordEncoder(getPasswordEncoder());
-			dao.setUserDetailService(myUserDetailService);
-			return dao;
-		}
-
-	    @Bean
-	    PasswordEncoder getPasswordEncoder() {
-	        return new BCryptPasswordEncoder();
-	    }
-
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(getCustomProvider());
 	}
+	
+	private DaoAuthenticationProvider getCustomProvider() {
+		DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
+		dao.setPasswordEncoder(getPasswordEncoder());
+		dao.setUserDetailsService(myUserDetailService);
+		return dao;
+	}
+
+    @Bean
+    PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
 }

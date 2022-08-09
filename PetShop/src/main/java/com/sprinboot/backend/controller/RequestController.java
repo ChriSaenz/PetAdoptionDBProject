@@ -138,21 +138,22 @@ public class RequestController {
 	 */
 	@GetMapping("/request/{id}")
 	public RequestDto getRequestDtoById(@PathVariable("id") Long id) {
+		return convertToDto(getRequestById(id));
 	}
-
 
 	/*
 	 * Deletes a single request from the DB
+	 */
 	@DeleteMapping("/request/{id}")
 	public void deleteRequestById(@PathVariable("id") Long id) {
 		requestRepository.deleteById(id);
 	}
 
-
 	/*
 	 * Helper method: adds customer, pet, and employee to a request
 	 * Throws MissingIDException if any of the three IDs can't be found in the DB
 	 */
+	private void fixRequest(Request old, Long cid, Long pid, Long eid) {
 		Optional<Customer> optionalC = customerRepository.findById(cid);
 		Optional<Pet> optionalP = petRepository.findById(pid);
 		Optional<Employee> optionalE = employeeRepository.findById(eid);
@@ -217,6 +218,7 @@ public class RequestController {
 	public RequestDto rejectRequest(@PathVariable("id") Long id) {
 		Request request = getRequestById(id); // find the request
 		request.setStatus(Status.Rejected); // change status to rejected
+		return convertToDto(requestRepository.save(request)); // save request
 	}
 
 	/*
@@ -233,7 +235,10 @@ public class RequestController {
 	 * Find requests with a particular employee ID
 	 * @param employee ID
 	 * @return list of request DTOs
-	 */	@GetMapping("/request/employee/{id}")
+	 */	
+	@GetMapping("/request/employee/{id}")
+	public List<RequestDto> getRequestByEmployeeId(@PathVariable("id") Long id) {
+		return convertListToDto(requestRepository.findByEmployeeId(id));
 	}
 
 	/*
