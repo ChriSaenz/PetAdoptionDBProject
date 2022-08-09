@@ -1,21 +1,35 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Employee } from 'src/app/model/employee.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  username: string;
+  username$ = new BehaviorSubject<string>('');
   message$ = new BehaviorSubject<string>('');
-  constructor() {
-    this.username = '';
+  loginApi: string;
+
+  constructor(private http: HttpClient) {
+    this.username$.next('');
+    this.loginApi = 'http://localhost:8824/login';
   }
 
   isLoggedIn(): boolean {
-    this.username = localStorage.getItem('username');
-    if (this.username == null) return false;
+    this.username$.next(localStorage.getItem('username'));
+    if (this.username$ == null) return false;
     return true;
   }
 
-  login(username: string, password: string) {}
+  login(username: string, password: string): Observable<Employee> {
+    let encoded = btoa(username + ':' + password);
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Basic ' + encoded,
+      }),
+    };
+    return this.http.get<Employee>(this.loginApi, httpOptions);
+  }
 }

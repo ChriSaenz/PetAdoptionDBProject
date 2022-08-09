@@ -112,4 +112,9 @@ public class Employee {
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
 	}
+
+	public boolean isAdmin() {
+		// TODO Auto-generated method stub
+		return admin;
+	}
 }
