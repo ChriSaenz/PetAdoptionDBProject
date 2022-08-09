@@ -35,6 +35,10 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 	@Query("select r from Request r where r.status=?1")
 	List<Request> findByStatusType(Status status);
 
+	// Select requests that contain a date in a particular date
+	@Query("select r from Request r where r.date = ?1")
+	List<Request> findAtDate(LocalDate date);
+	
 	// Select requests that contain a date before a particular date
 	@Query("select r from Request r where r.date<?1")
 	List<Request> findBeforeDate(LocalDate date);

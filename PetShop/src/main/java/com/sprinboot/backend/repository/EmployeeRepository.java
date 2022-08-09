@@ -12,5 +12,4 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>
 
 	@Query("select e from Employee e where e.username=?1")
 	Optional<Employee> findByUsername(String id);
-
 }

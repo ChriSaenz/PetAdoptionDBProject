@@ -263,6 +263,16 @@ public class RequestController {
 	}
 
 	/*
+	 * Find requests at certain date
+	 * @param date
+	 * @return list of request DTOs
+	 */
+	@GetMapping("/request/at")
+	public List<RequestDto> getRequestAtDate(@RequestParam("date") String date) {
+		return convertListToDto(requestRepository.findAtDate(LocalDate.parse(date)));
+	}
+	
+	/*
 	 * Find requests before a date
 	 * @param date
 	 * @return list of request DTOs

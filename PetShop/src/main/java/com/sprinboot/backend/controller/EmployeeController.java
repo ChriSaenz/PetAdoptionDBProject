@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,9 @@ import com.sprinboot.backend.repository.EmployeeRepository;
 @RestController
 public class EmployeeController {
 	@Autowired
-	private EmployeeRepository categoryRepository;
+	private EmployeeRepository employeeRepository;
+	
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	private EmployeeDto convertToDto(Employee e) {
@@ -44,21 +47,21 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/employee")
-	public void postEmployee(@RequestBody Employee category) {
-		String pw = category.getPassword();
+	public Employee postEmployee(@RequestBody Employee employee) {
+		String pw = employee.getPassword();
 		pw = passwordEncoder.encode(pw);
-		category.setPassword(pw);
-		categoryRepository.save(category);
+		employee.setPassword(pw);
+		return employeeRepository.save(employee);
 	}
 
 	@GetMapping("/employee")
 	public List<EmployeeDto> getAllEmployees() {
-		return convertToDtoList(categoryRepository.findAll());
+		return convertToDtoList(employeeRepository.findAll());
 	}
 
 	@GetMapping("/employee/{id}")
 	public EmployeeDto getEmployeeById(@PathVariable("id") Long id) {
-		Optional<Employee> optional = categoryRepository.findById(id);
+		Optional<Employee> optional = employeeRepository.findById(id);
 
 		if (optional.isPresent())
 			return convertToDto(optional.get());
@@ -71,7 +74,7 @@ public class EmployeeController {
 	}
 	
 	public Employee getEmployeeByUsername(String id) {
-		Optional<Employee> optional = categoryRepository.findByUsername(id);
+		Optional<Employee> optional = employeeRepository.findByUsername(id);
 
 		if (optional.isPresent())
 			return optional.get();
