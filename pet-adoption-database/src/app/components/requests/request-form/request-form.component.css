@@ -1,0 +1,10 @@
+.form-box {
+    padding: 5px;
+    border: 5px black;
+    border-style: solid;
+    margin: 5px;
+    max-width: 500px;
+    float: left;
+    border-radius: 10px;
+}
+

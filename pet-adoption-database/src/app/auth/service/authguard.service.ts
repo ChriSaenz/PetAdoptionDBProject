@@ -19,8 +19,8 @@ export class AuthguardService implements CanActivate {
   ): boolean {
     let status = this.authService.isLoggedIn();
     if (!status) {
-      this.authService.message$.next('Login to continue');
-      this.router.navigateByUrl('/login');
+      this.authService.message$.next("Login to continue");
+      this.router.navigateByUrl("/login")
     }
     return status;
   }
