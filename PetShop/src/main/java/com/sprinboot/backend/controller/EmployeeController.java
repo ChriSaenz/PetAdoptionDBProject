@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,18 +21,13 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
 	private EmployeeDto convertToDto(Employee e) {
 		EmployeeDto dto = new EmployeeDto();
-		dto.setAdmin(e.isAdmin());
 		dto.setId(e.getId());
 		dto.setName(e.getName());
 		dto.setPhone(e.getPhone());
 		dto.setSalary(e.getSalary());
 		dto.setTitle(e.getTitle());
-		dto.setUsername(e.getUsername());
 		return dto;
 	}
 	
@@ -49,9 +41,6 @@ public class EmployeeController {
 
 	@PostMapping("/employee")
 	public Employee postEmployee(@RequestBody Employee employee) {
-		String pw = employee.getPassword();
-		pw = passwordEncoder.encode(pw);
-		employee.setPassword(pw);
 		return employeeRepository.save(employee);
 	}
 
@@ -69,16 +58,23 @@ public class EmployeeController {
 		throw new MissingEntryException("ID is invalid");
 	}
 
-	@GetMapping("/employee/username/{id}")
-	public EmployeeDto getEmployeeDtoByUsername(@PathVariable("id") String id) {
-		return convertToDto(getEmployeeByUsername(id));
-	}
+//	@GetMapping("/employee/username/{id}")
+//	public EmployeeDto getEmployeeDtoByUsername(@PathVariable("id") String id) {
+//		return convertToDto(getEmployeeByUsername(id));
+//	}
+//	
+//	public Employee getEmployeeByUsername(String id) {
+//		Optional<Employee> optional = employeeRepository.findByUsername(id);
+//
+//		if (optional.isPresent())
+//			return optional.get();
+//		throw new MissingEntryException("Username is invalid");
+//	}
 	
-	public Employee getEmployeeByUsername(String id) {
-		Optional<Employee> optional = employeeRepository.findByUsername(id);
-
-		if (optional.isPresent())
-			return optional.get();
-		throw new MissingEntryException("Username is invalid");
-	}
+//	@GetMapping("/login")
+//	public UserLoginDto login(Principal principal)
+//	{
+//		String username = principal.getName();
+//		
+//	}
 }
