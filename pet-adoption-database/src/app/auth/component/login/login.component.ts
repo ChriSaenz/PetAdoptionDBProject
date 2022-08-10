@@ -18,21 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {}
-}
-/**
-export class LoginComponent implements OnInit {
- 
-  message: string;
-  loginForm: FormGroup;
-  username: string;
-  password: string;
-  employee: Employee;
-
-  constructor(private authService: AuthService, private router: Router) {}
-
   ngOnInit(): void {
-    
     this.loginForm = new FormGroup({
       username: new FormControl(''),
       password: new FormControl(''),
@@ -41,7 +27,6 @@ export class LoginComponent implements OnInit {
     this.authService.message$.subscribe((data) => {
       this.message = data;
     });
-
   }
 
   onFormSubmit() {
@@ -65,4 +50,3 @@ export class LoginComponent implements OnInit {
     });
   }
 }
-*/

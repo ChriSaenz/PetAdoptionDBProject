@@ -1,17 +1,21 @@
-.container {
-  margin: auto;
-  width: 50%;
-  padding: 10px;
-}
 .pet-cards {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-.pet-card {
-  width: 230px;
+  padding: 16px;
 }
 
-.filters {
-  padding: 10px;
+.pet-cards > mat-card {
+  width: 200px;
+}
+
+mat-sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav,
+mat-sidenav-content {
+  padding: 16px;
+}
+
+mat-sidenav {
+  background-color: lightblue;
+  width: 200px;
 }

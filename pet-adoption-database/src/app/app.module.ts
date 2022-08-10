@@ -17,6 +17,12 @@ import { ProfileComponent } from './auth/component/profile/profile.component';
 import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { MatInputModule } from '@angular/material/input';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -40,6 +46,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    MatInputModule,
+    FlexLayoutModule,
+    MatSidenavModule,
+    MatSelectModule,
+    MatRippleModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

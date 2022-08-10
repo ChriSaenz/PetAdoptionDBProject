@@ -1,27 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 .hero {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  height: 70%;
+}
+
+.hero-image {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
-  background-position: center center;
+
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
 }
 
-.hero-search-box {
-  width: 35vw;
-  height: 15vh;
-  background-color: #efeef1;
-  border-radius: 15px;
+.hero-text {
+  text-align: center;
+  color: white;
+  padding-top: 150px;
+  font-family: "Montserrat", sans-serif;
 }
-
-h1 {
-  float: left;
-  padding: 10px;
+.hero-text h1 {
+  font-size: 40px;
 }
