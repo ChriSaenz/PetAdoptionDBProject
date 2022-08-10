@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.sprinboot.backend.dto.UserEditDto;
 import com.sprinboot.backend.dto.UserInfoDto;
@@ -21,6 +22,7 @@ import com.sprinboot.backend.exceptions.InvalidEntryException;
 import com.sprinboot.backend.model.UserProfile;
 import com.sprinboot.backend.repository.UserRepository;
 
+@RestController
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
@@ -37,6 +39,7 @@ public class UserController {
 		if(optional.isPresent())
 			throw new InvalidEntryException("[postUserDebug] Username already in use");
 		
+		u.setPasswordLastReset(LocalDate.now());
 		u.setPassword(encoder.encode(u.getPassword()));
 		return userRepository.save(u);
 	}

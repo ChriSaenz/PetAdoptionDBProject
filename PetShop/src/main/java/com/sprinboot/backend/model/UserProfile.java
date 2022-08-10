@@ -37,7 +37,6 @@ public class UserProfile {
 	@Column(nullable = false)
 	private String securityAnswer;
 	
-	@Column(nullable = false)
 	private LocalDate passwordLastReset;
 	
 	public UserProfile() {

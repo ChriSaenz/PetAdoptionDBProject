@@ -1,27 +1,25 @@
-Since Adding Employees will need to encrypt passwords,
+Since Adding Users will need to encrypt passwords,
 we need to add them manually in Postman as:
 	localhost:8824/employee
-(If no employees available, you will need to comment out line 34 in ApiSecurityConfig)
+(If no users available, you will need to comment out line 34 in ApiSecurityConfig)
 
-Employees:
+Users:
 	-Biggs, Admin
 		{ 
-		"username": "Biggs", 
+		"nickname": "Biggums",
+		"username": "Boss", 
 		"password": "42", 
-		"name": "Biggums McBlue", 
-		"phone": "(123)663-2523", 
-		"salary": 999999, 
-		"title": "Overlord", 
-		"admin": true 
+		"role": "ADMIN",
+		"securityAnswer": "Me",
+		"securityQuestion": "Most important person in your life?"
 		}
 
 	-Cheeseburger, Normal Employee
-	{
-    "username": "Cheeseburger",
-    "password": "23",
-    "name": "Carmen T",
-    "phone": "(123)568-8793",
-    "salary": 90000,
-    "title": "Supervisor",
-    "admin": false
-	}
+		{
+		"nickname": "Bear",
+		"username": "Cheese", 
+		"password": "12", 
+		"role": "EMPLOYEE",
+		"securityAnswer": "Bees",
+		"securityQuestion": "Life nemesis?"
+		}

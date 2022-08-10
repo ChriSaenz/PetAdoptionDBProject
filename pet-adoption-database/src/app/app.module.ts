@@ -18,6 +18,7 @@ import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,9 @@ import { HttpClientModule } from '@angular/common/http';
     ProfileComponent,
     SignUpComponent,
     EmployeeDashboardComponent,
+
+    //Test
+    ViewPetsComponent,
   ],
   imports: [
     BrowserModule,

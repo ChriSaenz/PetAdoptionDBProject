@@ -28,12 +28,12 @@ INSERT INTO Customer (id, name, phone, date_joined, birthday) VALUES
 describe Employee;
 select * from Employee;
 -- set SQL_SAFE_UPDATES = 0; delete from Employee; set SQL_SAFE_UPDATES = 1;
-insert into Employee(id, username, password, name, phone, salary, title, admin) values
-(8, "Boss", "42", "Biggs", "(555)559-7985", 500000.00, "Big Boss", 1),
-(9, "Linked", "33", "Stack", "(505)165-7465", 80000.00, "Employee A", 0),
-(10, "Inn", "23", "Over", "(755)216-9849", 50000.00, "Employee B", 0),
-(11, "Pause", "98", "Flow", "(855)789-2160", 70000.00, "Employee C", 0),
-(12, "Menu", "49", "Thanks", "(655)468-4650", 100000.00, "Employee D", 0);
+insert into Employee(id, name, phone, salary, title) values
+(8, "Boss", "(555)559-7985", 500000.00, "Big Boss"),
+(9, "Linked", "(505)165-7465", 80000.00, "Employee A"),
+(10, "Inn", "(755)216-9849", 50000.00, "Employee B"),
+(11, "Pause", "(855)789-2160", 70000.00, "Employee C"),
+(12, "Menu", "(655)468-4650", 100000.00, "Employee D");
 
 
 describe Pet;
@@ -56,6 +56,12 @@ insert into Request(id, employee_id, customer_id, pet_id, date, status) values
 (20, 11, 2, 14, '2022-07-8', "Pending"),
 (21, 12, 1, 18, '2022-07-10', "Pending");
 
+-- Input manually in Postman
+describe User;
+select * from User;
+-- -- set SQL_SAFE_UPDATES = 0; delete from User; set SQL_SAFE_UPDATES = 1;
+-- insert into User(id, username, password) values
+-- ();
 
 -- Should be auto Generated
 describe Receipt;
