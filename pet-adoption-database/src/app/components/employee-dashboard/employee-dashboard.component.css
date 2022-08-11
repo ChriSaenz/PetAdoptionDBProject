@@ -1,0 +1,27 @@
+mat-sidenav-container {
+  height: 500px;
+}
+
+mat-sidenav,
+mat-sidenav-content {
+  padding: 16px;
+}
+
+mat-sidenav {
+  background-color: lightblue;
+  width: 200px;
+}
+
+.dashboard-container {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sidebar-nav {
+  flex-direction: column;
+}
+
+.sidenav-option {
+  padding: 10px;
+}

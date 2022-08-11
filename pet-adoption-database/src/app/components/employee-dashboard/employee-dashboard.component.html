@@ -1,4 +1,11 @@
-<div class="navbar">
-    <a routerLink="/requests">Requests</a>&nbsp;&nbsp;
-    <a routerLink="/logout">Logout</a>
-  </div>
+<div class="dashboard-container">
+  <mat-sidenav-container>
+    <mat-sidenav mode="side" opened class="sidebar-nav">
+      <div class="sidenav-option">Account Info</div>
+      <div class="sidenav-option">Requests</div>
+      <div class="sidenav-option">Support</div>
+      <div class="sidenav-option">Logout</div>
+    </mat-sidenav>
+    <mat-sidenav-content>Main content</mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

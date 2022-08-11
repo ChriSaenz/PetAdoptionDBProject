@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-<<<<<<< HEAD
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
@@ -18,18 +17,20 @@ import { ProfileComponent } from './auth/component/profile/profile.component';
 import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+<<<<<<< HEAD
+import { MatInputModule } from '@angular/material/input';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRippleModule } from '@angular/material/core';
 =======
-import { DashboardComponent } from './test/components/dashboard/dashboard.component';
-import { EmployeeLoginComponent } from './test/components/employee-login/employee-login.component';
-import { CartComponent } from './test/components/cart/cart.component';
 import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
-import { EmployeeMenuComponent } from './test/components/employee-menu/employee-menu.component';
->>>>>>> 167170d20231432695c4bf2fdd4da95ebda32d05
+>>>>>>> main
 
 @NgModule({
   declarations: [
     AppComponent,
-<<<<<<< HEAD
     PetsComponent,
     HomeComponent,
     LoginComponent,
@@ -37,18 +38,13 @@ import { EmployeeMenuComponent } from './test/components/employee-menu/employee-
     ProfileComponent,
     SignUpComponent,
     EmployeeDashboardComponent,
-=======
-    DashboardComponent,
-    EmployeeLoginComponent,
-    CartComponent,
+
+    //Test
     ViewPetsComponent,
-    EmployeeMenuComponent
->>>>>>> 167170d20231432695c4bf2fdd4da95ebda32d05
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-<<<<<<< HEAD
     BrowserAnimationsModule,
     MatToolbarModule,
     MatCardModule,
@@ -57,15 +53,18 @@ import { EmployeeMenuComponent } from './test/components/employee-menu/employee-
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
+<<<<<<< HEAD
+    HttpClientModule,
+    MatInputModule,
+    FlexLayoutModule,
+    MatSidenavModule,
+    MatSelectModule,
+    MatRippleModule,
+=======
+    HttpClientModule
+>>>>>>> main
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-=======
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
->>>>>>> 167170d20231432695c4bf2fdd4da95ebda32d05

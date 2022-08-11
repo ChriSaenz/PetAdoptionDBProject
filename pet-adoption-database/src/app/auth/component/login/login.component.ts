@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Employee } from 'src/app/model/employee.model';
+import { Employee } from 'app/model/employee.model';
 import { AuthService } from '../../service/auth.service';
 
 @Component({
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
           btoa(this.username + ':' + this.password)
         );
         this.authService.username$.next(this.employee.username);
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/employeeDashboard');
       },
       error: (e) => {
         this.authService.message$.next('Invalid Credentials');
