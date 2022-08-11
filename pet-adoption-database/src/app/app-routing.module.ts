@@ -6,6 +6,9 @@ import { LoginComponent } from './auth/component/login/login.component';
 import { AuthguardService } from './auth/service/authguard.service';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 
+//Testing
+import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
@@ -16,6 +19,9 @@ const routes: Routes = [
     component: EmployeeDashboardComponent,
     canActivate: [AuthguardService],
   },
+
+  //Testing
+  { path: 'test', component: ViewPetsComponent },
 ];
 
 @NgModule({

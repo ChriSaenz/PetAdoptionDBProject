@@ -1,1 +1,8 @@
-<p>view-pets works!</p>
+<h1>[Test] Pets List from Database</h1>
+
+<div *ngFor="let p of pets">
+    Name: <strong>{{p.name}}</strong> &nbsp;&nbsp;
+    Species: {{p.species}} &nbsp;&nbsp;
+    <hr>
+</div>
+<br /><br />
