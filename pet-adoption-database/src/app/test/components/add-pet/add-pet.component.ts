@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { Pet } from '../../model/pet.model';
@@ -23,21 +23,27 @@ export class AddPetComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.newPetForm = new FormGroup({
-      name: new FormControl(''),
-      age: new FormControl(''),
-      species: new FormControl(''),
-      breed: new FormControl(''),
-      color: new FormControl(''),
-      sex: new FormControl(''),
-      neutered: new FormControl(''),
-      vaccinated: new FormControl(''),
-      cost: new FormControl('')
+      name: new FormControl('', [Validators.required]),
+      age: new FormControl('', [Validators.required]),
+      species: new FormControl('', [Validators.required]),
+      breed: new FormControl('', [Validators.required]),
+      color: new FormControl('', [Validators.required]),
+      sex: new FormControl('', [Validators.required]),
+      neutered: new FormControl(false),
+      vaccinated: new FormControl(false),
+      cost: new FormControl('', [Validators.required]),
+      imagePath: new FormControl('', [Validators.required])
     })
   }
 
   onFormSubmit() {
-    this.pet = this.newPetForm.value
+    //Getting only the image name for imagePath
+    let path = this.newPetForm.get('imagePath').value
+    let splittedPath = path.split("\\")
 
+    this.newPetForm.value.imagePath = splittedPath[splittedPath.length - 1]
+
+    this.pet = this.newPetForm.value
 
     this.petService.postPet(this.pet).subscribe({
       next: (data) => {
@@ -57,23 +63,7 @@ export class AddPetComponent implements OnInit, OnDestroy {
       }
     })
 
-    // this.username = this.loginForm.value.username
-    // this.password = this.loginForm.value.password
-
-    // this.subscriptions.push(
-    //   this.authService.login(this.username, this.password).subscribe({
-    //     next: (data) => {
-    //       this.user = data
-    //       localStorage.setItem('username', this.user.username)
-    //       localStorage.setItem('credentials', btoa(this.username + ':' + this.password))
-    //       this.authService.username$.next(this.user.username)
-    //       this.router.navigateByUrl('/dashboard')
-    //     },
-    //     error: (e) => {
-    //       this.authService.message$.next("Invalid Credentials")
-    //     }
-    //   })
-    // )
+    //     error: (e) => {this.authService.message$.next("Invalid Credentials")}
   }
 
   ngOnDestroy(): void {

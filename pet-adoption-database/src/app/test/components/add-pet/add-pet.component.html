@@ -38,6 +38,10 @@
   <input type="number" name="cost" formControlName="cost">
   <br /><br />
 
+  <label>Photo: </label>
+  <input type="file" name="imagePath" accept="image/gif, image/jpeg, image/png" formControlName="imagePath">
+  <br /><br />
+
   <input type="submit" value="Add Pet" [disabled]="!newPetForm.valid">
 
 </form>

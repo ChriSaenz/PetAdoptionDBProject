@@ -11,4 +11,5 @@ export class Pet
     vaccinated: boolean
     date_acquired?: string
     cost: number
+    imagePath?: string
 }

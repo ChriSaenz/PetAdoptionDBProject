@@ -7,7 +7,6 @@ USE `adoption_systemV2` ;
 -- Tables should already be created by Spring
 show tables;
 show databases;
-
 -- ---------------------------
 -- Adding values to the tables
 -- ---------------------------
