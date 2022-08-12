@@ -1,6 +1,6 @@
 export class Pet
 {
-    id: number
+    id?: number
     name: string
     age: number
     species: string
@@ -9,6 +9,6 @@ export class Pet
     sex: string
     neutered: boolean
     vaccinated: boolean
-    date_acquired: string
+    date_acquired?: string
     cost: number
 }

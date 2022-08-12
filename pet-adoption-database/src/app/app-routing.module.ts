@@ -8,6 +8,7 @@ import { EmployeeDashboardComponent } from './components/employee-dashboard/empl
 
 //Testing
 import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
+import { AddPetComponent } from './test/components/add-pet/add-pet.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
 
   //Testing
   { path: 'test', component: ViewPetsComponent },
+  { path: 'pet-add-test', component: AddPetComponent },
 ];
 
 @NgModule({

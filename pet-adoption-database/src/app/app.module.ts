@@ -19,6 +19,7 @@ import { EmployeeDashboardComponent } from './components/employee-dashboard/empl
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
+import { AddPetComponent } from './test/components/add-pet/add-pet.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,8 @@ import { ViewPetsComponent } from './test/components/view-pets/view-pets.compone
 
     //Test
     ViewPetsComponent,
+    AddPetComponent,
+      
   ],
   imports: [
     BrowserModule,
