@@ -19,6 +19,9 @@
 <div class="content">
   <mat-card class="mat-elevation-z5">
     <mat-card-title> Login </mat-card-title>
+    <div class="invalid-login">
+      <h3 style="color: red">{{ message }}</h3>
+    </div>
 
     <form (submit)="onFormSubmit()" [formGroup]="loginForm">
       <div class="field">
@@ -47,7 +50,6 @@
       </div>
       <button
         mat-raised-button
-        color="primary"
         type="submit"
         value="Login"
         [disabled]="!loginForm.valid"

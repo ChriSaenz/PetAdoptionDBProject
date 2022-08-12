@@ -45,6 +45,7 @@ public class UserController {
 	}
 	
 	//Angular Post
+	//Sign up
 	@PostMapping("/user")
 	public UserProfile postUser(@RequestBody UserRegisterDto dto)
 	{

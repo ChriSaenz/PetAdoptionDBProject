@@ -17,8 +17,11 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
+    let username = localStorage.getItem('username');
+    if (username == null || username == undefined) {
+      return false;
+    }
     this.username$.next(localStorage.getItem('username'));
-    if (this.username$ == null) return false;
     return true;
   }
 
