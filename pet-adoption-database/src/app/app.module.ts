@@ -18,6 +18,11 @@ import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatInputModule } from '@angular/material/input';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRippleModule } from '@angular/material/core';
 import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
 import { AddPetComponent } from './test/components/add-pet/add-pet.component';
 
@@ -48,7 +53,12 @@ import { AddPetComponent } from './test/components/add-pet/add-pet.component';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatInputModule,
+    FlexLayoutModule,
+    MatSidenavModule,
+    MatSelectModule,
+    MatRippleModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

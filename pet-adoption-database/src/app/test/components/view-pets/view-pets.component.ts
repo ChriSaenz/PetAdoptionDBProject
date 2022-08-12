@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Pet } from '../../model/pet.model';
-import { PetService } from '../../service/pet.service';
+import { Pet } from 'src/app/model/pet.model';
+import { PetService } from 'src/app/service/pet.service';
 
 @Component({
   selector: 'app-view-pets',

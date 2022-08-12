@@ -38,13 +38,13 @@ insert into Employee(id, name, phone, salary, title) values
 describe Pet;
 select * from Pet;
 -- set SQL_SAFE_UPDATES = 0; delete from Pet; set SQL_SAFE_UPDATES = 1;
-INSERT INTO Pet (id, name, age, species, breed, color, sex, neutered, vaccinated, date_acquired, cost) values
-(13, "Chase", 2, "Dog", "Cocker Spaniel", "Brown", "Male", 0, 0, '2022-05-20', 1500.01),
-(14, "Phantom", 3, "Fish", "American Shorthair Fish", "Red", "Female", 0, 1, '2020-04-10', 2000.34),
-(15, "Ace", 1, "Bird", "Flying Shiba", "Golden", "Male", 1, 1, '2022-07-15', 1250),
-(16, "Dexter", 5, "Cat", "Shorthair", "Tabby", "Male", 1, 0, '2017-03-18', 250),
-(17, "Cloud", 5, "Cat", "Puffy", "White", "Female", 0, 1, '2018-03-18', 25.0),
-(18, "Chase3", 2, "Dog", "Cocker Spaniel", "Brown", "Male", 1, 1, '2022-05-20', 1500.01);
+INSERT INTO Pet (id, name, age, species, breed, color, sex, neutered, vaccinated, date_acquired, cost, image_path) values
+(13, "Chase", 2, "Dog", "Cocker Spaniel", "Brown", "Male", 0, 0, '2022-05-20', 1500.01, ""),
+(14, "Phantom", 3, "Fish", "American Shorthair Fish", "Red", "Female", 0, 1, '2020-04-10', 2000.34, ""),
+(15, "Ace", 1, "Bird", "Flying Shiba", "Golden", "Male", 1, 1, '2022-07-15', 1250, ""),
+(16, "Dexter", 5, "Cat", "Shorthair", "Tabby", "Male", 1, 0, '2017-03-18', 250, ""),
+(17, "Cloud", 5, "Cat", "Puffy", "White", "Female", 0, 1, '2018-03-18', 25.0, ""),
+(18, "Chase3", 2, "Dog", "Cocker Spaniel", "Brown", "Male", 1, 1, '2022-05-20', 1500.01, "");
 
 -- Should be auto generated
 describe Request;

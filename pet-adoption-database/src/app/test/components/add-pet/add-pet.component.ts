@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/service/auth.service';
-import { Pet } from '../../model/pet.model';
-import { PetService } from '../../service/pet.service';
+import { Pet } from 'src/app/model/pet.model';
+import { PetService } from 'src/app/service/pet.service';
 
 @Component({
   selector: 'app-add-pet',
@@ -32,7 +32,7 @@ export class AddPetComponent implements OnInit, OnDestroy {
       neutered: new FormControl(false),
       vaccinated: new FormControl(false),
       cost: new FormControl('', [Validators.required]),
-      imagePath: new FormControl('', [Validators.required])
+      imagePath: new FormControl('')
     })
   }
 
