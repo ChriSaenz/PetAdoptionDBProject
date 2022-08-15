@@ -138,11 +138,13 @@ public class RequestController {
 	 */
 	@GetMapping("/request/{id}")
 	public RequestDto getRequestDtoById(@PathVariable("id") Long id) {
+		Optional<Request> op = requestRepository.findById(id);
+		if (!op.isPresent())
+			throw new MissingEntryException("Unable to find request ID");
+		return convertToDto(op.get());
 	}
 
-
-	/*
-	 * Deletes a single request from the DB
+	// Deletes a single request from the DB
 	@DeleteMapping("/request/{id}")
 	public void deleteRequestById(@PathVariable("id") Long id) {
 		requestRepository.deleteById(id);
@@ -153,6 +155,7 @@ public class RequestController {
 	 * Helper method: adds customer, pet, and employee to a request
 	 * Throws MissingIDException if any of the three IDs can't be found in the DB
 	 */
+	private void fixRequest(Request old, Long cid, Long pid, Long eid) {
 		Optional<Customer> optionalC = customerRepository.findById(cid);
 		Optional<Pet> optionalP = petRepository.findById(pid);
 		Optional<Employee> optionalE = employeeRepository.findById(eid);
@@ -217,6 +220,7 @@ public class RequestController {
 	public RequestDto rejectRequest(@PathVariable("id") Long id) {
 		Request request = getRequestById(id); // find the request
 		request.setStatus(Status.Rejected); // change status to rejected
+		return convertToDto(requestRepository.save(request));
 	}
 
 	/*
@@ -233,7 +237,10 @@ public class RequestController {
 	 * Find requests with a particular employee ID
 	 * @param employee ID
 	 * @return list of request DTOs
-	 */	@GetMapping("/request/employee/{id}")
+	 */	
+	@GetMapping("/request/employee/{id}")
+	public List<RequestDto> getRequestByEmployeeId(@PathVariable("id") Long id) {
+		return convertListToDto(requestRepository.findByEmployeeId(id));
 	}
 
 	/*
@@ -327,5 +334,26 @@ public class RequestController {
 	@GetMapping("/request/species/{color}")
 	public List<RequestDto> getRequestByColor(@PathVariable("color") String color) {
 		return convertListToDto(requestRepository.findByColor(color));
+	}
+	
+	
+	@GetMapping("/request/equalTo/{price}")
+	public List<RequestDto> getRequestByPriceEqualTo(@PathVariable("price") Double price) {
+		return convertListToDto(requestRepository.findByPriceEqualTo(price));
+	}
+	
+	@GetMapping("/request/greaterThan/{price}")
+	public List<RequestDto> getRequestByPriceGreaterThan(@PathVariable("price") Double price) {
+		return convertListToDto(requestRepository.findByPriceGreaterThan(price));
+	}
+	
+	@GetMapping("/request/lessThan/{price}")
+	public List<RequestDto> getRequestByPriceLessThan(@PathVariable("price") Double price) {
+		return convertListToDto(requestRepository.findByPriceLessThan(price));
+	}
+	
+	@GetMapping("/request/range/{price1}/{price2}")
+	public List<RequestDto> getRequestByPriceGreaterThan(@PathVariable("price1") Double price1, @PathVariable("price2") Double price2) {
+		return convertListToDto(requestRepository.findByPriceBetween(price1, price2));
 	}
 }

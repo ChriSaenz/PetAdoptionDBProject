@@ -1,0 +1,16 @@
+<div class="flex-box">
+    <div class="receipt-box" *ngFor="let r of receipts">
+        <button class="close" (click)="delete(r.id)">&#x2716;</button>
+        <p>Receipt ID: {{r.id}}</p>
+        <p>Receipt Date: {{r.date}}</p>
+        <p>Request ID: {{r.r_id}}</p>
+        <p>Request Date: {{r.r_date}}</p>
+        <p>Customer ID: {{r.c_id}}</p>
+        <p>Customer Name: {{r.c_name}}</p>
+        <p>Pet ID: {{r.p_id}}</p>
+        <p>Pet Name: {{r.p_name}}</p>
+        <p>Employee ID: {{r.e_id}}</p>
+        <p>Employee Name: {{r.e_name}}</p>
+        <p>Cost: ${{r.cost}}</p>
+    </div>
+</div>

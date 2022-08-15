@@ -8,6 +8,14 @@
     border-radius: 10px;
 }
 
+.flex-box {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.error {
+    text-align: center;
+}
 .approve {
     background-color: #4CAF50;
     border: none;
