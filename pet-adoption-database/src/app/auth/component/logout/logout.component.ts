@@ -7,10 +7,16 @@ import { AuthService } from '../../service/auth.service';
   styleUrls: ['./logout.component.css'],
 })
 export class LogoutComponent implements OnInit {
+  message: string;
+
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     localStorage.clear();
-    this.authService.message$.next('Log out successful');
+    this.authService.message$.next('Log out successful.. Refreshing Page');
+
+    this.authService.message$.subscribe((data) => {
+      this.message = data;
+    });
   }
 }

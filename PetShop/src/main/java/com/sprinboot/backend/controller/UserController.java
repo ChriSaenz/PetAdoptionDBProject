@@ -45,7 +45,9 @@ public class UserController {
 	}
 	
 	//Angular Post
-	@PostMapping("/user")
+	//Sign up
+	/* 
+	 @PostMapping("/user")
 	public UserProfile postUser(@RequestBody UserRegisterDto dto)
 	{
 		String credentials = new String(Base64.getDecoder().decode(dto.getEncodedCredentials()));
@@ -56,6 +58,27 @@ public class UserController {
 				dto.getRole(), dto.getSecurityAnswer(), dto.getSecurityQuestion(), 
 				LocalDate.now());
 		return u;
+	}
+	 * */
+	
+	
+	//Angular post test
+	@PostMapping("/user")
+	public void postUser(@RequestBody UserRegisterDto dto) {
+		String credentials = new String(Base64.getDecoder().decode(dto.getEncodedCredentials()));
+		String username = credentials.split("---")[0];
+		String password = credentials.split("---")[1];
+		
+		UserProfile u = new UserProfile();
+		u.setNickname(dto.getNickname());
+		u.setUsername(username);
+		u.setPassword(encoder.encode(password));
+		u.setSecurityQuestion(dto.getSecurityQuestion());
+		u.setSecurityAnswer(dto.getSecurityAnswer());
+		u.setRole(dto.getRole());
+		
+		userRepository.save(u);
+		
 	}
 	
 	//User get info about their account
