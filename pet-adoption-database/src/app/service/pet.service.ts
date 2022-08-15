@@ -8,13 +8,13 @@ import { Pet } from '../model/pet.model';
 })
 export class PetService {
   //  change these to be whatever the URL for the pet search is
-  postApi:string = "http://localhost:7555/pets"
-  getApi:string = "http://localhost:7555/pets"
+  postApi:string = "http://localhost:8824/pets"
+  getApi:string = "http://localhost:8824/pets"
 
   constructor(private http:HttpClient) {}
 
   public postPet(pet:Pet): Observable<Pet> {
-    return this.http.post<Pet>(this.postApi, Pet)
+    return this.http.post<Pet>(this.postApi, pet)
   }
 
   getPets(): Observable<Pet[]> {

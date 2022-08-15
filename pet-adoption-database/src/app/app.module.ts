@@ -23,6 +23,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRippleModule } from '@angular/material/core';
 import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
+import { AdoptionComponent } from './components/adoption/adoption.component';
+import { PetSearchComponent } from './components/pet-search/pet-search.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,8 @@ import { ViewPetsComponent } from './test/components/view-pets/view-pets.compone
     SignUpComponent,
     EmployeeDashboardComponent,
     ViewPetsComponent,
+    AdoptionComponent,
+    PetSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +58,7 @@ import { ViewPetsComponent } from './test/components/view-pets/view-pets.compone
     MatSidenavModule,
     MatSelectModule,
     MatRippleModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent],

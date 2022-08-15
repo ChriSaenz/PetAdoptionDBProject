@@ -52,5 +52,4 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
     PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
