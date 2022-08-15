@@ -9,11 +9,12 @@ import { AdoptionComponent } from './components/adoption/adoption.component';
 
 //Testing
 import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
+import { PetSearchComponent } from './components/pet-search/pet-search.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'pets', component: PetsComponent },
+  { path: 'pets', component: PetSearchComponent },
   { path: 'login', component: LoginComponent },
   { path: 'adopt/:petId', component: AdoptionComponent},
   {
