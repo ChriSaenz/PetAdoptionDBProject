@@ -1,1 +1,27 @@
-<p>sign-up works!</p>
+<h1>Sign Up</h1>
+<form (submit)="onFormSubmit()" [formGroup]="signUpForm">
+  <label>Enter Nickname: </label>
+  <input type="text" name="nickname" formControlName="nickname" />
+  <br /><br />
+  <label>Enter UserName: </label>
+  <input type="text" name="username" formControlName="username" />
+  <br /><br />
+
+  <label>Enter Password </label>
+  <input type="password" name="password" formControlName="password" />
+  <br /><br />
+  <label>Select Role: </label>
+  <select formControlName="role">
+    <option value="ADMIN">ADMIN</option>
+    <option value="USER">USER</option>
+  </select>
+  <br /><br />
+  <label>Enter Security Question </label>
+  <input type="text" name="question" formControlName="securityQuestion" />
+  <br /><br />
+  <label>Enter Security Answer </label>
+  <input type="tect" name="answer" formControlName="securityAnswer" />
+  <br /><br />
+
+  <input type="submit" value="Login" [disabled]="!signUpForm.valid" />
+</form>
