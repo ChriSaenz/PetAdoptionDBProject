@@ -1,25 +1,27 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'app/auth/service/auth.service';
+import { Pet } from 'app/model/pet.model';
+import { PetService } from 'app/service/pet.service';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/auth/service/auth.service';
-import { Pet } from 'src/app/model/pet.model';
-import { PetService } from 'src/app/service/pet.service';
 
 @Component({
   selector: 'app-add-pet',
   templateUrl: './add-pet.component.html',
-  styleUrls: ['./add-pet.component.css']
+  styleUrls: ['./add-pet.component.css'],
 })
 export class AddPetComponent implements OnInit, OnDestroy {
+  subscriptions: Subscription[] = [];
+  credentials: string;
+  pet: Pet;
+  newPetForm: FormGroup;
+  username: string;
+  msg: string;
 
-  subscriptions: Subscription[] = []
-  credentials: string
-  pet: Pet
-  newPetForm: FormGroup
-  username: string
-  msg: string
-
-  constructor(private petService: PetService, private authService: AuthService) { }
+  constructor(
+    private petService: PetService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.newPetForm = new FormGroup({
@@ -32,41 +34,41 @@ export class AddPetComponent implements OnInit, OnDestroy {
       neutered: new FormControl(false),
       vaccinated: new FormControl(false),
       cost: new FormControl('', [Validators.required]),
-      imagePath: new FormControl('')
-    })
+      imagePath: new FormControl(''),
+    });
   }
 
   onFormSubmit() {
     //Getting only the image name for imagePath
-    let path = this.newPetForm.get('imagePath').value
-    let splittedPath = path.split("\\")
+    let path = this.newPetForm.get('imagePath').value;
+    let splittedPath = path.split('\\');
 
-    this.newPetForm.value.imagePath = splittedPath[splittedPath.length - 1]
+    this.newPetForm.value.imagePath = splittedPath[splittedPath.length - 1];
 
-    this.pet = this.newPetForm.value
+    this.pet = this.newPetForm.value;
 
     this.petService.postPet(this.pet).subscribe({
       next: (data) => {
-        this.pet = data
-        this.msg = "[AddPetComponent] Pet added to db"
+        this.pet = data;
+        this.msg = '[AddPetComponent] Pet added to db';
 
-        let petArr = this.petService.pet$.getValue()
+        let petArr = this.petService.pet$.getValue();
 
-        petArr.push(this.pet)
+        petArr.push(this.pet);
 
-        this.petService.pet$.next(petArr)
+        this.petService.pet$.next(petArr);
 
         //stat
       },
-      error: (e) =>{
-        console.log("[AddPet-onFormSubmit] Error when trying to add pet")
-      }
-    })
+      error: (e) => {
+        console.log('[AddPet-onFormSubmit] Error when trying to add pet');
+      },
+    });
 
     //     error: (e) => {this.authService.message$.next("Invalid Credentials")}
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(s => s.unsubscribe())
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 }
