@@ -14,7 +14,7 @@ export class PetService {
   constructor(private http:HttpClient) {}
 
   public postPet(pet:Pet): Observable<Pet> {
-    return this.http.post<Pet>(this.postApi, Pet)
+    return this.http.post<Pet>(this.postApi, pet)
   }
 
   getPets(): Observable<Pet[]> {

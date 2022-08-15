@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Adopting {{p.name}}</h1>
+<div mat-dialog-content>
+  <p>Would you like to request to adopt {{p.name}}?</p>
+  <p>
+    Species: {{p.species}}
+    Breed: {{p.breed}}
+    Age: {{p.age}}
+    Sex: {{p.sex}}
+    Vaccinated: {{p.vaccinated}}
+    Neutered: {{p.vaccinated}}
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">No</button>
+  <button mat-button (click)="createRequestForPet(p)">Yes</button>
+</div>

@@ -138,7 +138,6 @@ public class RequestController {
 	 */
 	@GetMapping("/request/{id}")
 	public RequestDto getRequestDtoById(@PathVariable("id") Long id) {
-	}
 
 
 	/*

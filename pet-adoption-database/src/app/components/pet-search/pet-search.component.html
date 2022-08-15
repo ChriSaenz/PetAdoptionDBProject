@@ -19,7 +19,7 @@
     <input type="number" id="age">
     <br />
 
-    <!-- <label>Search by Add Date</label>
+    <!-- <label>Search by Date Acquired</label>
     <input type="date" id="date_acquired">
     <br /> -->
 
@@ -72,6 +72,8 @@
     <tr>
       <th>Name</th>
       <th>Species</th>
+      <th>Breed</th>
+      <th>Sex</th>
       <th>Age</th>
       <th>More Information</th>
       <th>Adopt</th>
@@ -79,16 +81,24 @@
     <tr *ngFor="let p of pets">
       <th>{{p.name}}</th>
       <th>{{p.species}}</th>
+      <th>{{p.breed}}</th>
+      <th>{{p.sex}}</th>
       <th>{{p.age}}</th>
       <th>
         <button mat-button (click)="toggleInfo(p.id)">More Info</button>
-        <p id="moreInfo"></p>
+        <p id="moreInfo">
+          Date Acquired: {{p.date_acquired}}<br>
+          Color: {{p.color}}<br>
+          Vaccinated: {{p.vaccinated}}<br>
+          Neutered: {{p.neutered}}<br>
+          Cost: {{p.cost}}
+        </p>
       </th>
       <th>
-        <button mat-button>
-          <!-- Be sure to confirm port number -->
-          <a routerLink="/adopt/{{p.id}}">Adopt</a>
-        </button>
+        <!-- *ngIf="logged in" -->
+        <button routerLink="/adoption/{{p.id}}" *ngIf="userIsLoggedIn()">Adopt</button>
+        <!-- *ngIf="not logged in" -->
+        <label *ngIf="!userIsLoggedIn()">Log in to adopt</label>
       </th>
     </tr>
   </table>

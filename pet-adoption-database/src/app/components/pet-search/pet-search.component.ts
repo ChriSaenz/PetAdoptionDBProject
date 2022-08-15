@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Filter } from 'src/app/model/filter.model';
 import { Pet } from 'src/app/model/pet.model';
 import { PetService } from 'src/app/service/pet.service';
+import { AuthService } from 'src/app/auth/service/auth.service';
 
 @Component({
   selector: 'app-pet-search',
@@ -10,12 +11,12 @@ import { PetService } from 'src/app/service/pet.service';
 })
 export class PetSearchComponent implements OnInit {
   //  TODO: Insert link here for pet API
-  public pets: Pet[]=[];
-  public colorsUnique:string[]=[];
-  public speciesUnique:string[]=[];
-  public breedUnique:string[]=[];
+  pets: Pet[]=[];
+  colorsUnique:string[]=[];
+  speciesUnique:string[]=[];
+  breedUnique:string[]=[];
 
-  constructor(private petService:PetService) { }
+  constructor(private petService:PetService, private authService:AuthService) { }
 
   ngOnInit(): void {
     this.resetFilters();
@@ -30,10 +31,7 @@ export class PetSearchComponent implements OnInit {
     filters.name = (document.getElementById("name") as HTMLInputElement).value;
     filters.species = (document.getElementById("species") as HTMLInputElement).value;
     filters.age = parseInt((document.getElementById("age") as HTMLInputElement).value);
-    
-    //  figure out how to pass date from calendar select value
     // filters.date_acquired = (document.getElementById("date_acquired") as HTMLInputElement).value;
-    
     filters.sex = (document.getElementById("sex") as HTMLInputElement).value;
     filters.color = (document.getElementById("color") as HTMLInputElement).value;
     filters.breed = (document.getElementById("breed") as HTMLInputElement).value;
@@ -82,4 +80,30 @@ export class PetSearchComponent implements OnInit {
   toggleInfo(id:number): void {
 
   }
+
+  //  For use with the Adopt button
+  userIsLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  // //   Material Dialog
+  // openAdoptionDialog(p:Pet): void {
+  //   this.adoptDialog.
+  // }
 }
+
+// @Component({
+//   templateUrl: "adopt-dialog.component.html"
+// })
+// export class adoptionDialog {
+//   public p: Pet;
+
+//   constructor() {}
+
+//   closeDialog(): void {
+
+//   }
+//   createRequestForPet(p:Pet): void {
+
+//   }
+// }

@@ -19,6 +19,8 @@ import { EmployeeDashboardComponent } from './components/employee-dashboard/empl
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AdoptionComponent } from './components/adoption/adoption.component';
+import { PetSearchComponent } from './components/pet-search/pet-search.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { AdoptionComponent } from './components/adoption/adoption.component';
     SignUpComponent,
     EmployeeDashboardComponent,
     AdoptionComponent,
+    PetSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { AdoptionComponent } from './components/adoption/adoption.component';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent],
