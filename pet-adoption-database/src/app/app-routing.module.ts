@@ -8,6 +8,12 @@ import { EmployeeDashboardComponent } from './components/employee-dashboard/empl
 import { RequestPageComponent } from './components/requests/request-page/request-page.component';
 import { ReceiptPageComponent } from './components/receipts/receipt-page/receipt-page.component';
 
+//Testing
+import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
+import { LogoutComponent } from './auth/component/logout/logout.component';
+import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
+import { AddPetComponent } from './test/components/add-pet/add-pet.component';
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
@@ -21,6 +27,12 @@ const routes: Routes = [
     component: EmployeeDashboardComponent,
     canActivate: [AuthguardService],
   },
+
+  //Testing
+  { path: 'test', component: ViewPetsComponent },
+  { path: 'logout', component: LogoutComponent },
+  { path: 'signup', component: SignUpComponent },
+  { path: 'pet-add-test', component: AddPetComponent },
 ];
 
 @NgModule({

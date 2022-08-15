@@ -1,17 +1,40 @@
-body {
-  background-color: #8057d1;
+mat-card::ng-deep.mat-card-header-text {
+  width: 100%;
 }
 
 .content {
-  width: 400px;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
 }
 
-.field {
-  margin: 0;
+mat-card {
+  padding: 100px;
+}
+
+mat-card-title {
+  text-align: center;
+  padding-bottom: 15px;
+  color: #3a3b3c;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+button {
+  text-align: center;
+  background-color: #0099ff;
+  color: whitesmoke;
+  border-radius: 20px;
+  font-family: "Montserrat", sans-serif;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.messsage {
+  color: red;
+  font-size: medium;
 }

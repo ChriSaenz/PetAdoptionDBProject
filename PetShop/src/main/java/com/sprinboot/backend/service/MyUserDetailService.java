@@ -14,31 +14,31 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import com.sprinboot.backend.model.Employee;
-import com.sprinboot.backend.repository.EmployeeRepository;
+import com.sprinboot.backend.model.UserProfile;
+import com.sprinboot.backend.repository.UserRepository;
 
 @Service
 @CrossOrigin(origins = "http://localhost:4200")
 public class MyUserDetailService implements UserDetailsService{
 	@Autowired 
-	private EmployeeRepository employeeRepository;
+	private UserRepository userRepository;
 	
 	@Override
 	@CrossOrigin(origins = "http://localhost:4200")
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		Optional<Employee> optional = employeeRepository.findByUsername(username);
+		Optional<UserProfile> optional = userRepository.getByUsername(username);
 		
 		if (!optional.isPresent())
-			throw new UsernameNotFoundException("Username not found");
+			throw new UsernameNotFoundException("[loadUserByUsername] Username not found");
 		
-		Employee emp = optional.get();
+		UserProfile u = optional.get();
 		List<GrantedAuthority> list = new ArrayList<>();
-		SimpleGrantedAuthority sga = new SimpleGrantedAuthority((emp.isAdmin()) ? "ADMIN" : "EMPLOYEE");
+		SimpleGrantedAuthority sga = new SimpleGrantedAuthority(u.getRole());
 		list.add(sga);
 		
 		//User class from Springframework
-		return new User(emp.getUsername(), emp.getPassword(), list);
+		return new User(u.getUsername(), u.getPassword(), list);
 		
 	}
 	

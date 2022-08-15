@@ -3,7 +3,6 @@
 * creating and retrieving requests in the DB
 *
 * @author  Felix Taylor
-* @since   2022-07-26
 */
 package com.sprinboot.backend.controller;
 
@@ -150,7 +149,6 @@ public class RequestController {
 		requestRepository.deleteById(id);
 	}
 
-
 	/*
 	 * Helper method: adds customer, pet, and employee to a request
 	 * Throws MissingIDException if any of the three IDs can't be found in the DB
@@ -220,7 +218,7 @@ public class RequestController {
 	public RequestDto rejectRequest(@PathVariable("id") Long id) {
 		Request request = getRequestById(id); // find the request
 		request.setStatus(Status.Rejected); // change status to rejected
-		return convertToDto(requestRepository.save(request));
+		return convertToDto(requestRepository.save(request)); // save request
 	}
 
 	/*

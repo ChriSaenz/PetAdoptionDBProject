@@ -1,1 +1,18 @@
-<p>view-pets works!</p>
+<h1>[Test] Pets List from Database</h1>
+
+<div *ngFor="let p of pets">
+    <strong>[{{p.id}}]</strong>&nbsp;
+    Name: {{p.name}} &nbsp;&nbsp;
+    Age: {{p.age}} &nbsp;&nbsp;
+    Species: {{p.species}} &nbsp;&nbsp;
+    Breed: {{p.breed}} &nbsp;&nbsp;
+    Color: {{p.color}} &nbsp;&nbsp;
+    Sex: {{p.sex}} &nbsp;&nbsp;
+    Neutered: {{p.neutered}} &nbsp;&nbsp;
+    Vaccinated: {{p.vaccinated}} &nbsp;&nbsp;
+    Date Acquired: {{p.date_acquired}} &nbsp;&nbsp;
+    Cost: {{p.cost}} &nbsp;&nbsp;
+    Image Path: {{p.imagePath}} &nbsp;&nbsp;
+    <hr>
+</div>
+<br /><br />

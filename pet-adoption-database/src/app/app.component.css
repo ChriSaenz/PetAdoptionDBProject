@@ -1,37 +1,96 @@
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;1,400&display=swap");
+
 body {
   background-color: #efeef1;
 }
+
+/* Top navbar*/
+
+.top-toolbar-container {
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+  background-color: #efeef1;
+}
+
+.top-item-container {
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-logo {
+  font-family: "Pacifico", cursive;
+  padding-right: 1rem;
+  text-decoration: none;
+  color: #0099ff;
+  font-size: 1.5rem;
+}
+
+.top-toolbar-item {
+  padding-right: 1rem;
+  text-decoration: none;
+  color: #3a3b3c;
+  font-size: 1.1rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+}
+
+.top-toolbar-item:hover {
+  color: gray;
+  cursor: pointer;
+}
+
+/*End of top navbar*/
+
 .toolbar-container {
   display: flex;
   justify-content: center;
+  z-index: 1;
+  height: 50px;
 }
 
 .logo {
   font-family: "Pacifico", cursive;
+  padding-right: 1rem;
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: space-between;
 }
 .toolbar-item {
   padding-right: 1rem;
   text-decoration: none;
+  color: WhiteSmoke;
+  font-size: 0.9rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+.toolbar-item:hover {
   color: white;
+  cursor: pointer;
 }
 
 .item-container {
   width: 1000px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-evenly;
 }
 
 .toolbar-item-container {
   display: flex;
-  justify-content: center;
   font-size: medium;
 }
 
 .banner {
-  padding: 20px;
-
+  padding: 10px;
+  border-bottom: solid 0.7px gray;
   text-align: center;
 }
 

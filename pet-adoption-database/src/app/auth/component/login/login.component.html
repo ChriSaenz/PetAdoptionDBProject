@@ -1,4 +1,5 @@
 <!-- 
+
 <h1>Login</h1>
 {{ message }}
 <form (submit)="onFormSubmit()" [formGroup]="loginForm">
@@ -13,27 +14,96 @@
   <input type="submit" value="Login" [disabled]="!loginForm.valid" />
 </form>
 
-<!-- 
+-->
 
-
-  <div class="content">
-  <mat-card>
+<div class="content">
+  <mat-card class="mat-elevation-z5">
     <mat-card-title> Login </mat-card-title>
-    <div class="field">
-      <mat-form-field appearance="outline" (submit)="onFormSubmit()" [formGroup]="loginForm">
+    <div class="invalid-login">
+      <h3 style="color: red">{{ message }}</h3>
+    </div>
+
+    <form (submit)="onFormSubmit()" [formGroup]="loginForm">
+      <div class="field">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            placeholder="Username"
+            type="text"
+            name="username"
+            formControlName="username"
+          />
+        </mat-form-field>
+      </div>
+      <div class="field">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            placeholder="Password"
+            type="text"
+            name="password"
+            formControlName="password"
+          />
+        </mat-form-field>
+      </div>
+      <button
+        mat-raised-button
+        type="submit"
+        value="Login"
+        [disabled]="!loginForm.valid"
+      >
+        Login
+      </button>
+    </form>
+
+    <!--                  -->
+
+    <!--
+<div class="field">
+      <mat-form-field
+        appearance="outline"
+        (submit)="onFormSubmit()"
+        [formGroup]="loginForm"
+      >
         <mat-label>Username</mat-label>
-        <input matInput placeholder="Username" type="text" name="username" formControlName="username" />
+        <input
+          matInput
+          placeholder="Username"
+          type="text"
+          name="username"
+          formControlName="username"
+        />
       </mat-form-field>
     </div>
     <div class="field">
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
-        <input matInput placeholder="Password" input type="text" name="password" formControlName="password" />
+        <input
+          matInput
+          placeholder="Password"
+          input
+          type="text"
+          name="password"
+          formControlName="password"
+        />
       </mat-form-field>
     </div>
-    <button mat-raised-button color="primary" type="submit" value="Login" [disabled]="!loginForm.valid" >Login</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      value="Login"
+      [disabled]="!loginForm.valid"
+    >
+      Login
+    </button>
     <button mat-stroked-button color="primary">Sign-Up</button>
   </mat-card>
 </div>
 
--->
+
+    -->
+  </mat-card>
+</div>

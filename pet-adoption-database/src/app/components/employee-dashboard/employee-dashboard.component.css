@@ -1,0 +1,38 @@
+mat-sidenav-container {
+  height: 500px;
+}
+
+mat-sidenav,
+mat-sidenav-content {
+  padding: 16px;
+  background-color: #efeef1;
+}
+
+mat-sidenav {
+  width: 200px;
+}
+
+.dashboard-container {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 30px;
+}
+
+.sidebar-nav {
+  flex-direction: column;
+  text-align: right;
+  border-right: solid, 0.5px, gray;
+}
+
+.sidenav-option {
+  text-decoration: none;
+  color: #0099ff;
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  padding-bottom: 20px;
+}
+.sidenav-option:hover {
+  color: #00d0ff;
+  cursor: pointer;
+}

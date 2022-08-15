@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,6 +24,13 @@ import { RequestSearchComponent } from './components/requests/request-search/req
 import { ReceiptPageComponent } from './components/receipts/receipt-page/receipt-page.component';
 import { ReceiptListComponent } from './components/receipts/receipt-list/receipt-list.component';
 import { ReceiptSearchComponent } from './components/receipts/receipt-search/receipt-search.component';
+import { MatInputModule } from '@angular/material/input';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRippleModule } from '@angular/material/core';
+import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
+import { AddPetComponent } from './test/components/add-pet/add-pet.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +48,10 @@ import { ReceiptSearchComponent } from './components/receipts/receipt-search/rec
     RequestSearchComponent,
     ReceiptPageComponent,
     ReceiptListComponent,
-    ReceiptSearchComponent
+    ReceiptSearchComponent,
+    ViewPetsComponent,
+    AddPetComponent,
+      
   ],
   imports: [
     BrowserModule,
@@ -56,6 +65,14 @@ import { ReceiptSearchComponent } from './components/receipts/receipt-search/rec
     MatFormFieldModule,
     MatIconModule,
     MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatInputModule,
+    FlexLayoutModule,
+    MatSidenavModule,
+    MatSelectModule,
+    MatRippleModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

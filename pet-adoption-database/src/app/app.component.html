@@ -5,16 +5,36 @@
   <b>UPDATE: </b>Due to high summer traffic, it may take a little longer to
   process adoption requests. Thank you for your patience!
 </div>
-<mat-toolbar class="toolbar-container" color="primary">
-  <div class="item-container">
+
+<mat-toolbar class="top-toolbar-container">
+  <div class="top-item-container">
     <div class="logo-container">
-      <a class="logo toolbar-item" routerLink="/home">Pet Adoption Database</a>
+      <a class="top-logo" routerLink="/home">Pet Adoption Database</a>
     </div>
     <div class="toolbar-item-container">
-      <a class="toolbar-item" routerLink="/pets">All Pets</a>
-      <a class="toolbar-item" routerLink="/login">Sign Up/Login</a>
-      <a class="toolbar-item" routerLink="/employeeDashboard">Dashboard</a>
+      <div class="top-right-nav" style="border-left: solid 0.7px gray">
+        <a
+          class="top-toolbar-item"
+          routerLink="/signup"
+          style="padding-left: 1rem"
+          >Sign Up</a
+        >
+        <a class="top-toolbar-item" routerLink="/login">Log In</a>
+      </div>
     </div>
+  </div>
+</mat-toolbar>
+
+<mat-toolbar class="toolbar-container" style="background-color: #0099ff">
+  <div class="item-container">
+    <a class="toolbar-item" routerLink="/pets">All Pets</a>
+    <a class="toolbar-item" routerLink="/pets">Dogs</a>
+    <a class="toolbar-item" routerLink="/pets">Cats</a>
+    <a class="toolbar-item" routerLink="/pets">Fish</a>
+    <a class="toolbar-item" routerLink="/pets">Exotic</a>
+    <a class="toolbar-item" routerLink="/employeeDashboard">Dashboard</a>
+
+    <div class="toolbar-item-container"></div>
   </div>
 </mat-toolbar>
 
