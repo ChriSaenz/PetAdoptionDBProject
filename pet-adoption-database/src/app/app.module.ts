@@ -23,6 +23,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRippleModule } from '@angular/material/core';
 import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
+import { AddPetComponent } from './test/components/add-pet/add-pet.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,8 @@ import { ViewPetsComponent } from './test/components/view-pets/view-pets.compone
     SignUpComponent,
     EmployeeDashboardComponent,
     ViewPetsComponent,
+    AddPetComponent,
+      
   ],
   imports: [
     BrowserModule,

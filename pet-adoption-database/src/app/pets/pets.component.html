@@ -59,11 +59,21 @@
               *ngFor="let p of pets"
             >
               <mat-card>
-                <img
-                  mat-card-image
-                  src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                  alt="Photo of a Shiba Inu"
-                />
+                <div *ngIf="p.imagePath == '' || p.imagePath == undefined; else noImageGiven">
+                  <img
+                    mat-card-image
+                    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                    alt="Photo of a Shiba Inu"
+                  />
+                </div>
+          
+                <ng-template #noImageGiven>
+                  <img
+                    mat-card-image
+                    src="assets\{{p.imagePath}}"
+                    alt="Photo of a Shiba Inu"
+                  />
+                </ng-template>
                 <mat-card-title>{{ p.name }}</mat-card-title>
                 <mat-card-content
                   >{{ p.age }} years old - {{ p.breed }}

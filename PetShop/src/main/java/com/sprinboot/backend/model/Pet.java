@@ -20,6 +20,16 @@ public class Pet {
 	private String sex, color, breed;
 	private boolean vaccinated, neutered;
 	private double cost;
+	private String imagePath;
+
+	
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 
 	public Long getId() {
 		return id;
@@ -128,10 +138,27 @@ public class Pet {
 		this.cost = cost;
 	}
 
+	public Pet(String name, String species, int age, LocalDate date_acquired, String sex, String color, String breed,
+			boolean vaccinated, boolean neutered, double cost, String imagePath) {
+		super();
+		this.name = name;
+		this.species = species;
+		this.age = age;
+		this.date_acquired = date_acquired;
+		this.sex = sex;
+		this.color = color;
+		this.breed = breed;
+		this.vaccinated = vaccinated;
+		this.neutered = neutered;
+		this.cost = cost;
+		this.imagePath = imagePath;
+	}
+
 	@Override
 	public String toString() {
 		return "Pet [id=" + id + ", name=" + name + ", species=" + species + ", age=" + age + ", date_acquired="
 				+ date_acquired + ", sex=" + sex + ", color=" + color + ", breed=" + breed + ", vaccinated="
-				+ vaccinated + ", neutered=" + neutered + ", cost=" + cost + "]";
+				+ vaccinated + ", neutered=" + neutered + ", cost=" + cost + ", imagePath=" + imagePath + "]";
 	}
+	
 }

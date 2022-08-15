@@ -10,6 +10,7 @@ import { EmployeeDashboardComponent } from './components/employee-dashboard/empl
 import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
 import { LogoutComponent } from './auth/component/logout/logout.component';
 import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
+import { AddPetComponent } from './test/components/add-pet/add-pet.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'test', component: ViewPetsComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'signup', component: SignUpComponent },
+  { path: 'pet-add-test', component: AddPetComponent },
 ];
 
 @NgModule({

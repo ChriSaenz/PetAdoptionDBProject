@@ -4,6 +4,7 @@ import { PetService } from 'app/service/pet.service';
 import { Subscription } from 'rxjs';
 import { petsData } from '../data';
 import { Pet } from '../model/pet.model';
+import { PetService } from '../service/pet.service';
 
 @Component({
   selector: 'app-pets',
