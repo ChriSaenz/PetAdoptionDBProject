@@ -306,36 +306,6 @@ public class RequestController {
 		return convertListToDto(requestRepository.findBetweenDate(LocalDate.parse(date), LocalDate.parse(date1)));
 	}
 	
-	/*
-	 * Find requests of a particular pet species
-	 * @param species string
-	 * @return list of request DTOs
-	 */
-	@GetMapping("/request/species/{species}")
-	public List<RequestDto> getRequestBySpecies(@PathVariable("species") String species) {
-		return convertListToDto(requestRepository.findBySpecies(species));
-	}
-	
-	/*
-	 * Find requests of a particular pet breed
-	 * @param breed string
-	 * @return list of request DTOs
-	 */	
-	@GetMapping("/request/species/{breed}")
-	public List<RequestDto> getRequestByBreed(@PathVariable("breed") String breed) {
-		return convertListToDto(requestRepository.findByBreed(breed));
-	}
-	
-	/*
-	 * Find requests of a particular pet color
-	 * @param color string
-	 * @return list of request DTOs
-	 */	
-	@GetMapping("/request/species/{color}")
-	public List<RequestDto> getRequestByColor(@PathVariable("color") String color) {
-		return convertListToDto(requestRepository.findByColor(color));
-	}
-	
 	
 	@GetMapping("/request/equalTo/{price}")
 	public List<RequestDto> getRequestByPriceEqualTo(@PathVariable("price") Double price) {

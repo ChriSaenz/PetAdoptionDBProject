@@ -13,8 +13,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'pets', component: PetsComponent },
   { path: 'login', component: LoginComponent },
-  {path: 'requests', component: RequestPageComponent},
-  {path: 'receipts', component: ReceiptPageComponent},
+  {path: 'requests', component: RequestPageComponent, canActivate:[AuthguardService]},
+  {path: 'receipts', component: ReceiptPageComponent, canActivate:[AuthguardService]},
 
   {
     path: 'employeeDashboard',
