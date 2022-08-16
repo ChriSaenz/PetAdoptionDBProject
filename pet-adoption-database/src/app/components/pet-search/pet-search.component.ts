@@ -52,7 +52,10 @@ export class PetSearchComponent implements OnInit {
   //  Pulls data from database into pets and filter options into filters
   resetFilters(): void {
     //  pull data from pets API
-    this.petService.getPets().subscribe(data => {this.pets = data;});
+    this.petService.getAllPets().subscribe({
+      next: (data) => {this.pets = data;},
+      error: (e) => {console.log("Error returned at resetFilters in pet-search.component.ts:57");}
+    });
     //  add filter options given pet data: species
     this.speciesUnique = [];
     this.pets.forEach(e => {

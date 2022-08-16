@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Pet } from '../model/pet.model';
 
@@ -10,8 +10,9 @@ import { Pet } from '../model/pet.model';
 })
 export class PetService {
   //  change these to be whatever the URL for the pet search is
-  postApi:string = "http://localhost:8824/pets"
-  getApi:string = "http://localhost:8824/pets"
+  postApi:string = "http://localhost:8824/pet"
+  getApi:string = "http://localhost:8824/pet"
+  pet$ = new BehaviorSubject<Pet[]>([]);
 
   constructor(private http:HttpClient) {}
 
@@ -19,7 +20,7 @@ export class PetService {
     return this.http.post<Pet>(this.postApi, pet)
   }
 
-  getPets(): Observable<Pet[]> {
+  getAllPets(): Observable<Pet[]> {
     return this.http.get<Pet[]>(this.getApi);
   }
 }

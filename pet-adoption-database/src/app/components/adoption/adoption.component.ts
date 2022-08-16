@@ -22,7 +22,7 @@ export class AdoptionComponent implements OnInit {
   //  Gets pet based on target Id retrieved from URL
   ngOnInit(): void {
     let targetId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.petService.getPets().subscribe(
+    this.petService.getAllPets().subscribe(
       e => {e.forEach(
         f => {if(f.id == targetId) {
           this.petToAdopt = f;;
@@ -50,7 +50,7 @@ export class AdoptionComponent implements OnInit {
     pr.p_name = this.petToAdopt.name;
     pr.p_species = this.petToAdopt.species;
     pr.p_age = this.petToAdopt.age;
-    pr.p_date_acquired = this.petToAdopt.date_acquired.toDateString();
+    pr.p_date_acquired = this.petToAdopt.date_acquired;
     pr.p_sex = this.petToAdopt.sex;
     pr.p_color = this.petToAdopt.color;
     pr.p_breed = this.petToAdopt.breed;

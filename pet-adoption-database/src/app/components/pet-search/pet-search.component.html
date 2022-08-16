@@ -95,9 +95,7 @@
         </p>
       </th>
       <th>
-        <!-- *ngIf="logged in" -->
         <button routerLink="/adoption/{{p.id}}" *ngIf="userIsLoggedIn()">Adopt</button>
-        <!-- *ngIf="not logged in" -->
         <label *ngIf="!userIsLoggedIn()">Log in to adopt</label>
       </th>
     </tr>

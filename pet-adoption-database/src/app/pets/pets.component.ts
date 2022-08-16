@@ -32,7 +32,7 @@ export class PetsComponent implements OnInit {
     this.ageList = ['0', '1', '2', '3'];
 
     this.subscriptions.push(
-      this.petService.getPets().subscribe({
+      this.petService.getAllPets().subscribe({
         next: (data) => {
           this.pets = data;
         },
