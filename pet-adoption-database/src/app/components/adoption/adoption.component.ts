@@ -42,7 +42,7 @@ export class AdoptionComponent implements OnInit {
     pr.date = new Date().toDateString();
     pr.status  = "Pending";
     // pr.c_id = 
-    // pr.c_name = 
+    pr.c_name = this.authService.username$.getValue();
     // pr.c_phone = 
     // pr.c_date_joined = 
     // pr.c_birthday = 
