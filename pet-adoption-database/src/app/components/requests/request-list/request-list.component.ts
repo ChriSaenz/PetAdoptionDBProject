@@ -90,18 +90,11 @@ export class RequestListComponent implements OnInit, OnDestroy {
   }
 
   receiptDeleted(id: number): boolean {
-    this.subscriptions.push(
-      this.receiptService.fetchreceipts().subscribe({
-        next: (data) => {
-          for (var receipt of data) {
-            if (receipt.r_id == id) return false;
-          }
-          return true;
-        },
-        error: (e) => {
-        }
-      }))
-      return true;
+    let receipts = this.receiptService.receipt$.value;
+    for (var receipt of receipts) {
+      if (receipt.r_id == id) return false;
+    }
+    return true;
   }
 
 }
