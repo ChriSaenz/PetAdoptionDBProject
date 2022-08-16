@@ -25,11 +25,13 @@ import { ReceiptPageComponent } from './components/receipts/receipt-page/receipt
 import { ReceiptListComponent } from './components/receipts/receipt-list/receipt-list.component';
 import { ReceiptSearchComponent } from './components/receipts/receipt-search/receipt-search.component';
 import { MatInputModule } from '@angular/material/input';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRippleModule } from '@angular/material/core';
 import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
+import { AdoptionComponent } from './components/adoption/adoption.component';
+import { PetSearchComponent } from './components/pet-search/pet-search.component';
+import { RouterModule } from '@angular/router';
 import { AddPetComponent } from './test/components/add-pet/add-pet.component';
 
 @NgModule({
@@ -50,8 +52,9 @@ import { AddPetComponent } from './test/components/add-pet/add-pet.component';
     ReceiptListComponent,
     ReceiptSearchComponent,
     ViewPetsComponent,
-    AddPetComponent,
-      
+    AdoptionComponent,
+    PetSearchComponent,
+    AddPetComponent
   ],
   imports: [
     BrowserModule,
@@ -69,10 +72,10 @@ import { AddPetComponent } from './test/components/add-pet/add-pet.component';
     ReactiveFormsModule,
     HttpClientModule,
     MatInputModule,
-    FlexLayoutModule,
     MatSidenavModule,
     MatSelectModule,
     MatRippleModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent],

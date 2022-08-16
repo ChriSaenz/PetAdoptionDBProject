@@ -45,9 +45,8 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 		return dao;
 	}
 
-	@Bean
-	PasswordEncoder getPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
+    @Bean
+    PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
