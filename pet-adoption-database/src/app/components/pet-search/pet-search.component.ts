@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Filter } from 'src/app/model/filter.model';
-import { Pet } from 'src/app/model/pet.model';
-import { PetService } from 'src/app/service/pet.service';
-import { AuthService } from 'src/app/auth/service/auth.service';
+import { AuthService } from 'app/auth/service/auth.service';
+import { Filter } from 'app/model/filter.model';
+import { Pet } from 'app/model/pet.model';
+import { PetService } from 'app/service/pet.service';
 
 @Component({
   selector: 'app-pet-search',
@@ -20,7 +20,7 @@ export class PetSearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.resetFilters();
-  }W
+  }
 
   //  Filters pets in array.
   searchForPets(): void {

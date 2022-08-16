@@ -1,9 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/auth/service/auth.service';
-import { Pet } from 'src/app/model/pet.model';
-import { PetService } from 'src/app/service/pet.service';
+import { AuthService } from 'app/auth/service/auth.service';
+import { Pet } from 'app/model/pet.model';
+import { PetService } from 'app/service/pet.service';
 import { PetRequest } from '../requests/model/petrequest.model';
 import { RequestService } from '../requests/service/request.service';
 
