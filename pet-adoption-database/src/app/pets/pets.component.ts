@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
+import { petsData } from '../data';
 import { Pet } from '../model/pet.model';
 import { PetService } from '../service/pet.service';
 
@@ -23,6 +24,7 @@ export class PetsComponent implements OnInit {
   ageList: string[];
 
   ngOnInit(): void {
+    this.pets = petsData;
     this.opened = true;
 
     this.filterBreeds = new FormControl('');
@@ -32,7 +34,7 @@ export class PetsComponent implements OnInit {
     this.ageList = ['0', '1', '2', '3'];
 
     this.subscriptions.push(
-      this.petService.getPets().subscribe({
+      this.petService.getAllPets().subscribe({
         next: (data) => {
           this.pets = data;
         },
