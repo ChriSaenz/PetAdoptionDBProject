@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { PetService } from 'app/service/pet.service';
+
 import { Subscription } from 'rxjs';
 import { Pet } from '../model/pet.model';
+import { PetService } from '../service/pet.service';
 
 @Component({
   selector: 'app-pets',

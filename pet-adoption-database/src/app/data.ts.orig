@@ -1,0 +1,100 @@
+<<<<<<< HEAD
+import { PetRequest } from "./model/petrequest.model"
+
+export const requestData: PetRequest[] = [
+    {
+        id: 0,
+        date: "2020-01-01",
+        status: "Pending",
+        c_id: 0,
+        c_name: "Bob Duncan",
+        c_phone: "1112223333",
+        c_date_joined: "2020-01-01",
+        c_birthday: "2000-01-01",
+        p_id: 0,
+        p_name: "Colby",
+        p_species: "Cat",
+        p_age: 7,
+        p_date_acquired: "2020-01-01",
+        p_sex: "M",
+        p_color: "Gray",
+        p_breed: "Domestic shorthair",
+        p_vaccinated: true,
+        p_neutered: true,
+        p_cost: 500,
+        e_id: 0,
+        e_name: "Amy Duncan"
+    },
+    {
+        id: 1,
+        date: "2020-01-01",
+        status: "Rejected",
+        c_id: 0,
+        c_name: "Paul McCartney",
+        c_phone: "1112223333",
+        c_date_joined: "2020-01-01",
+        c_birthday: "2000-01-01",
+        p_id: 0,
+        p_name: "Colby",
+        p_species: "Phantom",
+        p_age: 7,
+        p_date_acquired: "2020-01-01",
+        p_sex: "M",
+        p_color: "Gray",
+        p_breed: "Domestic shorthair",
+        p_vaccinated: true,
+        p_neutered: true,
+        p_cost: 500,
+        e_id: 0,
+        e_name: "Amy Duncan"
+    }
+]
+=======
+import { ActivationEnd } from '@angular/router';
+import { Pet } from './model/pet.model';
+
+export const petsData: Pet[] = [
+  {
+    id: 1,
+    name: 'Ace',
+    age: 1,
+    species: 'Dog',
+    breed: 'Shiba Inu',
+  },
+  {
+    id: 2,
+    name: 'Ace',
+    age: 1,
+    species: 'Dog',
+    breed: 'Shiba Inu',
+  },
+  {
+    id: 3,
+    name: 'Ace',
+    age: 1,
+    species: 'Dog',
+    breed: 'Shiba Inu',
+  },
+  {
+    id: 4,
+    name: 'Ace',
+    age: 1,
+    species: 'Dog',
+    breed: 'Shiba Inu',
+  },
+  {
+    id: 5,
+    name: 'Ace',
+    age: 1,
+    species: 'Dog',
+    breed: 'Shiba Inu',
+  },
+  {
+    id: 6,
+    name: 'Ace',
+    age: 1,
+    species: 'Dog',
+    breed: 'Shiba Inu',
+  },
+];
+>>>>>>> 58c549c70d5990e4b6a2c3c17a5d74b7fff8fc15

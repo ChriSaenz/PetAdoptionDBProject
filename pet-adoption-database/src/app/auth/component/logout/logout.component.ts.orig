@@ -1,0 +1,32 @@
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../service/auth.service';
+
+@Component({
+  selector: 'app-logout',
+  templateUrl: './logout.component.html',
+<<<<<<< HEAD
+  styleUrls: ['./logout.component.css']
+})
+export class LogoutComponent implements OnInit {
+
+  constructor(private authService : AuthService) { }
+
+  ngOnInit(): void {
+    localStorage.clear();
+    this.authService.username$.next(null);
+    this.authService.message$.next("Log out successful");
+  }
+
+
+=======
+  styleUrls: ['./logout.component.css'],
+})
+export class LogoutComponent implements OnInit {
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    localStorage.clear();
+    this.authService.message$.next('Log out successful');
+  }
+>>>>>>> 58c549c70d5990e4b6a2c3c17a5d74b7fff8fc15
+}

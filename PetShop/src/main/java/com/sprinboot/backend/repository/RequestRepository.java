@@ -63,4 +63,16 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 	@Query("select r from Request r where r.pet.color=?1")
 	List<Request> findByColor(String color);
 
+	@Query("select r from Request r where r.pet.cost>?1")
+	List<Request> findByPriceGreaterThan(Double price);
+
+	@Query("select r from Request r where r.pet.cost<?1")
+	List<Request> findByPriceLessThan(Double price);
+
+	@Query("select r from Request r where r.pet.cost>?1 and r.pet.cost<?2")
+	List<Request> findByPriceBetween(Double price1, Double price2);
+
+	@Query("select r from Request r where r.pet.cost=?1")
+	List<Request> findByPriceEqualTo(Double price);
+
 }

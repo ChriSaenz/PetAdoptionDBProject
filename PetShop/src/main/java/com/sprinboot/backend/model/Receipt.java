@@ -79,6 +79,4 @@ public class Receipt {
 	public void setRequest(Request request) {
 		this.request = request;
 	}
-	
-	
 }

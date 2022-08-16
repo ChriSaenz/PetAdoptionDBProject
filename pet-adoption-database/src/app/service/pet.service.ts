@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs';
+
 import { Pet } from '../model/pet.model';
 
 @Injectable({

@@ -1,0 +1,82 @@
+<div>
+    <button (click)="reset()">Reset</button>
+    <form (submit)="filterById()" [formGroup]="filterByIdForm">
+        <label>ID</label>&nbsp;
+        <input type="text" name="p_id" formControlName="id">
+        <input type="submit" value="search" [disabled]="!filterByIdForm.valid">
+    </form>
+
+    <form (submit)="filterByRequestId()" [formGroup]="filterByRequestForm">
+        <label>Request ID</label>&nbsp;
+        <input type="text" name="p_id" formControlName="id">
+        <input type="submit" value="search" [disabled]="!filterByRequestForm.valid">
+    </form>
+
+    <form (submit)="filterByPet()" [formGroup]="filterByPetForm">
+        <label>Pet ID</label>&nbsp;
+        <input type="text" name="p_id" formControlName="p_id">
+        <input type="submit" value="search" [disabled]="!filterByPetForm.valid">
+    </form>
+
+    <form (submit)="filterByEmployee()" [formGroup]="filterByEmployeeForm">
+        <label>Employee ID</label>&nbsp;
+        <input type="text" name="e_id" formControlName="e_id">
+        <input type="submit" value="search" [disabled]="!filterByEmployeeForm.valid">
+    </form>
+
+    <form (submit)="filterByCustomer()" [formGroup]="filterByCustomerForm">
+        <label>Customer ID</label>&nbsp;
+        <input type="text" name="c_id" formControlName="c_id">
+        <input type="submit" value="search" [disabled]="!filterByCustomerForm.valid">
+    </form>
+</div>
+
+<div>
+
+    <form (submit)="searchOnDate()" [formGroup]="searchOnDateForm">
+        <label>After date</label>&nbsp;
+        <input type="date" name="date" formControlName="date">
+        <input type="submit" value="search" [disabled]="!searchOnDateForm.valid">
+    </form>
+
+    <form (submit)="searchAfterDate()" [formGroup]="searchAfterDateForm">
+        <label>After date</label>&nbsp;
+        <input type="date" name="date" formControlName="date">
+        <input type="submit" value="search" [disabled]="!searchAfterDateForm.valid">
+    </form>
+
+    <form (submit)="searchBeforeDate()" [formGroup]="searchBeforeDateForm">
+        <label>Before date</label>&nbsp;
+        <input type="date" name="date" formControlName="date">
+        <input type="submit" value="search" [disabled]="!searchBeforeDateForm.valid">
+    </form>
+
+    <button (click)="filterByBetween()" [disabled]="!searchAfterDateForm.valid || !searchBeforeDateForm.valid">Between
+        dates</button>&nbsp;&nbsp;&nbsp;
+
+</div>
+
+<div>
+    <form (submit)="searchCost()" [formGroup]="searchCostForm">
+        <label>Price</label>&nbsp;
+        <input type="number" name="cost" formControlName="cost">
+        <input type="submit" value="search" [disabled]="!searchCostForm.valid">
+    </form>
+
+
+    <form (submit)="searchOverCost()" [formGroup]="searchOverCostForm">
+        <label>Over price</label>&nbsp;
+        <input type="number" name="cost" formControlName="cost">
+        <input type="submit" value="search" [disabled]="!searchOverCostForm.valid">
+    </form>
+
+    <form (submit)="searchUnderCost()" [formGroup]="searchUnderCostForm">
+        <label>Under price</label>&nbsp;
+        <input type="number" name="cost" formControlName="cost">
+        <input type="submit" value="search" [disabled]="!searchUnderCostForm.valid">
+    </form>
+
+    <button (click)="filterByBetweeCost()" [disabled]="!searchOverCostForm.valid || !searchUnderCostForm.valid">Between
+        prices</button>&nbsp;&nbsp;&nbsp;
+
+</div>

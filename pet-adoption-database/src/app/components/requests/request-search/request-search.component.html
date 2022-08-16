@@ -23,6 +23,15 @@
         <input type="text" name="c_id" formControlName="c_id">
         <input type="submit" value="search" [disabled]="!filterByCustomerForm.valid">
     </form>
+</div>
+
+<div>
+
+    <form (submit)="searchOnDate()" [formGroup]="searchOnDateForm">
+        <label>Date</label>&nbsp;
+        <input type="date" name="date" formControlName="date">
+        <input type="submit" value="search" [disabled]="!searchOnDateForm.valid">
+    </form>
 
     <form (submit)="searchAfterDate()" [formGroup]="searchAfterDateForm">
         <label>After date</label>&nbsp;
@@ -36,8 +45,34 @@
         <input type="submit" value="search" [disabled]="!searchBeforeDateForm.valid">
     </form>
 
+    <button (click)="filterByBetween()" [disabled]="!searchAfterDateForm.valid || !searchBeforeDateForm.valid">Between dates</button>&nbsp;&nbsp;&nbsp;
+
     <button (click)="filterByApproved()">Approved</button>
     <button (click)="filterByRejected()">Rejected</button>
     <button (click)="filterByPending()">Pending</button>
+
+</div>
+
+<div>
+
+    <form (submit)="searchEqualCost()" [formGroup]="searchEqualCostForm">
+        <label>Price</label>&nbsp;
+        <input type="number" name="cost" formControlName="cost">
+        <input type="submit" value="search" [disabled]="!searchEqualCostForm.valid">
+    </form>
+    <form (submit)="searchOverCost()" [formGroup]="searchOverCostForm">
+        <label>Over price</label>&nbsp;
+        <input type="number" name="cost" formControlName="cost">
+        <input type="submit" value="search" [disabled]="!searchOverCostForm.valid">
+    </form>
+
+    <form (submit)="searchUnderCost()" [formGroup]="searchUnderCostForm">
+        <label>Under price</label>&nbsp;
+        <input type="number" name="cost" formControlName="cost">
+        <input type="submit" value="search" [disabled]="!searchUnderCostForm.valid">
+    </form>
+
+    <button (click)="filterByBetweeCost()" [disabled]="!searchOverCostForm.valid || !searchUnderCostForm.valid">Between
+        prices</button>&nbsp;&nbsp;&nbsp;
 
 </div>

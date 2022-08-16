@@ -6,12 +6,15 @@ import { LoginComponent } from './auth/component/login/login.component';
 import { AuthguardService } from './auth/service/authguard.service';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { AdoptionComponent } from './components/adoption/adoption.component';
+import { RequestPageComponent } from './components/requests/request-page/request-page.component';
+import { ReceiptPageComponent } from './components/receipts/receipt-page/receipt-page.component';
 
 //Testing
 import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
 import { PetSearchComponent } from './components/pet-search/pet-search.component';
 import { LogoutComponent } from './auth/component/logout/logout.component';
 import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
+import { AddPetComponent } from './test/components/add-pet/add-pet.component';
 
 
 const routes: Routes = [
@@ -20,6 +23,8 @@ const routes: Routes = [
   { path: 'pets', component: PetSearchComponent },
   { path: 'login', component: LoginComponent },
   { path: 'adopt/:petId', component: AdoptionComponent},
+  {path: 'requests', component: RequestPageComponent, canActivate:[AuthguardService]},
+  {path: 'receipts', component: ReceiptPageComponent, canActivate:[AuthguardService]},
   {
     path: 'employeeDashboard',
     component: EmployeeDashboardComponent,
@@ -30,6 +35,7 @@ const routes: Routes = [
   { path: 'test', component: ViewPetsComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'signup', component: SignUpComponent },
+  { path: 'pet-add-test', component: AddPetComponent },
 ];
 
 @NgModule({

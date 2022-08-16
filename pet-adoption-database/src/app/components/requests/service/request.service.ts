@@ -7,6 +7,25 @@ import { PetRequest } from '../model/petrequest.model';
   providedIn: 'root'
 })
 export class RequestService {
+  filterByOnDate(p: any) {
+    return this.http.get<PetRequest[]>(this.url + "/at?date=" + p);
+  }
+  filterByEqualCost(p: any) {
+    return this.http.get<PetRequest[]>(this.url + "/equalTo/" + p);
+  }
+
+  filterByBetweenCost(p: any, v: any) {
+    return this.http.get<PetRequest[]>(this.url + "/range/" + p + "/" + v);
+  }
+  filterByUnderCost(p: any) {
+    return this.http.get<PetRequest[]>(this.url + "/lessThan/" + p);
+  }
+  filterByOverCost(p: any) {
+    return this.http.get<PetRequest[]>(this.url + "/greaterThan/" + p);
+  }
+  filterByBetweenDates(p: any, v: any) {
+    return this.http.get<PetRequest[]>(this.url + "/between?from=" + p + "&to=" + v);
+  }
   filterByBeforeDate(p: any) {
     return this.http.get<PetRequest[]>(this.url + "/before?date=" + p);
   }
