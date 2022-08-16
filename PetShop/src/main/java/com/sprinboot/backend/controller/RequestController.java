@@ -3,7 +3,6 @@
 * creating and retrieving requests in the DB
 *
 * @author  Felix Taylor
-* @since   2022-07-26
 */
 package com.sprinboot.backend.controller;
 
@@ -138,12 +137,13 @@ public class RequestController {
 	 */
 	@GetMapping("/request/{id}")
 	public RequestDto getRequestDtoById(@PathVariable("id") Long id) {
-		return convertToDto(getRequestById(id));
+		Optional<Request> op = requestRepository.findById(id);
+		if (!op.isPresent())
+			throw new MissingEntryException("Unable to find request ID");
+		return convertToDto(op.get());
 	}
 
-	/*
-	 * Deletes a single request from the DB
-	 */
+	// Deletes a single request from the DB
 	@DeleteMapping("/request/{id}")
 	public void deleteRequestById(@PathVariable("id") Long id) {
 		requestRepository.deleteById(id);
@@ -304,33 +304,24 @@ public class RequestController {
 		return convertListToDto(requestRepository.findBetweenDate(LocalDate.parse(date), LocalDate.parse(date1)));
 	}
 	
-	/*
-	 * Find requests of a particular pet species
-	 * @param species string
-	 * @return list of request DTOs
-	 */
-	@GetMapping("/request/species/{species}")
-	public List<RequestDto> getRequestBySpecies(@PathVariable("species") String species) {
-		return convertListToDto(requestRepository.findBySpecies(species));
+	
+	@GetMapping("/request/equalTo/{price}")
+	public List<RequestDto> getRequestByPriceEqualTo(@PathVariable("price") Double price) {
+		return convertListToDto(requestRepository.findByPriceEqualTo(price));
 	}
 	
-	/*
-	 * Find requests of a particular pet breed
-	 * @param breed string
-	 * @return list of request DTOs
-	 */	
-	@GetMapping("/request/species/{breed}")
-	public List<RequestDto> getRequestByBreed(@PathVariable("breed") String breed) {
-		return convertListToDto(requestRepository.findByBreed(breed));
+	@GetMapping("/request/greaterThan/{price}")
+	public List<RequestDto> getRequestByPriceGreaterThan(@PathVariable("price") Double price) {
+		return convertListToDto(requestRepository.findByPriceGreaterThan(price));
 	}
 	
-	/*
-	 * Find requests of a particular pet color
-	 * @param color string
-	 * @return list of request DTOs
-	 */	
-	@GetMapping("/request/species/{color}")
-	public List<RequestDto> getRequestByColor(@PathVariable("color") String color) {
-		return convertListToDto(requestRepository.findByColor(color));
+	@GetMapping("/request/lessThan/{price}")
+	public List<RequestDto> getRequestByPriceLessThan(@PathVariable("price") Double price) {
+		return convertListToDto(requestRepository.findByPriceLessThan(price));
+	}
+	
+	@GetMapping("/request/range/{price1}/{price2}")
+	public List<RequestDto> getRequestByPriceGreaterThan(@PathVariable("price1") Double price1, @PathVariable("price2") Double price2) {
+		return convertListToDto(requestRepository.findByPriceBetween(price1, price2));
 	}
 }

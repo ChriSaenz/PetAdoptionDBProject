@@ -17,6 +17,13 @@ import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RequestFormComponent } from './components/requests/request-form/request-form.component';
+import { RequestListComponent } from './components/requests/request-list/request-list.component';
+import { RequestPageComponent } from './components/requests/request-page/request-page.component';
+import { RequestSearchComponent } from './components/requests/request-search/request-search.component';
+import { ReceiptPageComponent } from './components/receipts/receipt-page/receipt-page.component';
+import { ReceiptListComponent } from './components/receipts/receipt-list/receipt-list.component';
+import { ReceiptSearchComponent } from './components/receipts/receipt-search/receipt-search.component';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -38,6 +45,13 @@ import { SupportComponent } from './components/employee-dashboard/components/sup
     ProfileComponent,
     SignUpComponent,
     EmployeeDashboardComponent,
+    RequestFormComponent,
+    RequestListComponent,
+    RequestPageComponent,
+    RequestSearchComponent,
+    ReceiptPageComponent,
+    ReceiptListComponent,
+    ReceiptSearchComponent,
     ViewPetsComponent,
     AddPetComponent,
     AccountInfoComponent,
@@ -47,6 +61,9 @@ import { SupportComponent } from './components/employee-dashboard/components/sup
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     MatToolbarModule,
     MatCardModule,
     MatFormFieldModule,

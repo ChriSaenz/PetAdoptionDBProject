@@ -5,6 +5,8 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './auth/component/login/login.component';
 import { AuthguardService } from './auth/service/authguard.service';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
+import { RequestPageComponent } from './components/requests/request-page/request-page.component';
+import { ReceiptPageComponent } from './components/receipts/receipt-page/receipt-page.component';
 
 //Testing
 import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
@@ -18,6 +20,9 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'pets', component: PetsComponent },
   { path: 'login', component: LoginComponent },
+  {path: 'requests', component: RequestPageComponent, canActivate:[AuthguardService]},
+  {path: 'receipts', component: ReceiptPageComponent, canActivate:[AuthguardService]},
+
   {
     path: 'employeeDashboard',
     component: EmployeeDashboardComponent,

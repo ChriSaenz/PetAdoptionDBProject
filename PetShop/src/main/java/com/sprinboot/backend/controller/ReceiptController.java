@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprinboot.backend.dto.ReceiptDto;
@@ -152,10 +153,35 @@ public class ReceiptController {
 	public List<ReceiptDto> getReceiptByPriceLessThan(@PathVariable("price") Double price) {
 		return convertToDtoList(receiptRepository.findByPriceLessThan(price));
 	}
+	
+	@GetMapping("/receipt/range/{price1}/{price2}")
+	public List<ReceiptDto> getReceiptByPriceGreaterThan(@PathVariable("price1") Double price1, @PathVariable("price2") Double price2) {
+		return convertToDtoList(receiptRepository.findByPriceBetween(price1, price2));
+	}
 
 	@GetMapping("/receipt/equalTo/{price}")
 	public List<ReceiptDto> getReceiptByPriceEqualTo(@PathVariable("price") Double price) {
 		return convertToDtoList(receiptRepository.findByPriceEqualTo(price));
+	}
+	
+	@GetMapping("/receipt/at")
+	public List<ReceiptDto> getRequestOnDate(@RequestParam("date") String date) {
+		return convertToDtoList(receiptRepository.findOnDate(LocalDate.parse(date)));
+	}
+	
+	@GetMapping("/receipt/before")
+	public List<ReceiptDto> getRequestBeforeDate(@RequestParam("date") String date) {
+		return convertToDtoList(receiptRepository.findBeforeDate(LocalDate.parse(date)));
+	}
+
+	@GetMapping("/receipt/after")
+	public List<ReceiptDto> getRequestAfterDate(@RequestParam("date") String date) {
+		return convertToDtoList(receiptRepository.findAfterDate(LocalDate.parse(date)));
+	}
+
+	@GetMapping("/receipt/between")
+	public List<ReceiptDto> getRequestBetweenDate(@RequestParam("from") String date, @RequestParam("to") String date1) {
+		return convertToDtoList(receiptRepository.findBetweenDate(LocalDate.parse(date), LocalDate.parse(date1)));
 	}
 	
 }

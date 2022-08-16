@@ -17,11 +17,11 @@ import com.sprinboot.backend.service.MyUserDetailService;
 public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private MyUserDetailService myUserDetailService;
-
+	MyUserDetailService myUserDetailService;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// TODO Figure out how to limit extra instructions (/customer/{id})
+		//TODO Figure out how to limit extra instructions (/customer/{id})
 		http.authorizeRequests()
 //		.antMatchers(HttpMethod.GET, "/pet").authenticated()
 //		.antMatchers(HttpMethod.POST, "/pet").hasAnyAuthority("EMPLOYEE")
@@ -30,24 +30,47 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 //		.antMatchers("/request").hasAnyAuthority("EMPLOYEE")
 //		.antMatchers("/receipt").hasAnyAuthority("EMPLOYEE")
 //		.antMatchers("/employee").hasAnyAuthority("ADMIN")
-				.anyRequest().permitAll().and().httpBasic().and().csrf().disable();
+		.anyRequest().permitAll()
+		.and().httpBasic()
+		.and().csrf().disable();
 	}
+<<<<<<< HEAD
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(getCustomProvider());
 	}
-
+	
 	private DaoAuthenticationProvider getCustomProvider() {
 		DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
 		dao.setPasswordEncoder(getPasswordEncoder());
 		dao.setUserDetailsService(myUserDetailService);
 		return dao;
+=======
+		
+		@Override
+		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+			auth.authenticationProvider(getCustomProvider());
+		}
+		
+		private DaoAuthenticationProvider getCustomProvider() {
+			DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
+			dao.setPasswordEncoder(getPasswordEncoder());
+			dao.setUserDetailService(myUserDetailService);
+			return dao;
+		}
+
+	    @Bean
+	    PasswordEncoder getPasswordEncoder() {
+	        return new BCryptPasswordEncoder();
+	    }
+
+>>>>>>> 58c549c70d5990e4b6a2c3c17a5d74b7fff8fc15
 	}
 
-	@Bean
-	PasswordEncoder getPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 }
