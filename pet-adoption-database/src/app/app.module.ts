@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { PetsComponent } from './pets/pets.component';
-import { HomeComponent } from './home/home.component';
+
 import { LoginComponent } from './auth/component/login/login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,6 +24,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRippleModule } from '@angular/material/core';
 import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
 import { AddPetComponent } from './test/components/add-pet/add-pet.component';
+import { AccountInfoComponent } from './components/employee-dashboard/components/account-info/account-info.component';
+import { HomeComponent } from './components/home/home.component';
+import { SupportComponent } from './components/employee-dashboard/components/support/support.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,8 @@ import { AddPetComponent } from './test/components/add-pet/add-pet.component';
     EmployeeDashboardComponent,
     ViewPetsComponent,
     AddPetComponent,
-      
+    AccountInfoComponent,
+    SupportComponent,
   ],
   imports: [
     BrowserModule,
