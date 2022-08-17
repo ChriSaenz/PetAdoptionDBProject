@@ -23,6 +23,7 @@ import com.sprinboot.backend.exceptions.InvalidEntryException;
 import com.sprinboot.backend.model.UserProfile;
 import com.sprinboot.backend.repository.UserRepository;
 
+
 @CrossOrigin("http://localhost:4200")
 @RestController
 public class UserController {
@@ -154,4 +155,13 @@ public class UserController {
 
 		userRepository.resetPassword(username, encoder.encode(password), LocalDate.now());
 	}
+	
+	@GetMapping("/user/security/info/{username}")
+	public UserEditDto getUserInfo(@PathVariable("username") String username) {
+		UserProfile info = userRepository.getUserByUsername(username);
+		UserEditDto dto = new UserEditDto(info.getNickname(), 
+				"", info.getSecurityQuestion());
+		return dto; 
+	}
+	
 }
