@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Employee } from 'app/model/employee.model';
+import { User } from 'app/model/user.model';
 import { AuthService } from '../../service/auth.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   username: string;
   password: string;
-  employee: Employee;
+  user: User;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -35,13 +36,13 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.username, this.password).subscribe({
       next: (data) => {
-        this.employee = data;
-        localStorage.setItem('username', this.employee.username);
+        this.user = data;
+        localStorage.setItem('username', this.user.username);
         localStorage.setItem(
           'credentials',
           btoa(this.username + ':' + this.password)
         );
-        this.authService.username$.next(this.employee.username);
+        this.authService.username$.next(this.user.username);
         this.router.navigateByUrl('/employeeDashboard');
       },
       error: (e) => {

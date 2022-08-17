@@ -76,6 +76,7 @@ public class UserController {
 		u.setSecurityQuestion(dto.getSecurityQuestion());
 		u.setSecurityAnswer(dto.getSecurityAnswer());
 		u.setRole(dto.getRole());
+		u.setPasswordLastReset(LocalDate.now());
 		
 		userRepository.save(u);
 		

@@ -11,7 +11,7 @@ import { UserDto } from 'app/model/user.model';
 })
 export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
-  userDto: UserDto;
+  user: UserDto;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -26,7 +26,7 @@ export class SignUpComponent implements OnInit {
     });
   }
   onFormSubmit() {
-    this.userDto = {
+    this.user = {
       nickname: this.signUpForm.value.nickname,
       role: this.signUpForm.value.role,
       securityQuestion: this.signUpForm.value.securityQuestion,
@@ -36,7 +36,7 @@ export class SignUpComponent implements OnInit {
       ),
     };
 
-    this.authService.signUp(this.userDto).subscribe({
+    this.authService.signUp(this.user).subscribe({
       next: (data) => {
         this.authService.message$.next(
           'Thank you for signing up! Please login to continue.'

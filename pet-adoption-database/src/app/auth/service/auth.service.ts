@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employee } from 'app/model/employee.model';
-import { UserDto } from 'app/model/user.model';
+import { User } from 'app/model/user.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -28,11 +28,11 @@ export class AuthService {
     return true;
   }
 
-  signUp(userDto: UserDto): Observable<any> {
-    return this.http.post(this.signUpApi, userDto);
+  signUp(user: User): Observable<User> {
+    return this.http.post<User>(this.signUpApi, user);
   }
 
-  login(username: string, password: string): Observable<Employee> {
+  login(username: string, password: string): Observable<User> {
     let encoded = btoa(username + ':' + password);
     let httpOptions = {
       headers: new HttpHeaders({
@@ -40,6 +40,6 @@ export class AuthService {
         Authorization: 'Basic ' + encoded,
       }),
     };
-    return this.http.get<Employee>(this.loginApi, httpOptions);
+    return this.http.get<User>(this.loginApi, httpOptions);
   }
 }
