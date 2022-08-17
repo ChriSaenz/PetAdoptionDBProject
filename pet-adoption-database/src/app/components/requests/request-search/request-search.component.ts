@@ -20,7 +20,6 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
   filterByCustomerForm: FormGroup;
   searchAfterDateForm: FormGroup;
   searchBeforeDateForm: FormGroup;
-  requests: PetRequest[];
   subscriptions: Subscription[] = [];
 
   constructor(private requestService: RequestService) { }
@@ -66,8 +65,7 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.fetchRequests()
         .subscribe({
           next: (data) => {
-            this.requests = data;
-            this.requestService.request$.next(this.requests);
+            this.requestService.request$.next(data);
           },
           error: (e) => {
           }

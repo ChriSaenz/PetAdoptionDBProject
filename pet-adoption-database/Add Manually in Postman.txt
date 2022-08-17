@@ -1,6 +1,6 @@
 Since Adding Users will need to encrypt passwords,
 we need to add them manually in Postman as:
-	localhost:8824/employee
+	localhost:8824/user-postman
 (If no users available, you will need to comment out line 34 in ApiSecurityConfig)
 
 Users:

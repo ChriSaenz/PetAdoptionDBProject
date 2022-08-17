@@ -11,15 +11,23 @@
     <div class="logo-container">
       <a class="top-logo" routerLink="/home">Pet Adoption Database</a>
     </div>
+
     <div class="toolbar-item-container">
-      <div class="top-right-nav" style="border-left: solid 0.7px gray">
-        <a
-          class="top-toolbar-item"
-          routerLink="/signup"
-          style="padding-left: 1rem"
-          >Sign Up</a
+      <div class="dynamic-link" *ngIf="username == undefined">
+        <div class="top-right-nav" style="border-left: solid 0.7px gray">
+          <a
+            class="top-toolbar-item"
+            routerLink="/signup"
+            style="padding-left: 1rem"
+            >Sign Up</a
+          >
+          <a class="top-toolbar-item" routerLink="/login">Log In</a>
+        </div>
+      </div>
+      <div class="dynamic-link" *ngIf="username != undefined">
+        <a class="top-toolbar-item" routerLink="/employeeDashboard"
+          >Welcome, {{ username }}</a
         >
-        <a class="top-toolbar-item" routerLink="/login">Log In</a>
       </div>
     </div>
   </div>
