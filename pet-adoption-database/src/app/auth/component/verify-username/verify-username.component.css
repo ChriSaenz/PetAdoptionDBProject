@@ -9,6 +9,12 @@ mat-card::ng-deep.mat-card-header-text {
   padding-top: 100px;
 }
 
+.hidden-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 mat-card {
   padding: 100px;
 }

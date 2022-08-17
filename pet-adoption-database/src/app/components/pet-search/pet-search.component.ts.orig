@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from 'app/auth/service/auth.service';
+=======
+>>>>>>> main
 import { Filter } from 'app/model/filter.model';
 import { Pet } from 'app/model/pet.model';
 import { PetService } from 'app/service/pet.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-pet-search',
@@ -12,16 +16,22 @@ import { PetService } from 'app/service/pet.service';
 })
 export class PetSearchComponent implements OnInit {
   //  TODO: Insert link here for pet API
+<<<<<<< HEAD
   pets:Pet[]=[];
   petsFiltered:Pet[];
   filterForm:FormGroup;
   colorsUnique:string[]=[];
   speciesUnique:string[]=[];
   breedUnique:string[]=[];
+=======
+  public pets: Pet[]=[];
+  public petsFiltered: Pet[]=[];
+>>>>>>> main
 
-  constructor(private petService:PetService, private authService:AuthService) { }
+  constructor(private petService:PetService) { }
 
   ngOnInit(): void {
+<<<<<<< HEAD
     //  pull data from pets API
     this.petService.getAllPets().subscribe({
       next: (data) => {
@@ -47,7 +57,7 @@ export class PetSearchComponent implements OnInit {
       error: (e) => {console.log("Error returned at resetFilters in pet-search.component.ts:47");}
     });
 
-    //  instantiate filter Form
+    //  instantiate filterForm
     this.filterForm = new FormGroup({
       name: new FormControl(''),
       species: new FormControl(''),
@@ -140,3 +150,25 @@ export class PetSearchComponent implements OnInit {
     return this.authService.isLoggedIn();
   }
 }
+=======
+    this.petService.getAllPets().subscribe(data => {this.pets = data;});
+    this.resetFilters();
+  }
+
+  //  Returns an array of filtered pets.
+  searchForPets(filters:Filter) {
+    //  For each property that exists in filters
+    let arr = Object.getOwnPropertyNames(filters);
+    arr.forEach(function (e) {
+      //  filter array based on that filter
+      let currentFilter = e as keyof typeof filters;
+      this.petsFiltered.filter(f => f[currentFilter] == filters[currentFilter]);
+    }); 
+  }
+
+  //  Pulls data from database into pets, which also resets filters
+  resetFilters(): void {
+    this.petsFiltered = Array.from(this.pets);
+  }
+}
+>>>>>>> main

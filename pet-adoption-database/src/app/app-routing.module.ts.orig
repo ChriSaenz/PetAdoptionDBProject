@@ -29,6 +29,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'pets', component: PetSearchComponent },
   { path: 'login', component: LoginComponent },
+<<<<<<< HEAD
+=======
   { path: 'adoption/:petId', component: AdoptionComponent},
   {path: 'requests', component: RequestPageComponent, canActivate:[AuthguardService]},
   {path: 'receipts', component: ReceiptPageComponent, canActivate:[AuthguardService]},
@@ -44,6 +46,7 @@ const routes: Routes = [
     component: ReceiptPageComponent,
     canActivate: [AuthguardService],
   },
+>>>>>>> 1dc189da9aa9fbb15c4fed62ee32800fbf5112ce
 
 
   {

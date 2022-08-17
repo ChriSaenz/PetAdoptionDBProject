@@ -39,9 +39,9 @@ public class PetController {
 		return petRepository.findAll();
 	}
 	
-	//****************View Pet By Name*******************
+	//****************Filter Pets By Name*******************
 	@GetMapping("/pet/name/{name}")
-	public List<Pet> getPetByName(@PathVariable("name") String name) {
+	public List<Pet> filterPetByName(@PathVariable("name") String name) {
 		List<Pet> list = petRepository.findByName(name);
 		return list;
 	}
@@ -53,11 +53,59 @@ public class PetController {
 		return list;
 	}
 	
-	//*************Filter Pets By Species****************
+	//*************Filter Pets By Age****************
 	@GetMapping("/pet/age/{age}")
 	public List<Pet> filterPetByAge(@PathVariable("age") int age) {
 		List<Pet> list = petRepository.filterByAge(age);
 		return list;
 	}
 	
+	//*************Filter Pets By Sex****************
+	@GetMapping("/pet/sex/{sex}")
+	public List<Pet> filterPetByAge(@PathVariable("sex") String sex) {
+		List<Pet> list = petRepository.filterBySex(sex);
+		return list;
+	}
+	
+
+	//*************Filter Pets By Color****************
+	@GetMapping("/pet/color/{color}")
+	public List<Pet> filterPetByColor(@PathVariable("color") String color) {
+		List<Pet> list = petRepository.filterByColor(color);
+		return list;
+	}
+	
+	//*************Filter Pets By Breed****************
+	@GetMapping("/pet/breed/{breed}")
+	public List<Pet> filterPetByBreed(@PathVariable("breed") String breed) {
+		List<Pet> list = petRepository.filterByBreed(breed);
+		return list;
+	}
+	
+	//*************Filter Pets By Vaccinated****************
+	@GetMapping("/pet/vaccinated/{vaccinated}")
+	public List<Pet> filterPetByVaccinated(@PathVariable("vaccinated") boolean vaccinated) {
+		List<Pet> list = petRepository.filterByVaccinated(vaccinated);
+		return list;
+	}
+
+	//*************Filter Pets By Neutered****************
+	@GetMapping("/pet/neutered/{neutered}")
+	public List<Pet> filterPetByNeutered(@PathVariable("neutered") boolean neutered) {
+		List<Pet> list = petRepository.filterByNeutered(neutered);
+		return list;
+	}
+	
+	//*************Filter Pets By Everything****************
+//	@GetMapping("/pet/name/{na}/species/{sp}/age/{a}/sex/{se}/color/{c}/breed/{b}/vaccinated/{v}/neutered/{n}")
+//	public List<Pet> filterPetByAll(@PathVariable("na") String name,
+//			@PathVariable("sp") String species,
+//			@PathVariable("a") int age,
+//			@PathVariable("se") String sex,
+//			@PathVariable("c") String color,
+//			@PathVariable("b") String breed,
+//			@PathVariable("v") boolean vaccinated,
+//			@PathVariable("ne") boolean neutered) {
+//		return petRepository.filterByAll(name, species, age, sex, color, breed, vaccinated, neutered);
+//	}
 }

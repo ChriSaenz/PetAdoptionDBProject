@@ -74,17 +74,21 @@ export class RequestService {
     return this.http.get<PetRequest[]>(this.url);
   }
 
-  postRequest(
-    request: PetRequest,
-    eid: number,
-    cid: number,
-    pid: number
-  ): Observable<PetRequest> {
+  postRequest(request: PetRequest, eid: number, cid: number, pid: number): Observable<PetRequest> {
+    console.log("Making request " + eid + "/" + cid + "/" + pid);
     return this.http.post<PetRequest>(
       this.url + '/' + cid + '/' + pid + '/' + eid,
       request
     );
   }
+  postRequestAdoption(request: PetRequest, eid: number, cid: number, pid: number): Observable<PetRequest> {
+    console.log("Making request " + eid + "/" + cid + "/" + pid);
+    return this.http.post<PetRequest>(
+      this.url + "/adoption/" + cid + '/' + pid + '/' + eid,
+      request
+    );
+  }
+
   approve(id: number): Observable<any> {
     return this.http.put(this.url + '/approve/' + id, null);
   }

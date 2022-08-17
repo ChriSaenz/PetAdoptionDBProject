@@ -12,6 +12,10 @@ mat-sidenav {
   width: 200px;
 }
 
+mat-sidenav-content {
+  width: auto;
+}
+
 .dashboard-container {
   max-width: 1000px;
   margin-left: auto;

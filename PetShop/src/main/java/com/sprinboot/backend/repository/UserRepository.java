@@ -28,5 +28,6 @@ public interface UserRepository extends JpaRepository<UserProfile, Long> {
 		 + "where u.username = ?1")
 	void resetPassword(String username, String encode, LocalDate now);
 	
-	
+	@Query("select u from UserProfile u where u.username = ?1")
+	UserProfile getUserByUsername(String username);
 }

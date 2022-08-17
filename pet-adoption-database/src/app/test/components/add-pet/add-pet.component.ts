@@ -50,7 +50,7 @@ export class AddPetComponent implements OnInit, OnDestroy {
     this.petService.postPet(this.pet).subscribe({
       next: (data) => {
         this.pet = data;
-        this.msg = 'Pet added to db';
+        this.msg = '[AddPetComponent] Pet added to db';
 
         let petArr = this.petService.pet$.getValue();
 
