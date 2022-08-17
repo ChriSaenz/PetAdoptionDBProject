@@ -12,6 +12,6 @@ export class UserService {
   constructor(private http:HttpClient) {}
 
   getUserByUsername(username:string): Observable<User> {
-    return this.http.get<User>(this.getUserByUsernameApi + username);
+    return this.http.get<User>(this.getUserByUsernameApi + "/" + username);
   }
 }

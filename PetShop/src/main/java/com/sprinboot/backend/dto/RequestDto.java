@@ -19,9 +19,9 @@ public class RequestDto {
 	private Status status;
 	private Long c_id;
 	private String c_name;
-	private String c_phone;
-	private LocalDate c_date_joined;
-	private LocalDate c_birthday;
+//	private String c_phone;
+//	private LocalDate c_date_joined;
+//	private LocalDate c_birthday;
 	private Long p_id;
 	private String p_name, p_species;
 	private int p_age;
@@ -70,24 +70,24 @@ public class RequestDto {
 	public void setC_name(String c_name) {
 		this.c_name = c_name;
 	}
-	public String getC_phone() {
-		return c_phone;
-	}
-	public void setC_phone(String c_phone) {
-		this.c_phone = c_phone;
-	}
-	public LocalDate getC_date_joined() {
-		return c_date_joined;
-	}
-	public void setC_date_joined(LocalDate c_date_joined) {
-		this.c_date_joined = c_date_joined;
-	}
-	public LocalDate getC_birthday() {
-		return c_birthday;
-	}
-	public void setC_birthday(LocalDate c_birthday) {
-		this.c_birthday = c_birthday;
-	}
+//	public String getC_phone() {
+//		return c_phone;
+//	}
+//	public void setC_phone(String c_phone) {
+//		this.c_phone = c_phone;
+//	}
+//	public LocalDate getC_date_joined() {
+//		return c_date_joined;
+//	}
+//	public void setC_date_joined(LocalDate c_date_joined) {
+//		this.c_date_joined = c_date_joined;
+//	}
+//	public LocalDate getC_birthday() {
+//		return c_birthday;
+//	}
+//	public void setC_birthday(LocalDate c_birthday) {
+//		this.c_birthday = c_birthday;
+//	}
 	public Long getP_id() {
 		return p_id;
 	}

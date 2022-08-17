@@ -61,9 +61,9 @@ public class RequestController {
 		dto.setDate(request.getDate());
 		dto.setC_id(request.getCustomer().getId());
 		dto.setC_name(request.getCustomer().getName());
-		dto.setC_phone(request.getCustomer().getPhone());
-		dto.setC_date_joined(request.getCustomer().getDate_joined());
-		dto.setC_birthday(request.getCustomer().getBirthday());
+//		dto.setC_phone(request.getCustomer().getPhone());
+//		dto.setC_date_joined(request.getCustomer().getDate_joined());
+//		dto.setC_birthday(request.getCustomer().getBirthday());
 		dto.setP_id(request.getPet().getId());
 		dto.setP_name(request.getPet().getName());
 		dto.setP_age(request.getPet().getAge());

@@ -29,15 +29,16 @@ export class AdoptionComponent implements OnInit {
         console.log("Successfully returned pet " + data.name);
         this.petToAdopt = data;
       },
-      error: (e) => {console.log("Error returned at ngOnInit() in adoption.component.ts:27");}
+      error: (e) => {console.log("Error returned at ngOnInit() in adoption.component.ts:32");}
     });
     
-    this.userService.getUserByUsername(this.authService.username$.getValue()).subscribe({
+    let username = localStorage.getItem('username');
+    this.userService.getUserByUsername(username).subscribe({
       next: (data) => {
-        console.log("Successfully returned user " + data.name);
         this.adopter = data;
+        console.log("Successfully returned user " + this.adopter.nickname + " from username " + username);
       },
-      error: (e) => {console.log("Error returned at ngOnInit() in adoption.component.ts:41");}
+      error: (e) => {console.log("Error returned at ngOnInit() in adoption.component.ts:40");}
     });
   }
 
@@ -47,10 +48,10 @@ export class AdoptionComponent implements OnInit {
     pr.date = new Date().toDateString();
     pr.status  = "Pending";
     pr.c_id = this.adopter.id;
-    pr.c_name = this.adopter.name;
-    pr.c_phone = "";
-    pr.c_date_joined = "";
-    pr.c_birthday = "";
+    pr.c_name = this.adopter.nickname;
+    // pr.c_phone = "";
+    // pr.c_date_joined = "";
+    // pr.c_birthday = "";
     pr.p_id = this.petToAdopt.id;
     pr.p_name = this.petToAdopt.name;
     pr.p_species = this.petToAdopt.species;
@@ -63,7 +64,15 @@ export class AdoptionComponent implements OnInit {
     pr.p_neutered = this.petToAdopt.neutered;
     pr.p_cost = this.petToAdopt.cost;
     
-    console.log("Successfully created new request");
-    // this.requestService.postRequest(pr, 0, pr.c_id, pr.p_id);
+    this.requestService.postRequest(pr, 0, pr.c_id, pr.p_id).subscribe({
+      next: (data) => {
+        //  POST doesn't update the database, must do this to update database
+        let reqArr = this.requestService.request$.getValue();
+        reqArr.push(pr);
+        this.requestService.request$.next(reqArr);
+        console.log("Successfully created new request");
+      },
+      error: (e) => {console.log("Error returned at ngOnInit() in adoption.component.ts:72");}
+    });
   }
 }
