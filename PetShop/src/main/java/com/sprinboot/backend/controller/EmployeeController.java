@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,6 +57,12 @@ public class EmployeeController {
 		if (optional.isPresent())
 			return convertToDto(optional.get());
 		throw new MissingEntryException("ID is invalid");
+	}
+	
+	@DeleteMapping("/employee/{id}")
+	public void deleteEmployeeById(@PathVariable("id")Long id)
+	{
+		employeeRepository.deleteById(id);
 	}
 
 //	@GetMapping("/employee/username/{id}")

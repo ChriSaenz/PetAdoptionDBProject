@@ -58,6 +58,7 @@ insert into Request(id, employee_id, customer_id, pet_id, date, status) values
 -- Input manually in Postman
 describe User;
 select * from User;
+-- drop table user;
 -- -- set SQL_SAFE_UPDATES = 0; delete from User; set SQL_SAFE_UPDATES = 1;
 -- insert into User(id, username, password) values
 -- ();

@@ -14,9 +14,12 @@ import { LogoutComponent } from './auth/component/logout/logout.component';
 import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
 import { AddPetComponent } from './test/components/add-pet/add-pet.component';
 import { AccountInfoComponent } from './components/employee-dashboard/components/account-info/account-info.component';
+<<<<<<< HEAD
 import { SupportComponent } from './components/employee-dashboard/components/support/support.component';
+=======
 import { AddEmployeeComponent } from './components/employee/add-employee/add-employee.component';
 import { ViewEmployeesComponent } from './components/employee/view-employees/view-employees.component';
+>>>>>>> diego-spring
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
