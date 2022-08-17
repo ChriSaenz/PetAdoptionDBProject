@@ -16,6 +16,7 @@ import { RequestService } from '../requests/service/request.service';
 export class AdoptionComponent implements OnInit {
   petToAdopt:Pet = new Pet();
   adopter:User = new User();
+  requestSent:boolean;
 
   constructor(private petService:PetService,
     private activatedRoute:ActivatedRoute, private requestService:RequestService,
@@ -23,6 +24,7 @@ export class AdoptionComponent implements OnInit {
 
   //  Gets pet based on target Id retrieved from URL
   ngOnInit(): void {
+    this.requestSent = false;
     let targetId = parseInt(this.activatedRoute.snapshot.paramMap.get('petId'));
     this.petService.getPetById(targetId).subscribe({
       next: (data) => {
@@ -77,5 +79,7 @@ export class AdoptionComponent implements OnInit {
       },
       error: (e) => {console.log("Error returned at ngOnInit() in adoption.component.ts:77");}
     });
+
+    this.requestSent = true;
   }
 }
