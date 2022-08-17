@@ -62,6 +62,7 @@ export class PetSearchComponent implements OnInit {
 
   //  Filters pets in array.
   searchForPets(): void {
+    this.resetFilters();
     //  Create new filter with form data
     let filters = new Filter();
     filters.name = this.filterForm.value.name;
@@ -70,21 +71,56 @@ export class PetSearchComponent implements OnInit {
     filters.sex = this.filterForm.value.sex;
     filters.color = this.filterForm.value.color;
     filters.breed = this.filterForm.value.breed;
-    filters.vaccinated = this.filterForm.value.vaccinated;
-    filters.neutered = this.filterForm.value.neutered;
+    //  Must be written like this, does not work otherwise
+    filters.vaccinated = this.filterForm.value.vaccinated == 'null'? undefined : (this.filterForm.value.vaccinated? true : false);
+    filters.neutered = this.filterForm.value.neutered == 'null'? undefined : (this.filterForm.value.neutered? true : false);
 
-    //  For each property that exists in filters
-    Object.entries(filters).forEach(([property, value]) => {
-      //  filter array based on that filter if a valid value exists for it
-      if(value != null && value != '' && value != "null" && value != undefined) {
-        console.log("Applying filter " + property + ":" + value);
-        // this.petsFiltered = this.petsFiltered.filter(f => {f[property] == value});
-        this.petService.getPetsByFilter(property, value).subscribe({
-          next: (data) => {this.petsFiltered = data},
-          error: (e) => {console.log("Error returned at searchForPets() in pet-search.component.ts:84");}
-        });
-      }
-    });
+    //  For each property that has a valid value in filters, filter array based on that filter if a valid value exists for it
+    if(this.isValid(filters.name)) {
+      console.log("Applying filter - name=" + filters.name + ".");
+      this.petsFiltered = this.petsFiltered.filter(f => f.name == filters.name);
+    }
+    if(this.isValid(filters.species)) {
+      console.log("Applying filter - species=" + filters.species + ".");
+      this.petsFiltered = this.petsFiltered.filter(f => f.species == filters.species);
+    }
+    if(this.isValid(filters.age)) {
+      console.log("Applying filter - age=" + filters.age + ".");
+      this.petsFiltered = this.petsFiltered.filter(f => f.age == filters.age);
+    }
+    if(this.isValid(filters.sex)) {
+      console.log("Applying filter - sex=" + filters.sex) + ".";
+      this.petsFiltered = this.petsFiltered.filter(f => f.sex == filters.sex);
+    }
+    if(this.isValid(filters.color)) {
+      console.log("Applying filter - color=" + filters.color + ".");
+      this.petsFiltered = this.petsFiltered.filter(f => f.color == filters.color);
+    }
+    if(this.isValid(filters.breed)) {
+      console.log("Applying filter - breed=" + filters.breed + ".");
+      this.petsFiltered = this.petsFiltered.filter(f => f.breed == filters.breed);
+    }
+    if(this.isValid(filters.vaccinated)) {
+      console.log("Applying filter - vaccinated=" + filters.vaccinated + ".");
+      this.petsFiltered = this.petsFiltered.filter(f => f.vaccinated == filters.vaccinated);
+    }
+    if(this.isValid(filters.neutered)) {
+      console.log("Applying filter - neutered=" + filters.neutered + ".");
+      this.petsFiltered = this.petsFiltered.filter(f => f.neutered == filters.neutered);
+    }
+    // Object.entries(filters).forEach(([property, value]) => {
+    //   if(value != null && value != '' && value != "null" && value != undefined) {
+    //     console.log("Applying filter " + property + ":" + value);
+    //     // this.petsFiltered = this.petsFiltered.filter(f => {f[property] == value});
+    //     this.petService.getPetsByFilter(property, value).subscribe({
+    //       next: (data) => {this.petsFiltered = data},
+    //       error: (e) => {console.log("Error returned at searchForPets() in pet-search.component.ts:84");}
+    //     });
+    //   }
+    // });
+  }
+  isValid(value:any): boolean {
+    return (value != null && value != '' && value != "null" && value != undefined)
   }
 
   //  resets filtered pets displayed: assigns
