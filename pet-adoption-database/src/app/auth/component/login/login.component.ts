@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
           btoa(this.username + ':' + this.password)
         );
         this.authService.username$.next(this.employee.username);
-        this.router.navigateByUrl('/employeeDashboard');
+        this.router.navigateByUrl('/employeeDashboard/accountInfo');
       },
       error: (e) => {
         this.authService.message$.next('Invalid Credentials');
