@@ -45,7 +45,7 @@ export class AdoptionComponent implements OnInit {
   //  Create a post request with pet and customer information
   createRequest(): void {
     let pr = new PetRequest();
-    pr.date = new Date().toDateString();
+    pr.date = null;
     pr.status  = "Pending";
     pr.c_id = this.adopter.id;
     pr.c_name = this.adopter.nickname;
