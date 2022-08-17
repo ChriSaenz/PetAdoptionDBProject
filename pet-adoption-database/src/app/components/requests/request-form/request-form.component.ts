@@ -31,8 +31,8 @@ export class RequestFormComponent implements OnInit, OnDestroy {
   onFormSubmit(){
     this.request = this.requestForm.value;
     this.subscriptions.push(
-     this.requestService.postRequest(this.request, this.requestForm.value.e_id, this.requestForm.value.p_id, 
-      this.requestForm.value.c_id).subscribe( {
+     this.requestService.postRequest(this.request, this.requestForm.value.c_id, this.requestForm.value.p_id, 
+      this.requestForm.value.e_id).subscribe( {
         next: (data)=> {
           this.request = data;
           this.message='request added in the system';
