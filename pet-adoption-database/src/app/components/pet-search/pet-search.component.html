@@ -3,60 +3,55 @@
 <div class="pets-filters">
   <h4>Available Pets</h4><br />
   
-  <form>
+  <form (submit)="searchForPets()" [formGroup]="filterForm">
     <label>Search by Name</label>
-    <input type="number" id="name">
+    <input type="text" formControlName="name">
     <br />
 
     <!-- "select multiple" allows for multiple choices, note for later -->
     <label>Filter by Species</label>
-    <select id="species">
+    <select formControlName="species">
       <option *ngFor="let s of speciesUnique" value="{{s}}">{{s}}</option>
     </select>
     <br />
 
     <label>Search by Age</label>
-    <input type="number" id="age">
+    <input type="number" formControlName="age">
     <br />
 
-    <!-- <label>Search by Date Acquired</label>
-    <input type="date" id="date_acquired">
-    <br /> -->
-
     <label>Filter by Sex</label>
-    <select id="sex">
-      <option value="white">Male</option>
-      <option value="black">Female</option>
+    <select formControlName="sex">
+      <option value="null"></option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
     </select>
     <br />
 
     <label>Filter by Color</label>
-    <select id="color">
+    <select formControlName="color">
       <option *ngFor="let c of colorsUnique" value="{{c}}">{{c}}</option>
     </select>
     <br />
 
-    <!-- Options should change based on species select? -->
     <label>Filter by Breed</label>
-    <select id="color">
+    <select formControlName="breed">
       <option *ngFor="let b of breedUnique" value="{{b}}">{{b}}</option>
     </select>
     <br />
 
-    <input type="checkbox" id="vaccinated" value="true">
     <label>Vaccinated?</label>
+    <input type="checkbox" formControlName="vaccinated">
     <br />
 
-    <input type="checkbox" id="neutered" value="true">
     <label>Neutered?</label>
+    <input type="checkbox" formControlName="neutered">
     <br />
 
-    <!-- cost range? -->
-    <br />
+    <input type="submit" value="FILTER">
   </form>
-  <button mat-button (click)="searchForPets()">FILTER</button>
   <button mat-button (click)="resetFilters()">RESET FILTERS</button>
 </div>
+<br /><br />
 <div class="pets-table">
   <style>
     table {
@@ -78,7 +73,7 @@
       <th>More Information</th>
       <th>Adopt</th>
     </tr>
-    <tr *ngFor="let p of pets">
+    <tr *ngFor="let p of petsFiltered">
       <th>{{p.name}}</th>
       <th>{{p.species}}</th>
       <th>{{p.breed}}</th>

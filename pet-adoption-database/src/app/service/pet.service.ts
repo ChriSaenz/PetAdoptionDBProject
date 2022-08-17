@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { getSafePropertyAccessString } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -21,6 +22,11 @@ export class PetService {
   }
 
   getAllPets(): Observable<Pet[]> {
-    return this.http.get<Pet[]>(this.getApi);
+    let gotPets: Observable<Pet[]> = this.http.get<Pet[]>(this.getApi);
+    return gotPets;
+  }
+
+  getPetsByName(name:string): Observable<Pet[]> {
+    return this.http.get<Pet[]>(this.getApi + "/name/" + name);
   }
 }

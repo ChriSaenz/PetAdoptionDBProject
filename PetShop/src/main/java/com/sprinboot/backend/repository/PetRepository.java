@@ -17,4 +17,7 @@ public interface PetRepository extends JpaRepository<Pet, Long>{
 	
 	@Query("select a from Pet a where a.age=?1")
 	List<Pet> filterByAge(int age);
+	
+	@Query("select x from Pet x where ?1 = ?2")
+	List<Pet> filterByFilter(String filter, String value);
 }

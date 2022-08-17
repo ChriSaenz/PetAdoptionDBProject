@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from 'app/auth/service/auth.service';
 import { Filter } from 'app/model/filter.model';
 import { Pet } from 'app/model/pet.model';
@@ -11,7 +12,9 @@ import { PetService } from 'app/service/pet.service';
 })
 export class PetSearchComponent implements OnInit {
   //  TODO: Insert link here for pet API
-  pets: Pet[]=[];
+  pets:Pet[]=[];
+  petsFiltered:Pet[];
+  filterForm:FormGroup;
   colorsUnique:string[]=[];
   speciesUnique:string[]=[];
   breedUnique:string[]=[];
@@ -19,64 +22,74 @@ export class PetSearchComponent implements OnInit {
   constructor(private petService:PetService, private authService:AuthService) { }
 
   ngOnInit(): void {
-    this.resetFilters();
+    //  pull data from pets API
+    this.petService.getAllPets().subscribe({
+      next: (data) => {
+        console.log("Successfully returned " + data.length + " pets from DB");
+        this.pets = data;
+        this.resetFilters();
+        //  add filter options given pet data
+        this.speciesUnique = [null];
+        this.colorsUnique = [null];
+        this.breedUnique = [null];
+        this.pets.forEach(e => {
+          if(this.speciesUnique.indexOf(e.species) == -1) {
+            this.speciesUnique.push(e.species);
+          }
+          if(this.colorsUnique.indexOf(e.color) == -1) {
+            this.colorsUnique.push(e.color);
+          }
+          if(this.breedUnique.indexOf(e.breed) == -1) {
+            this.breedUnique.push(e.breed);
+          }
+        });
+      },
+      error: (e) => {console.log("Error returned at resetFilters in pet-search.component.ts:57");}
+    });
+
+    //  instantiate filterForm
+    this.filterForm = new FormGroup({
+      name: new FormControl(''),
+      species: new FormControl(''),
+      age: new FormControl(''),
+      sex: new FormControl(''),
+      color: new FormControl(''),
+      breed: new FormControl(''),
+      vaccinated: new FormControl(''),
+      neutered: new FormControl(''),
+    });
   }
 
   //  Filters pets in array.
   searchForPets(): void {
-    this.resetFilters();
-
     //  Create new filter with form data
     let filters = new Filter();
-    filters.name = (document.getElementById("name") as HTMLInputElement).value;
-    filters.species = (document.getElementById("species") as HTMLInputElement).value;
-    filters.age = parseInt((document.getElementById("age") as HTMLInputElement).value);
-    // filters.date_acquired = (document.getElementById("date_acquired") as HTMLInputElement).value;
-    filters.sex = (document.getElementById("sex") as HTMLInputElement).value;
-    filters.color = (document.getElementById("color") as HTMLInputElement).value;
-    filters.breed = (document.getElementById("breed") as HTMLInputElement).value;
-    filters.vaccinated = (document.getElementById("vaccinated") as HTMLInputElement).value == "true" ? true : false;
-    filters.neutered = (document.getElementById("neutered") as HTMLInputElement).value == "true" ? true : false;
-    
-    filters.cost = parseFloat((document.getElementById("cost") as HTMLInputElement).value);
+    filters.name = this.filterForm.value.name;
+    filters.species = this.filterForm.value.species;
+    filters.age = this.filterForm.value.age;
+    filters.sex = this.filterForm.value.sex;
+    filters.color = this.filterForm.value.color;
+    filters.breed = this.filterForm.value.breed;
+    filters.vaccinated = this.filterForm.value.vaccinated;
+    filters.neutered = this.filterForm.value.neutered;
 
     //  For each property that exists in filters
-    let arr = Object.getOwnPropertyNames(filters);
-    arr.forEach(function (e) {
+    Object.entries(filters).forEach(([property, value]) => {
       //  filter array based on that filter
-      let currentFilter = e as keyof typeof filters;
-      this.pets.filter(f => f[currentFilter] == filters[currentFilter]);
+      if(value != null && value != '' && value != undefined) {
+        console.log("Applying filter " + property + ": " + value);
+        // this.petsFiltered = this.petsFiltered.filter(f => {f[property] == value});
+        this.petService.getPetsByName(filters.name).subscribe({
+          next: (data) => {this.petsFiltered = data},
+          error: (e) => {console.log("Error returned at searchForPets() in pet-search.component.ts:84");}
+        });
+      }
     });
   }
 
-  //  Pulls data from database into pets and filter options into filters
+  //  resets filtered pets displayed
   resetFilters(): void {
-    //  pull data from pets API
-    this.petService.getAllPets().subscribe({
-      next: (data) => {this.pets = data;},
-      error: (e) => {console.log("Error returned at resetFilters in pet-search.component.ts:57");}
-    });
-    //  add filter options given pet data: species
-    this.speciesUnique = [];
-    this.pets.forEach(e => {
-      if(this.speciesUnique.indexOf(e.species) == -1) {
-        this.speciesUnique.concat(e.species);
-      }
-    });
-    //  add filter options given pet data: color
-    this.colorsUnique = [];
-    this.pets.forEach(e => {
-      if(this.colorsUnique.indexOf(e.color) == -1) {
-        this.colorsUnique.concat(e.color);
-      }
-    });
-    //  add filter options given pet data: breed
-    this.breedUnique = [];
-    this.pets.forEach(e => {
-      if(this.breedUnique.indexOf(e.breed) == -1) {
-        this.breedUnique.concat(e.breed);
-      }
-    });
+    this.petsFiltered = this.pets;
   }
 
   //  Toggles visibility of additional information in a column for pet
@@ -84,29 +97,12 @@ export class PetSearchComponent implements OnInit {
 
   }
 
+  matchesFilters() {
+
+  }
+
   //  For use with the Adopt button
   userIsLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
-
-  // //   Material Dialog
-  // openAdoptionDialog(p:Pet): void {
-  //   this.adoptDialog.
-  // }
 }
-
-// @Component({
-//   templateUrl: "adopt-dialog.component.html"
-// })
-// export class adoptionDialog {
-//   public p: Pet;
-
-//   constructor() {}
-
-//   closeDialog(): void {
-
-//   }
-//   createRequestForPet(p:Pet): void {
-
-//   }
-// }
