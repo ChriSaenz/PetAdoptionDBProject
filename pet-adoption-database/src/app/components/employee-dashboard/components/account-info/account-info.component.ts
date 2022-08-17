@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'app/auth/service/auth.service';
 import { UserDto } from 'app/model/user.model';
+import { AccountInfoService } from '../../service/account-info.service';
 
 @Component({
   selector: 'app-account-info',
@@ -15,13 +16,13 @@ export class AccountInfoComponent implements OnInit {
   securityAnswer: string;
   role: string;
   nickname: string;
-  constructor(private authService: AuthService) {}
+  constructor(private accountService: AccountInfoService) {}
 
   ngOnInit(): void {
     this.username = localStorage.getItem('username');
     this.credentials = localStorage.getItem('credentials');
 
-    this.authService.getUserByUsername(this.credentials).subscribe({
+    this.accountService.getUserByUsername(this.credentials).subscribe({
       next: (data) => {
         this.userDto = data;
         this.securityQuestion = data.securityQuestion;
