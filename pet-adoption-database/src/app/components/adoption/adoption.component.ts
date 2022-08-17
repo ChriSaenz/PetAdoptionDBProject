@@ -64,15 +64,18 @@ export class AdoptionComponent implements OnInit {
     pr.p_neutered = this.petToAdopt.neutered;
     pr.p_cost = this.petToAdopt.cost;
     
-    this.requestService.postRequest(pr, 0, pr.c_id, pr.p_id).subscribe({
+    //  make new request and push to DB
+    //  TODO: Change 1 to a value that shows no Employee ID
+    this.requestService.postRequest(pr, 1, pr.c_id, pr.p_id).subscribe({
       next: (data) => {
+        pr = data;
         //  POST doesn't update the database, must do this to update database
         let reqArr = this.requestService.request$.getValue();
         reqArr.push(pr);
         this.requestService.request$.next(reqArr);
         console.log("Successfully created new request");
       },
-      error: (e) => {console.log("Error returned at ngOnInit() in adoption.component.ts:72");}
+      error: (e) => {console.log("Error returned at ngOnInit() in adoption.component.ts:77");}
     });
   }
 }

@@ -63,7 +63,7 @@ import { VerifyUsernameComponent } from './auth/component/verify-username/verify
     SupportComponent,
     AddEmployeeComponent,
     ViewEmployeesComponent,
-    PetSearchComponent
+    PetSearchComponent,
     PasswordResetComponent,
     VerifyUsernameComponent,
   ],
