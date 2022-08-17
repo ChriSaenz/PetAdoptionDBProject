@@ -26,7 +26,8 @@ export class PetService {
     return gotPets;
   }
 
-  getPetsByName(name:string): Observable<Pet[]> {
-    return this.http.get<Pet[]>(this.getApi + "/name/" + name);
+  //  Filter methods
+  getPetsByFilter(filter:string, value:string): Observable<Pet[]> {
+    return this.http.get<Pet[]>(this.getApi + "/" + filter + "/" + value);
   }
 }

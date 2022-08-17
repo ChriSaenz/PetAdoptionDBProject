@@ -79,7 +79,7 @@ export class PetSearchComponent implements OnInit {
       if(value != null && value != '' && value != undefined) {
         console.log("Applying filter " + property + ": " + value);
         // this.petsFiltered = this.petsFiltered.filter(f => {f[property] == value});
-        this.petService.getPetsByName(filters.name).subscribe({
+        this.petService.getPetsByFilter(property, value).subscribe({
           next: (data) => {this.petsFiltered = data},
           error: (e) => {console.log("Error returned at searchForPets() in pet-search.component.ts:84");}
         });

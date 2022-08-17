@@ -60,6 +60,7 @@ public class PetController {
 		return list;
 	}
 	
+	//	Filter Pets by Whatever is Needed
 	@GetMapping("/pet/{filter}/{value}")
 	public List<Pet> filterPetByFilter(@PathVariable("filter") String filter,
 			@PathVariable("value") String value) {
