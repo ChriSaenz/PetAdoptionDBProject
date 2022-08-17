@@ -15,7 +15,6 @@ import { LogoutComponent } from './auth/component/logout/logout.component';
 import { ProfileComponent } from './auth/component/profile/profile.component';
 import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RequestFormComponent } from './components/requests/request-form/request-form.component';
 import { RequestListComponent } from './components/requests/request-list/request-list.component';
@@ -36,6 +35,10 @@ import { HomeComponent } from './components/home/home.component';
 import { SupportComponent } from './components/employee-dashboard/components/support/support.component';
 import { AddEmployeeComponent } from './components/employee/add-employee/add-employee.component';
 import { ViewEmployeesComponent } from './components/employee/view-employees/view-employees.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PetSearchComponent } from './components/pet-search/pet-search.component';
+import { PasswordResetComponent } from './auth/component/password-reset/password-reset.component';
+import { VerifyUsernameComponent } from './auth/component/verify-username/verify-username.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +63,9 @@ import { ViewEmployeesComponent } from './components/employee/view-employees/vie
     SupportComponent,
     AddEmployeeComponent,
     ViewEmployeesComponent,
+    PetSearchComponent,
+    PasswordResetComponent,
+    VerifyUsernameComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,8 +79,6 @@ import { ViewEmployeesComponent } from './components/employee/view-employees/vie
     MatFormFieldModule,
     MatIconModule,
     MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
     MatInputModule,
     FlexLayoutModule,

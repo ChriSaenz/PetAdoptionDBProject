@@ -4,9 +4,9 @@ export class PetRequest {
     status ?: string;
     c_id ?: number;
     c_name ?: string;
-    c_phone ?: string;
-    c_date_joined ?: string;
-    c_birthday ?: string;
+    // c_phone ?: string;
+    // c_date_joined ?: string;
+    // c_birthday ?: string;
     p_id ?: number;
     p_name ?: string;
     p_species ?: string;

@@ -68,8 +68,13 @@ public class Receipt {
 		return customer;
 	}
 
+<<<<<<< HEAD
 	public void setCustomer(UserProfile userProfile) {
 		this.customer = userProfile;
+=======
+	public void setCustomer(UserProfile customer) {
+		this.customer = customer;
+>>>>>>> 1dc189da9aa9fbb15c4fed62ee32800fbf5112ce
 	}
 
 	public Request getRequest() {

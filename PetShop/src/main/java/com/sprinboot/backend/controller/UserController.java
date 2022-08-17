@@ -23,6 +23,7 @@ import com.sprinboot.backend.exceptions.InvalidEntryException;
 import com.sprinboot.backend.model.UserProfile;
 import com.sprinboot.backend.repository.UserRepository;
 
+
 @CrossOrigin("http://localhost:4200")
 @RestController
 public class UserController {
@@ -102,6 +103,15 @@ public class UserController {
 		return userRepository.findAll();
 	}
 	
+	@GetMapping("/user/username/{username}")
+	public UserProfile getUserByName(@PathVariable("username") String username)
+	{
+		Optional<UserProfile> optional = userRepository.getByUsername(username);
+		if(!optional.isPresent())
+			throw new InvalidEntryException("[getUserbyUsername] Username does not exist");
+		return optional.get();
+	}
+	
 	//Login for Angular
 	@GetMapping("/login")
 	public UserInfoDto login(Principal principal)
@@ -155,4 +165,13 @@ public class UserController {
 
 		userRepository.resetPassword(username, encoder.encode(password), LocalDate.now());
 	}
+	
+	@GetMapping("/user/security/info/{username}")
+	public UserEditDto getUserInfo(@PathVariable("username") String username) {
+		UserProfile info = userRepository.getUserByUsername(username);
+		UserEditDto dto = new UserEditDto(info.getNickname(), 
+				"", info.getSecurityQuestion());
+		return dto; 
+	}
+	
 }

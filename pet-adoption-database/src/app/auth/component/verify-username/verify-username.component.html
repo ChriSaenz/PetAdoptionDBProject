@@ -1,0 +1,72 @@
+<!---
+  <h1>Password Reset</h1>
+
+<fieldset class="fieldset-style">
+  <legend>Step 1: Verify Username</legend>
+  <span *ngIf="error != ''">{{ error }} <br /></span>
+  <label>Enter the Username: </label>
+  <input type="text" [(ngModel)]="username" />
+  <br /><br />
+  <button (click)="onFormSubmit()" [disabled]="!status">Verify Username</button>
+</fieldset>
+<br />
+<br />
+<div *ngIf="showSecurityBox">
+  <fieldset class="fieldset-style">
+    <legend>Step 2: Verify Security Answer</legend>
+    <label> Security Question: {{ dto?.securityQuestion }} </label>
+    <br /><br />
+    <label>Security Answer: </label><br />
+    <input type="text" [(ngModel)]="answer" />
+    <br /><br />
+    <button (click)="onQSubmit()">Submit Answer</button>
+  </fieldset>
+</div>
+
+  --->
+<div class="content">
+  <mat-card class="mat-elevation-z5">
+    <mat-card-title> Password Reset </mat-card-title>
+    <div class="invalid-login">
+      <h3 style="color: red">{{ error }}</h3>
+    </div>
+
+    <div class="hidden-box" *ngIf="!showSecurityBox">
+      <mat-card-subtitle>Enter your username</mat-card-subtitle>
+      <div class="field">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            placeholder="Username"
+            type="text"
+            name="username"
+            [(ngModel)]="username"
+          />
+        </mat-form-field>
+      </div>
+      <button mat-raised-button (click)="onFormSubmit()" [disabled]="!status">
+        Verify Username
+      </button>
+    </div>
+
+    <div class="hidden-box" *ngIf="showSecurityBox">
+      <mat-card-subtitle
+        >Security Question: {{ dto?.securityQuestion }}
+      </mat-card-subtitle>
+      <div class="field">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Answer</mat-label>
+          <input
+            matInput
+            placeholder="Password"
+            type="text"
+            name="password"
+            [(ngModel)]="answer"
+          />
+        </mat-form-field>
+      </div>
+      <button mat-raised-button (click)="onQSubmit()">Verify Answer</button>
+    </div>
+  </mat-card>
+</div>

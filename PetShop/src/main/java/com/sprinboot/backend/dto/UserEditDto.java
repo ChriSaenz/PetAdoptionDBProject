@@ -24,10 +24,7 @@ public class UserEditDto {
 	public void setSecurityQuestion(String securityQuestion) {
 		this.securityQuestion = securityQuestion;
 	}
-	public UserEditDto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+
 	public UserEditDto(String nickname, String securityAnswer, String securityQuestion) {
 		super();
 		this.nickname = nickname;

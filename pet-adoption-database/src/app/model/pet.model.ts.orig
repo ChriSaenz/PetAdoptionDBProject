@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 export class Pet {
+=======
+export class Pet
+{
+>>>>>>> main
   id?: number
   name?: string
   age?: number

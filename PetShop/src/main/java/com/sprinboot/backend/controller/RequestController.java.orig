@@ -45,6 +45,8 @@ public class RequestController {
 	@Autowired
 	private UserRepository customerRepository;
 	@Autowired
+	private UserRepository userRepository;
+	@Autowired
 	private EmployeeRepository employeeRepository;
 	@Autowired
 	private PetRepository petRepository;
@@ -62,10 +64,16 @@ public class RequestController {
 		dto.setStatus(request.getStatus());
 		dto.setDate(request.getDate());
 		dto.setC_id(request.getCustomer().getId());
+<<<<<<< HEAD
 		//request.getCustomer().getNickname()
 		dto.setC_name(request.getCustomer().getNickname());
 		//dto.setC_phone(request.getCustomer().getPhone());
 	//	dto.setC_date_joined(request.getCustomer().getDate_joined());
+=======
+		dto.setC_name(request.getCustomer().getNickname());
+//		dto.setC_phone(request.getCustomer().getPhone());
+//		dto.setC_date_joined(request.getCustomer().getDate_joined());
+>>>>>>> 1dc189da9aa9fbb15c4fed62ee32800fbf5112ce
 //		dto.setC_birthday(request.getCustomer().getBirthday());
 		dto.setP_id(request.getPet().getId());
 		dto.setP_name(request.getPet().getName());
@@ -105,6 +113,8 @@ public class RequestController {
 		return convertListToDto(requestRepository.findAll());
 	}
 
+	
+	
 	/*
 	 * End point to post a new request
 	 * @return RequestDto - newly created object
@@ -120,6 +130,30 @@ public class RequestController {
 		fixRequest(request, cid, pid, eid);
 		return convertToDto(requestRepository.save(request)); // save request
 	}
+	@PostMapping("/request/adoption/{uid}/{pid}/{eid}")
+	public RequestDto postRequestAdoption(@RequestBody Request request, @PathVariable("uid") Long uid,
+			@PathVariable("pid") Long pid, @PathVariable("eid") Long eid) {
+		if (request.getDate() == null) // If no date was entered, make it today
+			request.setDate(LocalDate.now());
+		if (request.getStatus() == null) // If not status was entered, make it pending
+			request.setStatus(Status.Pending);
+		// Add the customer, pet, and employee objects to the request
+		Optional<UserProfile> optionalU = userRepository.findById(uid);
+		Optional<Pet> optionalP = petRepository.findById(pid);
+		Optional<Employee> optionalE = employeeRepository.findById(eid);
+		if (!optionalU.isPresent())
+			throw new MissingEntryException("Unable to find user ID");
+		if (!optionalP.isPresent())
+			throw new MissingEntryException("Unable to find pet ID");
+		if (!optionalE.isPresent())
+			throw new MissingEntryException("Unable to find employee ID");
+		request.setCustomer(optionalU.get());
+		request.setEmployee(optionalE.get());
+		request.setPet(optionalP.get());
+		return convertToDto(requestRepository.save(request)); // save request
+	}
+	
+	
 	
 	/*
 	 * Retrieves a request by its ID
@@ -157,7 +191,11 @@ public class RequestController {
 	 * Throws MissingIDException if any of the three IDs can't be found in the DB
 	 */
 	private void fixRequest(Request old, Long cid, Long pid, Long eid) {
+<<<<<<< HEAD
 		Optional<UserProfile> optionalC = customerRepository.findById(cid);
+=======
+		Optional<UserProfile> optionalC = userRepository.findById(cid);
+>>>>>>> 1dc189da9aa9fbb15c4fed62ee32800fbf5112ce
 		Optional<Pet> optionalP = petRepository.findById(pid);
 		Optional<Employee> optionalE = employeeRepository.findById(eid);
 		if (!optionalC.isPresent())
