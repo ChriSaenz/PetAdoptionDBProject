@@ -1,8 +1,14 @@
-<h1>Pet Adoption Database</h1>
-<h2>Pet Search</h2>
+
 <div class="pets-filters">
-  <h4>Available Pets</h4><br />
-  
+  <style>
+    input {
+      margin-left: 20px;
+    }
+    label {
+      margin: 20px;
+    }
+  </style>
+  <h2>Pet Search</h2>
   <form (submit)="searchForPets()" [formGroup]="filterForm">
     <label>Search by Name</label>
     <input type="text" formControlName="name">
@@ -53,24 +59,30 @@
       <option value="true">Yes</option>
       <option value="false">No</option>
     </select>
-    <br />
+    <br /><br />
 
-    <input type="submit" value="FILTER">
+    <input type="submit" value="Filter Pets by Selections">&nbsp;
+    <button (click)="resetFilters()">Reset Filters</button>
   </form>
-  <button mat-button (click)="resetFilters()">RESET FILTERS</button>
 </div>
 <br /><br />
+
 <div class="pets-table">
   <style>
     table {
-        border-collapse: collapse;
-      }
-      th {
-        border: 1px solid #000000;
-        text-align: left;
-        padding: 5px;
-      }
+      border-collapse: collapse;
+      margin: 20px;
+    }
+    th {
+      border: 1px solid #000000;
+      text-align: left;
+      padding: 5px;
+    }
+    h4 {
+      margin-left: 20px;
+    }
   </style>
+  <h4>{{petsFiltered.length}} pets found</h4>
 	<table>
     <tr>
       <th>Name</th>

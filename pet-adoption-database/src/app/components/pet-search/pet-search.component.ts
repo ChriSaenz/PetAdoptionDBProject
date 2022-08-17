@@ -44,7 +44,7 @@ export class PetSearchComponent implements OnInit {
           }
         });
       },
-      error: (e) => {console.log("Error returned at resetFilters in pet-search.component.ts:57");}
+      error: (e) => {console.log("Error returned at resetFilters in pet-search.component.ts:47");}
     });
 
     //  instantiate filterForm
@@ -62,7 +62,9 @@ export class PetSearchComponent implements OnInit {
 
   //  Filters pets in array.
   searchForPets(): void {
-    this.resetFilters();
+    //  Get all pets from subscribed array
+    this.petsFiltered = this.pets;
+    
     //  Create new filter with form data
     let filters = new Filter();
     filters.name = this.filterForm.value.name;
@@ -123,9 +125,10 @@ export class PetSearchComponent implements OnInit {
     return (value != null && value != '' && value != "null" && value != undefined)
   }
 
-  //  resets filtered pets displayed: assigns
+  //  resets filtered pets displayed: assigns petsFiltered to pets, resets filter field values
   resetFilters(): void {
     this.petsFiltered = this.pets;
+    this.filterForm.reset();
   }
 
   matchesFilters() {

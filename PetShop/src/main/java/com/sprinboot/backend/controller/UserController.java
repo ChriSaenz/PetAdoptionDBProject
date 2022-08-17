@@ -102,7 +102,7 @@ public class UserController {
 	@GetMapping("/user/username/{username}")
 	public UserProfile getUserByName(@PathVariable("username") String username)
 	{
-		Optional<UserProfile> optional = userRepository.getByUsername(principal.getName());
+		Optional<UserProfile> optional = userRepository.getByUsername(username);
 		if(!optional.isPresent())
 			throw new InvalidEntryException("[getUserbyUsername] Username does not exist");
 		return optional.get();

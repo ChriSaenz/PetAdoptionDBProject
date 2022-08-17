@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'app/auth/service/auth.service';
@@ -42,12 +41,8 @@ export class AdoptionComponent implements OnInit {
     });
   }
 
-  //  Get customer ID from ??? and create a post request with it
+  //  Create a post request with pet and customer information
   createRequest(): void {
-    //  Get user information from username
-
-
-    //  Fill out request details
     let pr = new PetRequest();
     pr.date = new Date().toDateString();
     pr.status  = "Pending";
@@ -68,6 +63,7 @@ export class AdoptionComponent implements OnInit {
     pr.p_neutered = this.petToAdopt.neutered;
     pr.p_cost = this.petToAdopt.cost;
     
-    this.requestService.postRequest(pr, 0, pr.c_id, pr.p_id);
+    console.log("Successfully created new request");
+    // this.requestService.postRequest(pr, 0, pr.c_id, pr.p_id);
   }
 }
