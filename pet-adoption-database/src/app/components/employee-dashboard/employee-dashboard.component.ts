@@ -8,7 +8,10 @@ import { AuthService } from 'app/auth/service/auth.service';
   styleUrls: ['./employee-dashboard.component.css'],
 })
 export class EmployeeDashboardComponent implements OnInit {
+  option: string;
   constructor(authService: AuthService, private _formBuilder: FormBuilder) {}
 
   ngOnInit(): void {}
+
+  currentTab() {}
 }

@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { PetsComponent } from './pets/pets.component';
-import { HomeComponent } from './home/home.component';
+
 import { LoginComponent } from './auth/component/login/login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,14 +25,15 @@ import { ReceiptPageComponent } from './components/receipts/receipt-page/receipt
 import { ReceiptListComponent } from './components/receipts/receipt-list/receipt-list.component';
 import { ReceiptSearchComponent } from './components/receipts/receipt-search/receipt-search.component';
 import { MatInputModule } from '@angular/material/input';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRippleModule } from '@angular/material/core';
 import { ViewPetsComponent } from './test/components/view-pets/view-pets.component';
-import { AdoptionComponent } from './components/adoption/adoption.component';
-import { PetSearchComponent } from './components/pet-search/pet-search.component';
-import { RouterModule } from '@angular/router';
 import { AddPetComponent } from './test/components/add-pet/add-pet.component';
+import { AccountInfoComponent } from './components/employee-dashboard/components/account-info/account-info.component';
+import { HomeComponent } from './components/home/home.component';
+import { SupportComponent } from './components/employee-dashboard/components/support/support.component';
 
 @NgModule({
   declarations: [
@@ -52,9 +53,9 @@ import { AddPetComponent } from './test/components/add-pet/add-pet.component';
     ReceiptListComponent,
     ReceiptSearchComponent,
     ViewPetsComponent,
-    AdoptionComponent,
-    PetSearchComponent,
-    AddPetComponent
+    AddPetComponent,
+    AccountInfoComponent,
+    SupportComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,10 +73,10 @@ import { AddPetComponent } from './test/components/add-pet/add-pet.component';
     ReactiveFormsModule,
     HttpClientModule,
     MatInputModule,
+    FlexLayoutModule,
     MatSidenavModule,
     MatSelectModule,
     MatRippleModule,
-    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent],
