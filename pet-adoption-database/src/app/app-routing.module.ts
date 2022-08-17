@@ -47,6 +47,10 @@ const routes: Routes = [
       { path: 'receipts', component: ReceiptPageComponent },
       { path: 'requests', component: RequestPageComponent },
       { path: 'support', component: SupportComponent },
+      {
+        path: 'viewAllEmployees',
+        component: ViewEmployeesComponent,
+      },
     ],
   },
 

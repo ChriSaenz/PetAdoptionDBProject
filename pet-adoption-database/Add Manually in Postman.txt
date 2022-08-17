@@ -23,3 +23,13 @@ Users:
 		"securityAnswer": "Bees",
 		"securityQuestion": "Life nemesis?"
 		}
+		
+	-Pepe, User/Costumer
+		{
+		"nickname": "Federico",
+		"username": "Pepe", 
+		"password": "45", 
+		"role": "USER",
+		"securityAnswer": "Bees",
+		"securityQuestion": "Life nemesis?"
+		}

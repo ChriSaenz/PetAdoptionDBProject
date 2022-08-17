@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employee } from 'app/model/employee.model';
 import { environment } from 'environments/environment';
@@ -22,7 +22,14 @@ export class EmployeeService {
   }
 
   getAllEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.getAllEmployeesApi);
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        'Authorization': 'basic ' + localStorage.getItem("credentials")
+      })
+    }
+
+    return this.http.get<Employee[]>(this.getAllEmployeesApi, httpOptions);
   }
 
   getEmployeeById(id: number): Observable<Employee> {
@@ -30,10 +37,24 @@ export class EmployeeService {
   }
 
   postEmployee(emp: Employee): Observable<Employee> {
-    return this.http.post<Employee>(this.postEmployeeApi, emp);
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        'Authorization': 'basic ' + localStorage.getItem("credentials")
+      })
+    }
+
+    return this.http.post<Employee>(this.postEmployeeApi, emp, httpOptions);
   }
 
   deleteByEmployeeId(id: number): Observable<Employee> {
-    return this.http.delete<Employee>(this.deleteByEmployeeIdApi + id)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        'Authorization': 'basic ' + localStorage.getItem("credentials")
+      })
+    }
+
+    return this.http.delete<Employee>(this.deleteByEmployeeIdApi + id, httpOptions)
   }
 }

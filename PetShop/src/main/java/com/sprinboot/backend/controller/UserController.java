@@ -46,24 +46,6 @@ public class UserController {
 		return userRepository.save(u);
 	}
 	
-	//Angular Post
-	//Sign up
-	/* 
-	 @PostMapping("/user")
-	public UserProfile postUser(@RequestBody UserRegisterDto dto)
-	{
-		String credentials = new String(Base64.getDecoder().decode(dto.getEncodedCredentials()));
-		String username = credentials.split("---")[0],
-			   password = credentials.split("---")[1];
-		
-		UserProfile u = new UserProfile(dto.getNickname(), username, encoder.encode(password), 
-				dto.getRole(), dto.getSecurityAnswer(), dto.getSecurityQuestion(), 
-				LocalDate.now());
-		return u;
-	}
-	 * */
-	
-	
 	//Angular post test
 	@PostMapping("/user")
 	public void postUser(@RequestBody UserRegisterDto dto) {
