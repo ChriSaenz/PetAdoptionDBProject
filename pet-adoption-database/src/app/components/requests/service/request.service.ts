@@ -78,9 +78,9 @@ export class RequestService {
 
   postRequest(
     request: PetRequest,
-    eid: number,
     cid: number,
-    pid: number
+    pid: number,
+    eid: number
   ): Observable<PetRequest> {
     return this.http.post<PetRequest>(
       this.url + '/' + cid + '/' + pid + '/' + eid,
