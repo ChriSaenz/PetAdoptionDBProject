@@ -12,6 +12,7 @@ import { RequestService } from '../service/request.service';
 })
 export class RequestListComponent implements OnInit, OnDestroy {
   errorMsg: string;
+  total : number;
   requests: PetRequest[];
   request: PetRequest;
   subscriptions: Subscription[] = [];
@@ -24,6 +25,7 @@ export class RequestListComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.requestService.request$.subscribe(data => {
         this.requests = data;
+        this.total = this.requests.length;
       }))
   }
 
