@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import com.sprinboot.backend.exceptions.InvalidEntryException;
 import com.sprinboot.backend.model.UserProfile;
 import com.sprinboot.backend.repository.UserRepository;
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 public class UserController {
 	@Autowired
