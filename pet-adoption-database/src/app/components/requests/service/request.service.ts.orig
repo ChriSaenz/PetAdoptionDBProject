@@ -74,6 +74,10 @@ export class RequestService {
     return this.http.get<PetRequest[]>(this.url);
   }
 
+<<<<<<< HEAD
+  postRequest(request: PetRequest, cid: number, pid: number, eid: number): Observable<PetRequest> {
+    return this.http.post<PetRequest>(this.url + "/" + cid + "/" + pid + "/" + eid, request);
+=======
   postRequest(
     request: PetRequest,
     eid: number,
@@ -84,6 +88,7 @@ export class RequestService {
       this.url + '/' + cid + '/' + pid + '/' + eid,
       request
     );
+>>>>>>> cdf74e2e8394d32450b690b8e12f0dee5c02b6ec
   }
   approve(id: number): Observable<any> {
     return this.http.put(this.url + '/approve/' + id, null);

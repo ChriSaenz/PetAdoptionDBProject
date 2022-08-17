@@ -1,22 +1,27 @@
 <div class="dashboard-container">
   <mat-sidenav-container>
     <mat-sidenav mode="side" opened class="sidebar-nav">
-<<<<<<< HEAD
       <div class="sidenav-option" routerLink="/employeeDashboard/accountInfo">
         Account Info
       </div>
       <div class="sidenav-option" routerLink="/employeeDashboard/addAPet">
         Add a Pet
       </div>
-      <div class="sidenav-option">Requests</div>
-      <div class="sidenav-option">Receipts</div>
-=======
-      <div class="sidenav-option">Account Info</div>
-      <div class="sidenav-option">Add a Pet</div>
+<<<<<<< HEAD
       <div class="sidenav-option" routerLink="/requests">Requests</div>
       <div class="sidenav-option" routerLink="/receipts">Receipts</div>
->>>>>>> main
       <div class="sidenav-option">Support</div>
+=======
+      <div class="sidenav-option" routerLink="/employeeDashboard/requests">
+        Requests
+      </div>
+      <div class="sidenav-option" routerLink="/employeeDashboard/receipts">
+        Receipts
+      </div>
+      <div class="sidenav-option" routerLink="/employeeDashboard/support">
+        Support
+      </div>
+>>>>>>> cdf74e2e8394d32450b690b8e12f0dee5c02b6ec
 
       <div class="sidenav-option" routerLink="/logout">Logout</div>
     </mat-sidenav>

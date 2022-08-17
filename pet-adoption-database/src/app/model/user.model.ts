@@ -1,10 +1,15 @@
 export class User
 {
-    id: number
-    username: string
-    role: string
-    name: string 
+    id?: number
+    nickname?: string
+    username?: string
+    role?: string
     password?: string
+    
+    securityQuestion?: string
+    securityAnswer?: string
+    passwordLastReset?: string
+
 }
 
 export class UserDto

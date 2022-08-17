@@ -34,6 +34,8 @@ import { AddPetComponent } from './test/components/add-pet/add-pet.component';
 import { AccountInfoComponent } from './components/employee-dashboard/components/account-info/account-info.component';
 import { HomeComponent } from './components/home/home.component';
 import { SupportComponent } from './components/employee-dashboard/components/support/support.component';
+import { AddEmployeeComponent } from './components/employee/add-employee/add-employee.component';
+import { ViewEmployeesComponent } from './components/employee/view-employees/view-employees.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { SupportComponent } from './components/employee-dashboard/components/sup
     AddPetComponent,
     AccountInfoComponent,
     SupportComponent,
+    AddEmployeeComponent,
+    ViewEmployeesComponent,
   ],
   imports: [
     BrowserModule,
