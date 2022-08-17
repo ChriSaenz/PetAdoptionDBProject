@@ -47,7 +47,7 @@ export class PetSearchComponent implements OnInit {
       error: (e) => {console.log("Error returned at resetFilters in pet-search.component.ts:47");}
     });
 
-    //  instantiate filterForm
+    //  instantiate filter Form
     this.filterForm = new FormGroup({
       name: new FormControl(''),
       species: new FormControl(''),

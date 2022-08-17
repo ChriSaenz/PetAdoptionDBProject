@@ -20,11 +20,12 @@ import { AdoptionComponent } from './components/adoption/adoption.component';
 import { SupportComponent } from './components/employee-dashboard/components/support/support.component';
 import { AddEmployeeComponent } from './components/employee/add-employee/add-employee.component';
 import { ViewEmployeesComponent } from './components/employee/view-employees/view-employees.component';
+import { PetSearchComponent } from './components/pet-search/pet-search.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'pets', component: PetsComponent },
+  { path: 'pets', component: PetSearchComponent },
   { path: 'login', component: LoginComponent },
   { path: 'adoption/:petId', component: AdoptionComponent},
   {path: 'requests', component: RequestPageComponent, canActivate:[AuthguardService]},
