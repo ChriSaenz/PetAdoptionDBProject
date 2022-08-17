@@ -7,7 +7,7 @@ import { RequestService } from '../service/request.service';
 @Component({
   selector: 'app-request-search',
   templateUrl: './request-search.component.html',
-  styleUrls: ['./request-search.component.css']
+  styleUrls: ['./request-search.component.css'],
 })
 export class RequestSearchComponent implements OnInit, OnDestroy {
   filterByPetForm: FormGroup;
@@ -23,112 +23,115 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
   requests: PetRequest[];
   subscriptions: Subscription[] = [];
 
-  constructor(private requestService: RequestService) { }
+  constructor(private requestService: RequestService) {}
   ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe);
+    this.subscriptions.forEach((sub) => sub.unsubscribe);
   }
 
   ngOnInit(): void {
     this.searchUnderCostForm = new FormGroup({
       cost: new FormControl('', [Validators.required]),
-    })
+    });
     this.searchEqualCostForm = new FormGroup({
       cost: new FormControl('', [Validators.required]),
-    })
+    });
     this.searchOverCostForm = new FormGroup({
       cost: new FormControl('', [Validators.required]),
-    })
+    });
     this.filterByPetForm = new FormGroup({
       p_id: new FormControl('', [Validators.required]),
-    })
+    });
     this.filterByIdForm = new FormGroup({
       id: new FormControl('', [Validators.required]),
-    })
+    });
     this.filterByEmployeeForm = new FormGroup({
       e_id: new FormControl('', [Validators.required]),
-    })
+    });
     this.filterByCustomerForm = new FormGroup({
       c_id: new FormControl('', [Validators.required]),
-    })
+    });
     this.searchOnDateForm = new FormGroup({
-      date: new FormControl('', [Validators.required])
-    })
+      date: new FormControl('', [Validators.required]),
+    });
     this.searchAfterDateForm = new FormGroup({
-      date: new FormControl('', [Validators.required])
-    })
+      date: new FormControl('', [Validators.required]),
+    });
     this.searchBeforeDateForm = new FormGroup({
-      date: new FormControl('', [Validators.required])
-    })
+      date: new FormControl('', [Validators.required]),
+    });
   }
 
   reset() {
     this.subscriptions.push(
-      this.requestService.fetchRequests()
-        .subscribe({
-          next: (data) => {
-            this.requests = data;
-            this.requestService.request$.next(this.requests);
-          },
-          error: (e) => {
-          }
-        }))
+      this.requestService.fetchRequests().subscribe({
+        next: (data) => {
+          this.requests = data;
+          this.requestService.request$.next(this.requests);
+        },
+        error: (e) => {},
+      })
+    );
   }
 
   searchOverCost(): void {
     let p = this.searchOverCostForm.value.cost;
     this.subscriptions.push(
-    this.requestService.filterByOverCost(p).subscribe({
-      next: (data) => {
-        this.requestService.request$.next(data);
-        console.log("filter successful");
-      },
-      error: (e) => {
-        console.log("filter unsuccessful");
-      }
-    }))
+      this.requestService.filterByOverCost(p).subscribe({
+        next: (data) => {
+          this.requestService.request$.next(data);
+          console.log('filter successful');
+        },
+        error: (e) => {
+          console.log('filter unsuccessful');
+        },
+      })
+    );
   }
 
   searchEqualCost(): void {
     let p = this.searchEqualCostForm.value.cost;
     this.subscriptions.push(
-    this.requestService.filterByEqualCost(p).subscribe({
-      next: (data) => {
-        this.requestService.request$.next(data);
-        console.log("filter successful");
-      },
-      error: (e) => {
-        console.log("filter unsuccessful");
-      }
-    }))
+      this.requestService.filterByEqualCost(p).subscribe({
+        next: (data) => {
+          this.requestService.request$.next(data);
+          console.log('filter successful');
+        },
+        error: (e) => {
+          console.log('filter unsuccessful');
+        },
+      })
+    );
   }
 
-  filterByBetweeCost (): void {
+  filterByBetweeCost(): void {
     let p = this.searchOverCostForm.value.cost;
     let v = this.searchUnderCostForm.value.cost;
     this.subscriptions.push(
-    this.requestService.filterByBetweenCost(p, v).subscribe({
-      next: (data) => {
-        this.requestService.request$.next(data);
-        console.log("filter successful");
-      },
-      error: (e) => {
-        console.log("filter unsuccessful");
-      }
-    }))
+      this.requestService.filterByBetweenCost(p, v).subscribe({
+        next: (data) => {
+          this.requestService.request$.next(data);
+          console.log('filter successful');
+        },
+        error: (e) => {
+          console.log('filter unsuccessful');
+        },
+      })
+    );
   }
 
   searchUnderCost(): void {
     let p = this.searchUnderCostForm.value.cost;
     this.subscriptions.push(
-    this.requestService.filterByUnderCost(p).subscribe({
-      next: (data) => {
-        this.requestService.request$.next(data);
-        console.log("filter successful");
-      },
-      error: (e) => {
-        console.log("filter unsuccessful");
-      }
-    }))
+      this.requestService.filterByUnderCost(p).subscribe({
+        next: (data) => {
+          this.requestService.request$.next(data);
+          console.log('filter successful');
+        },
+        error: (e) => {
+          console.log('filter unsuccessful');
+        },
+      })
+    );
   }
 
   filterByPet(): void {
@@ -137,12 +140,13 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByPet(p).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log("filter successful");
+          console.log('filter successful');
         },
         error: (e) => {
-          console.log("filter unsuccessful");
-        }
-      }))
+          console.log('filter unsuccessful');
+        },
+      })
+    );
   }
 
   filterByEmployee(): void {
@@ -151,12 +155,13 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByEmployee(p).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log("filter successful");
+          console.log('filter successful');
         },
         error: (e) => {
-          console.log("filter unsuccessful");
-        }
-      }))
+          console.log('filter unsuccessful');
+        },
+      })
+    );
   }
 
   filterByCustomer(): void {
@@ -165,12 +170,13 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByCustomer(p).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log("filter successful");
+          console.log('filter successful');
         },
         error: (e) => {
-          console.log("filter unsuccessful");
-        }
-      }))
+          console.log('filter unsuccessful');
+        },
+      })
+    );
   }
 
   searchOnDate(): void {
@@ -179,14 +185,14 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByOnDate(p).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log("filter successful");
+          console.log('filter successful');
         },
         error: (e) => {
-          console.log("filter unsuccessful");
-        }
-      }))
+          console.log('filter unsuccessful');
+        },
+      })
+    );
   }
-
 
   searchAfterDate(): void {
     let p = this.searchAfterDateForm.value.date;
@@ -194,12 +200,13 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByAfterDate(p).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log("filter successful");
+          console.log('filter successful');
         },
         error: (e) => {
-          console.log("filter unsuccessful");
-        }
-      }))
+          console.log('filter unsuccessful');
+        },
+      })
+    );
   }
 
   searchBeforeDate(): void {
@@ -208,12 +215,13 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByBeforeDate(p).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log("filter successful");
+          console.log('filter successful');
         },
         error: (e) => {
-          console.log("filter unsuccessful");
-        }
-      }))
+          console.log('filter unsuccessful');
+        },
+      })
+    );
   }
 
   filterByBetween(): void {
@@ -223,12 +231,13 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByBetweenDates(p, v).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log("filter successful");
+          console.log('filter successful');
         },
         error: (e) => {
-          console.log("filter unsuccessful");
-        }
-      }))
+          console.log('filter unsuccessful');
+        },
+      })
+    );
   }
 
   filterById(): void {
@@ -238,12 +247,13 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
         next: (data) => {
           var newList: PetRequest[] = [data];
           this.requestService.request$.next(newList);
-          console.log("filter successful");
+          console.log('filter successful');
         },
         error: (e) => {
-          console.log("filter unsuccessful");
-        }
-      }))
+          console.log('filter unsuccessful');
+        },
+      })
+    );
   }
 
   filterByApproved(): void {
@@ -251,12 +261,13 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByApproved().subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log("filter successful");
+          console.log('filter successful');
         },
         error: (e) => {
-          console.log("filter unsuccessful");
-        }
-      }))
+          console.log('filter unsuccessful');
+        },
+      })
+    );
   }
 
   filterByRejected(): void {
@@ -264,12 +275,13 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByRejected().subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log("filter successful");
+          console.log('filter successful');
         },
         error: (e) => {
-          console.log("filter unsuccessful");
-        }
-      }))
+          console.log('filter unsuccessful');
+        },
+      })
+    );
   }
 
   filterByPending(): void {
@@ -277,12 +289,12 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByPending().subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log("filter successful");
+          console.log('filter successful');
         },
         error: (e) => {
-          console.log("filter unsuccessful");
-        }
-      }))
+          console.log('filter unsuccessful');
+        },
+      })
+    );
   }
-
 }

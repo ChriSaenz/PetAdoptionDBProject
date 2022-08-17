@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/auth/service/auth.service';
 import { UserDto } from 'app/model/user.model';
@@ -11,24 +11,23 @@ import { UserDto } from 'app/model/user.model';
 })
 export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
-  userDto: UserDto;
+  user: UserDto;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.signUpForm = new FormGroup({
-      nickname: new FormControl(''),
-      username: new FormControl(''),
-      password: new FormControl(''),
-      role: new FormControl(''),
-      securityQuestion: new FormControl(''),
-      securityAnswer: new FormControl(''),
+      nickname: new FormControl('', [Validators.required]),
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      securityQuestion: new FormControl('', [Validators.required]),
+      securityAnswer: new FormControl('', [Validators.required]),
     });
   }
   onFormSubmit() {
-    this.userDto = {
+    this.user = {
       nickname: this.signUpForm.value.nickname,
-      role: this.signUpForm.value.role,
+      role: 'USER',
       securityQuestion: this.signUpForm.value.securityQuestion,
       securityAnswer: this.signUpForm.value.securityAnswer,
       encodedCredentials: btoa(
@@ -36,7 +35,7 @@ export class SignUpComponent implements OnInit {
       ),
     };
 
-    this.authService.signUp(this.userDto).subscribe({
+    this.authService.signUp(this.user).subscribe({
       next: (data) => {
         this.authService.message$.next(
           'Thank you for signing up! Please login to continue.'

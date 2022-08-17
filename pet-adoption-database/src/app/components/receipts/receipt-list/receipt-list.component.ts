@@ -12,16 +12,35 @@ export class ReceiptListComponent implements OnInit, OnDestroy {
   errorMsg: string;
   receipts: Receipt[];
   receipt: Receipt;
+  average : number;
+  total: number;
+  min : number;
+  max :number;
+  num : number;
   subscriptions:Subscription[]=[];
   constructor(private receiptService: ReceiptService) { }
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub=>sub.unsubscribe);
   }
 
+  updateMetrics() {
+    this.total = 0;
+    this.max = 0;
+    this.num = this.receipts.length;
+    this.min = Number.MAX_SAFE_INTEGER;
+    for (var r of this.receipts) {
+      this.total += r.cost;
+      if (r.cost > this.max) this.max = r.cost;
+      if (r.cost < this.min) this.min = r.cost;
+    }
+    this.average = this.total / this.num;
+  }
+
   ngOnInit(): void {
     this.subscriptions.push(
     this.receiptService.receipt$.subscribe(data => {
       this.receipts = data;
+      this.updateMetrics();
     }))
   }
 
@@ -45,6 +64,7 @@ export class ReceiptListComponent implements OnInit, OnDestroy {
       }
     }))
     console.log(this.errorMsg);
+    this.updateMetrics();
   }
 
 }

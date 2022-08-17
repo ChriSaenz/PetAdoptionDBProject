@@ -1,4 +1,12 @@
 <div class="flex-box">
+    <div><p><strong>No. of sales: {{num}}</strong></p></div>
+    <div><p><strong>Average: ${{average}}</strong></p></div>
+    <div><p><strong>Minimum: ${{min}}</strong></p></div>
+    <div><p><strong>Maximum: ${{max}}</strong></p></div>
+    <div><p><strong>Total: ${{total}}</strong></p></div>
+</div>
+
+<div class="flex-box">
     <div class="receipt-box" *ngFor="let r of receipts">
         <button class="close" (click)="delete(r.id)">&#x2716;</button>
         <p>Receipt ID: {{r.id}}</p>

@@ -1,6 +1,10 @@
 <p class="error">{{errorMsg}}</p>
 
 <div class="flex-box">
+    <div><p><strong>No. of requests: {{total}}</strong></p></div>
+</div>
+
+<div class="flex-box">
     <div class="request-box" *ngFor="let r of requests">
         <button class="close" (click)="delete(r.id)">&#x2716;</button>
         <p>Request ID: {{r.id}}</p>
