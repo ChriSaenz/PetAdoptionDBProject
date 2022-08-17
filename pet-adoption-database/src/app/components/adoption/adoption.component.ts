@@ -65,8 +65,8 @@ export class AdoptionComponent implements OnInit {
     pr.p_cost = this.petToAdopt.cost;
     
     //  make new request and push to DB
-    //  TODO: Change 1 to a value that shows no Employee ID
-    this.requestService.postRequest(pr, 1, pr.c_id, pr.p_id).subscribe({
+    //  TODO: Change 8 to a value that shows no Employee ID
+    this.requestService.postRequestAdoption(pr, 8, pr.c_id, pr.p_id).subscribe({
       next: (data) => {
         pr = data;
         //  POST doesn't update the database, must do this to update database

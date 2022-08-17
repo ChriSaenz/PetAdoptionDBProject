@@ -21,7 +21,9 @@ import com.sprinboot.backend.model.Customer;
 import com.sprinboot.backend.model.Employee;
 import com.sprinboot.backend.model.Receipt;
 import com.sprinboot.backend.model.Request;
+import com.sprinboot.backend.model.UserProfile;
 import com.sprinboot.backend.repository.CustomerRepository;
+import com.sprinboot.backend.repository.UserRepository;
 import com.sprinboot.backend.repository.EmployeeRepository;
 import com.sprinboot.backend.repository.ReceiptRepository;
 import com.sprinboot.backend.repository.RequestRepository;
@@ -33,17 +35,19 @@ public class ReceiptController {
 	@Autowired
 	private CustomerRepository customerRepository;
 	@Autowired
+	private UserRepository userRepository;
+	@Autowired
 	private EmployeeRepository employeeRepository;
 	@Autowired
 	private RequestRepository requestRepository;
 
 	private ReceiptDto convertToDto(Receipt r) {
 		ReceiptDto dto = new ReceiptDto();
-		dto.setC_birthday(r.getCustomer().getBirthday());
-		dto.setC_date_joined(r.getCustomer().getDate_joined());
+//		dto.setC_birthday(r.getCustomer().getBirthday());
+//		dto.setC_date_joined(r.getCustomer().getDate_joined());
 		dto.setC_id(r.getCustomer().getId());
-		dto.setC_phone(r.getCustomer().getPhone());
-		dto.setC_name(r.getCustomer().getName());
+//		dto.setC_phone(r.getCustomer().getPhone());
+//		dto.setC_name(r.getCustomer().getName());
 		dto.setCost(r.getCost());
 		dto.setDate(r.getDate());
 		dto.setId(r.getId());
@@ -73,7 +77,7 @@ public class ReceiptController {
 	}
 
 	private void fixReceipt(Receipt old, Long cid, Long eid, Long rid) {
-		Optional<Customer> optionalC = customerRepository.findById(cid);
+		Optional<UserProfile> optionalC = userRepository.findById(cid);
 		Optional<Employee> optionalE = employeeRepository.findById(eid);
 		Optional<Request> optionalR = requestRepository.findById(rid);
 		if (!optionalC.isPresent())
