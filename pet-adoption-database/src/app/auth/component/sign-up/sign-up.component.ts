@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/auth/service/auth.service';
 import { UserDto } from 'app/model/user.model';
@@ -17,18 +17,17 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.signUpForm = new FormGroup({
-      nickname: new FormControl(''),
-      username: new FormControl(''),
-      password: new FormControl(''),
-      role: new FormControl(''),
-      securityQuestion: new FormControl(''),
-      securityAnswer: new FormControl(''),
+      nickname: new FormControl('', [Validators.required]),
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      securityQuestion: new FormControl('', [Validators.required]),
+      securityAnswer: new FormControl('', [Validators.required]),
     });
   }
   onFormSubmit() {
     this.userDto = {
       nickname: this.signUpForm.value.nickname,
-      role: this.signUpForm.value.role,
+      role: 'USER',
       securityQuestion: this.signUpForm.value.securityQuestion,
       securityAnswer: this.signUpForm.value.securityAnswer,
       encodedCredentials: btoa(

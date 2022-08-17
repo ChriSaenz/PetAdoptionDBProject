@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employee } from 'app/model/employee.model';
-import { UserDto } from 'app/model/user.model';
+import { UserDto, UserEditDto } from 'app/model/user.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -12,11 +12,14 @@ export class AuthService {
   message$ = new BehaviorSubject<string>('');
   loginApi: string;
   signUpApi: string;
+  userApi: string;
+  editProfileApi: string;
 
   constructor(private http: HttpClient) {
     this.username$.next('');
     this.loginApi = 'http://localhost:8824/login';
     this.signUpApi = 'http://localhost:8824/user';
+    this.userApi = 'http://localhost:8824/user/username';
   }
 
   isLoggedIn(): boolean {
@@ -41,5 +44,15 @@ export class AuthService {
       }),
     };
     return this.http.get<Employee>(this.loginApi, httpOptions);
+  }
+
+  getUserByUsername(credentials: string): Observable<UserDto> {
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        Authorization: 'basic ' + credentials,
+      }),
+    };
+    return this.http.get<UserDto>(this.userApi, httpOptions);
   }
 }

@@ -14,14 +14,23 @@ import { LogoutComponent } from './auth/component/logout/logout.component';
 import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
 import { AddPetComponent } from './test/components/add-pet/add-pet.component';
 import { AccountInfoComponent } from './components/employee-dashboard/components/account-info/account-info.component';
+import { SupportComponent } from './components/employee-dashboard/components/support/support.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'pets', component: PetsComponent },
   { path: 'login', component: LoginComponent },
-  {path: 'requests', component: RequestPageComponent, canActivate:[AuthguardService]},
-  {path: 'receipts', component: ReceiptPageComponent, canActivate:[AuthguardService]},
+  {
+    path: 'requests',
+    component: RequestPageComponent,
+    canActivate: [AuthguardService],
+  },
+  {
+    path: 'receipts',
+    component: ReceiptPageComponent,
+    canActivate: [AuthguardService],
+  },
 
   {
     path: 'employeeDashboard',
@@ -33,6 +42,9 @@ const routes: Routes = [
         component: AddPetComponent,
       },
       { path: 'accountInfo', component: AccountInfoComponent },
+      { path: 'receipts', component: ReceiptPageComponent },
+      { path: 'requests', component: RequestPageComponent },
+      { path: 'support', component: SupportComponent },
     ],
   },
 
