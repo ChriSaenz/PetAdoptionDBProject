@@ -20,8 +20,8 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
   filterByCustomerForm: FormGroup;
   searchAfterDateForm: FormGroup;
   searchBeforeDateForm: FormGroup;
-  requests: PetRequest[];
   subscriptions: Subscription[] = [];
+  message : string;
 
   constructor(private requestService: RequestService) {}
   ngOnDestroy(): void {
@@ -29,6 +29,7 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.message = null;
     this.searchUnderCostForm = new FormGroup({
       cost: new FormControl('', [Validators.required]),
     });
@@ -65,10 +66,10 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.requestService.fetchRequests().subscribe({
         next: (data) => {
-          this.requests = data;
-          this.requestService.request$.next(this.requests);
+          this.requestService.request$.next(data);
+          this.message = "Reset successful";
         },
-        error: (e) => {},
+        error: (e) => {this.message = "Reset successful";},
       })
     );
   }
@@ -79,10 +80,11 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByOverCost(p).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log('filter successful');
+          this.message = "Searching requests over $" + p + " successful";
         },
         error: (e) => {
-          console.log('filter unsuccessful');
+          this.message = "Searching requests over $" + p + " unsuccessful";
+          this.requestService.request$.next([]);
         },
       })
     );
@@ -94,10 +96,11 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByEqualCost(p).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log('filter successful');
+          this.message = "Searching requests = $" + p + " successful";
         },
         error: (e) => {
-          console.log('filter unsuccessful');
+          this.message = "Searching requests = $" + p + " unsuccessful";
+          this.requestService.request$.next([]);
         },
       })
     );
@@ -110,10 +113,11 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByBetweenCost(p, v).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log('filter successful');
+          this.message = "Searching requests between $" + p + " and $" + v + " successful";
         },
         error: (e) => {
-          console.log('filter unsuccessful');
+          this.message = "Searching requests between $" + p + " and $" + v + " unsuccessful";
+          this.requestService.request$.next([]);
         },
       })
     );
@@ -125,10 +129,11 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByUnderCost(p).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log('filter successful');
+          this.message = "Searching requests under $" + p + " successful";
         },
         error: (e) => {
-          console.log('filter unsuccessful');
+          this.message = "Searching requests under $" + p + " unsuccessful";
+          this.requestService.request$.next([]);
         },
       })
     );
@@ -140,10 +145,11 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByPet(p).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log('filter successful');
+          this.message = "Searching for pet " + p + " successful";
         },
         error: (e) => {
-          console.log('filter unsuccessful');
+          this.message = "Searching for pet " + p + " unsuccessful";
+          this.requestService.request$.next([]);
         },
       })
     );
@@ -155,10 +161,11 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByEmployee(p).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log('filter successful');
+          this.message = "Searching for employee " + p + " successful";
         },
         error: (e) => {
-          console.log('filter unsuccessful');
+          this.message = "Searching for employee " + p + " unsuccessful";
+          this.requestService.request$.next([]);
         },
       })
     );
@@ -170,10 +177,11 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByCustomer(p).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log('filter successful');
+          this.message = "Searching for customer " + p + " successful";
         },
         error: (e) => {
-          console.log('filter unsuccessful');
+          this.message = "Searching for customer " + p + " unsuccessful";
+          this.requestService.request$.next([]);
         },
       })
     );
@@ -185,10 +193,11 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByOnDate(p).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log('filter successful');
+          this.message = "Searching for requests on " + p + " successful";
         },
         error: (e) => {
-          console.log('filter unsuccessful');
+          this.message = "Searching for requests on " + p + " unsuccessful";
+          this.requestService.request$.next([]);
         },
       })
     );
@@ -200,10 +209,11 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByAfterDate(p).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log('filter successful');
+          this.message = "Searching for requests after " + p + " successful";
         },
         error: (e) => {
-          console.log('filter unsuccessful');
+          this.message = "Searching for requests after " + p + " unsuccessful";
+          this.requestService.request$.next([]);
         },
       })
     );
@@ -215,10 +225,11 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByBeforeDate(p).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log('filter successful');
+          this.message = "Searching for requests before " + p + " successful";
         },
         error: (e) => {
-          console.log('filter unsuccessful');
+          this.message = "Searching for requests before " + p + " unsuccessful";
+          this.requestService.request$.next([]);
         },
       })
     );
@@ -231,10 +242,11 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByBetweenDates(p, v).subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log('filter successful');
+          this.message = "Searching for requests between " + p + " and " + v + " successful";
         },
         error: (e) => {
-          console.log('filter unsuccessful');
+          this.message = "Searching for requests between " + p + " and " + v + " unsuccessful";
+          this.requestService.request$.next([]);
         },
       })
     );
@@ -247,10 +259,11 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
         next: (data) => {
           var newList: PetRequest[] = [data];
           this.requestService.request$.next(newList);
-          console.log('filter successful');
+          this.message = "Searching for request " + id + " successful";
         },
         error: (e) => {
-          console.log('filter unsuccessful');
+          this.message = "Searching for request " + id + " unsuccessful";
+          this.requestService.request$.next([]);
         },
       })
     );
@@ -261,10 +274,11 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByApproved().subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log('filter successful');
+          this.message = "Searching for approved requests successful";
         },
         error: (e) => {
-          console.log('filter unsuccessful');
+          this.message = "Searching for approved requests unsuccessful";
+          this.requestService.request$.next([]);
         },
       })
     );
@@ -275,10 +289,11 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByRejected().subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log('filter successful');
+          this.message = "Searching for rejected requests successful";
         },
         error: (e) => {
-          console.log('filter unsuccessful');
+          this.message = "Searching for rejected requests unsuccessful";
+          this.requestService.request$.next([]);
         },
       })
     );
@@ -289,10 +304,11 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
       this.requestService.filterByPending().subscribe({
         next: (data) => {
           this.requestService.request$.next(data);
-          console.log('filter successful');
+          this.message = "Searching for pending requests successful";
         },
         error: (e) => {
-          console.log('filter unsuccessful');
+          this.message = "Searching for pending requests unsuccessful";
+          this.requestService.request$.next([]);
         },
       })
     );

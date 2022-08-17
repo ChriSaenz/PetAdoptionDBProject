@@ -52,6 +52,8 @@ export class RequestService {
     return this.http.get<PetRequest[]>(this.url + '/employee/' + p);
   }
   filterById(id: string) {
+    console.log(this.url);
+    console.log(this.url + '/' + id);
     return this.http.get<PetRequest>(this.url + '/' + id);
   }
   filterByPet(p: string) {

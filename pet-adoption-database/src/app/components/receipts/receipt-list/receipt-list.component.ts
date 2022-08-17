@@ -34,6 +34,12 @@ export class ReceiptListComponent implements OnInit, OnDestroy {
       if (r.cost < this.min) this.min = r.cost;
     }
     this.average = this.total / this.num;
+    if (this.num == 0) {
+      this.total = 0;
+      this.average = 0;
+      this.max = 0;
+      this.min = 0;
+    }
   }
 
   ngOnInit(): void {
