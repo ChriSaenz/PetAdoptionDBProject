@@ -14,26 +14,66 @@
 
 <div *ngIf="add == true; else notSelectedYet">
     <h1>Add new Employee</h1>
-    
+
     <form (submit)="onFormSubmit()" [formGroup]="addEmployeeForm">
 
-    <label>Name: </label>
-    <input type="text" name="name" formControlName="name">
-    <br /><br />
+        <h4>Employee Form</h4>
 
-    <label>Title: </label>
-    <input type="text" name="title" formControlName="title">
-    <br /><br />
+        <label>Name: </label>
+        <input type="text" name="name" formControlName="name">
+        <br /><br />
 
-    <label>Salary: </label>
-    <input type="number" name="salary" formControlName="salary">
-    <br /><br />
+        <label>Title: </label>
+        <input type="text" name="title" formControlName="title">
+        <br /><br />
 
-    <label>Phone: </label>
-    <input type="text" name="phone" formControlName="phone">
-    <br /><br />
+        <label>Salary: </label>
+        <input type="number" name="salary" formControlName="salary">
+        <br /><br />
 
-    <input type="submit" value="Add Employee" [disabled]="!addEmployeeForm.valid">
+        <label>Phone: </label>
+        <input type="text" name="phone" formControlName="phone">
+        <br /><br />
+
+        <h4>Employee User Account Form</h4>
+    </form>
+
+
+    <form (submit)="onFormSubmit()" [formGroup]="addEmployeeAccountForm">
+        
+        <label>Nickname: </label>
+        <input type="text" name="nickname" formControlName="nickname">
+        <br /><br />
+
+        <label>Username: </label>
+        <input type="text" name="username" formControlName="username">
+        <br /><br />
+
+        <label>Password: </label>
+        <input type="text" name="password" formControlName="password">
+        <br /><br />
+
+        <label>Security Question: </label>
+        <select formControlName="securityQuestion">
+            <option value="What is your favorite food?">
+                What is your favorite food?
+            </option>
+            <option value="What is your mother's maiden name?">
+                What is your mother's maiden name?
+            </option>
+            <option value="What is the name of your first pet?">
+                What is the name of your first pet?
+            </option>
+        </select>
+        <br /><br />
+
+        <label>Security Answer: </label>
+        <input type="text" name="securityAnswer" formControlName="securityAnswer">
+        <br /><br />
+
+
+        <input type="submit" value="Add Employee"
+            [disabled]="!addEmployeeAccountForm.valid && !addEmployeeForm.valid">
 
     </form>
 </div>

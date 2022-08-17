@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'app/auth/service/auth.service';
 import { Employee } from 'app/model/employee.model';
+import { UserDto } from 'app/model/user.model';
 import { EmployeeService } from 'app/service/employee.service';
 import { Subscription } from 'rxjs';
 
@@ -16,10 +18,12 @@ export class ViewEmployeesComponent implements OnInit, OnDestroy {
 
   add: boolean
   newEmployee: Employee
+  newUser: UserDto
   addEmployeeForm: FormGroup
+  addEmployeeAccountForm: FormGroup
   msg: string
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(private employeeService: EmployeeService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.subscriptions.push(
@@ -36,10 +40,20 @@ export class ViewEmployeesComponent implements OnInit, OnDestroy {
     );
 
     this.addEmployeeForm = new FormGroup({
+      //For Employee
       name: new FormControl('', [Validators.required]),
       phone: new FormControl('', [Validators.required]),
       salary: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required]),
+    })
+
+    this.addEmployeeAccountForm = new FormGroup({
+      //For User
+      nickname: new FormControl('', [Validators.required]),
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      securityQuestion: new FormControl('', [Validators.required]),
+      securityAnswer: new FormControl('', [Validators.required]),
     });
 
     this.add = false
@@ -58,13 +72,20 @@ export class ViewEmployeesComponent implements OnInit, OnDestroy {
 
   addEmployeeStart()
   {
-    console.log("It lives!")
     this.add = true;
   }
 
   onFormSubmit() {
     this.newEmployee = this.addEmployeeForm.value;
 
+
+    //Add Employee
+    // console.log(this.addEmployeeForm.value.name)
+    // this.newEmployee.name = this.addEmployeeForm.value.name
+    // this.newEmployee.phone = this.addEmployeeForm.value.phone
+    // this.newEmployee.title = this.addEmployeeForm.value.title
+    // this.newEmployee.salary = this.addEmployeeForm.value.salary
+    
     this.employeeService.postEmployee(this.newEmployee).subscribe({
       next: (data) => {
         this.newEmployee = data;
@@ -81,6 +102,22 @@ export class ViewEmployeesComponent implements OnInit, OnDestroy {
       error: (e) => {
         console.log('[AddEmployee-onFormSubmit] Error when trying to add new employee');
       },
+    });
+
+    //Add Employee User Account
+    this.newUser = {
+      nickname: this.addEmployeeAccountForm.value.nickname,
+      role: "EMPLOYEE",
+      securityQuestion: this.addEmployeeAccountForm.value.securityQuestion,
+      securityAnswer: this.addEmployeeAccountForm.value.securityAnswer,
+      encodedCredentials: btoa(
+        this.addEmployeeAccountForm.value.username + '---' + this.addEmployeeAccountForm.value.password
+      ),
+    };
+
+    this.authService.signUp(this.newUser).subscribe({
+      next: (data) => {console.log('[AddEmployee-onFormSubmit] Employee Account added to DB')},
+      error: (e) => {console.log("[AddEmployee-onFormSubmit] Error when trying to add new employee account")},
     });
 
     this.add = false;
