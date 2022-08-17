@@ -14,6 +14,7 @@ import { LogoutComponent } from './auth/component/logout/logout.component';
 import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
 import { AddPetComponent } from './test/components/add-pet/add-pet.component';
 import { AccountInfoComponent } from './components/employee-dashboard/components/account-info/account-info.component';
+import { AdoptionComponent } from './components/adoption/adoption.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },

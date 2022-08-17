@@ -11,21 +11,33 @@ import { Pet } from '../model/pet.model';
   providedIn: 'root',
 })
 export class PetService {
+<<<<<<< HEAD
   //  change these to be whatever the URL for the pet search is
   postApi:string = "http://localhost:8824/pet"
   getApi:string = "http://localhost:8824/pet"
+=======
+  getAllPetsApi: string;
+  postPetApi: string;
+>>>>>>> main
   pet$ = new BehaviorSubject<Pet[]>([]);
 
   constructor(private http: HttpClient) {
+    this.getAllPetsApi = environment.serverURL + '/pet';
+    this.postPetApi = environment.serverURL + '/pet';
   }
 
   getAllPets(): Observable<Pet[]> {
-    let gotPets: Observable<Pet[]> = this.http.get<Pet[]>(this.getApi);
-    return gotPets;
+    return this.http.get<Pet[]>(this.getAllPetsApi);
   }
 
+<<<<<<< HEAD
+  getAllPets(): Observable<Pet[]> {
+    let gotPets: Observable<Pet[]> = this.http.get<Pet[]>(this.getApi);
+    return gotPets;
+=======
   postPet(pet: Pet): Observable<Pet> {
-    return this.http.post<Pet>(this.postApi, pet);
+    return this.http.post<Pet>(this.postPetApi, pet);
+>>>>>>> main
   }
 
   getPetById(pid:number): Observable<Pet> {
