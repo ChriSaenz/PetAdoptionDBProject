@@ -37,6 +37,8 @@ import { AddEmployeeComponent } from './components/employee/add-employee/add-emp
 import { ViewEmployeesComponent } from './components/employee/view-employees/view-employees.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PetSearchComponent } from './components/pet-search/pet-search.component';
+import { PasswordResetComponent } from './auth/component/password-reset/password-reset.component';
+import { VerifyUsernameComponent } from './auth/component/verify-username/verify-username.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,8 @@ import { PetSearchComponent } from './components/pet-search/pet-search.component
     AddEmployeeComponent,
     ViewEmployeesComponent,
     PetSearchComponent
+    PasswordResetComponent,
+    VerifyUsernameComponent,
   ],
   imports: [
     BrowserModule,

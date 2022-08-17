@@ -21,6 +21,8 @@ import { SupportComponent } from './components/employee-dashboard/components/sup
 import { AddEmployeeComponent } from './components/employee/add-employee/add-employee.component';
 import { ViewEmployeesComponent } from './components/employee/view-employees/view-employees.component';
 import { PetSearchComponent } from './components/pet-search/pet-search.component';
+import { PasswordResetComponent } from './auth/component/password-reset/password-reset.component';
+import { VerifyUsernameComponent } from './auth/component/verify-username/verify-username.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,6 +32,19 @@ const routes: Routes = [
   { path: 'adoption/:petId', component: AdoptionComponent},
   {path: 'requests', component: RequestPageComponent, canActivate:[AuthguardService]},
   {path: 'receipts', component: ReceiptPageComponent, canActivate:[AuthguardService]},
+  { path: 'verify-user', component: VerifyUsernameComponent },
+  { path: 'pass-reset', component: PasswordResetComponent },
+  {
+    path: 'requests',
+    component: RequestPageComponent,
+    canActivate: [AuthguardService],
+  },
+  {
+    path: 'receipts',
+    component: ReceiptPageComponent,
+    canActivate: [AuthguardService],
+  },
+
 
   {
     path: 'employeeDashboard',
