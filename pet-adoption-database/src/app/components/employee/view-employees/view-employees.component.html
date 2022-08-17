@@ -1,1 +1,47 @@
-<p>view-employees works!</p>
+{{msg}}
+<h1>Viewing All Employees</h1>
+
+<div *ngFor="let e of employees">
+    <strong>[{{e.id}}]</strong>&nbsp;
+    Name: {{e.name}} &nbsp;&nbsp;
+    Title: {{e.title}} &nbsp;&nbsp;
+    Salary: {{e.salary}} &nbsp;&nbsp;
+    Phone: {{e.phone}} &nbsp;&nbsp;
+    <a href="javascript:void(0)" (click)="onDeleteEmployee(e.id)"> Remove Employee</a>
+    <hr>
+</div>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<div *ngIf="add == true; else notSelectedYet">
+    <h1>Add new Employee</h1>
+    
+    <form (submit)="onFormSubmit()" [formGroup]="addEmployeeForm">
+
+    <label>Name: </label>
+    <input type="text" name="name" formControlName="name">
+    <br /><br />
+
+    <label>Title: </label>
+    <input type="text" name="title" formControlName="title">
+    <br /><br />
+
+    <label>Salary: </label>
+    <input type="number" name="salary" formControlName="salary">
+    <br /><br />
+
+    <label>Phone: </label>
+    <input type="text" name="phone" formControlName="phone">
+    <br /><br />
+
+    <input type="submit" value="Add Employee" [disabled]="!addEmployeeForm.valid">
+
+    </form>
+</div>
+
+<ng-template #notSelectedYet>
+    <a href="javascript:void(0)" (click)="addEmployeeStart()"> <strong>+Add Employee</strong></a>
+</ng-template>
+
+
+
+<br /><br />

@@ -36,7 +36,6 @@ import { HomeComponent } from './components/home/home.component';
 import { SupportComponent } from './components/employee-dashboard/components/support/support.component';
 import { AddEmployeeComponent } from './components/employee/add-employee/add-employee.component';
 import { ViewEmployeesComponent } from './components/employee/view-employees/view-employees.component';
-import { DeleteEmployeeComponent } from './components/employee/delete-employee/delete-employee.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +60,6 @@ import { DeleteEmployeeComponent } from './components/employee/delete-employee/d
     SupportComponent,
     AddEmployeeComponent,
     ViewEmployeesComponent,
-    DeleteEmployeeComponent,
   ],
   imports: [
     BrowserModule,

@@ -16,7 +16,6 @@ import { AddPetComponent } from './test/components/add-pet/add-pet.component';
 import { AccountInfoComponent } from './components/employee-dashboard/components/account-info/account-info.component';
 import { AddEmployeeComponent } from './components/employee/add-employee/add-employee.component';
 import { ViewEmployeesComponent } from './components/employee/view-employees/view-employees.component';
-import { DeleteEmployeeComponent } from './components/employee/delete-employee/delete-employee.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -47,7 +46,6 @@ const routes: Routes = [
 
   { path: 'add-employee', component: AddEmployeeComponent },
   { path: 'view-employees', component: ViewEmployeesComponent },
-  { path: 'delete-employee', component: DeleteEmployeeComponent },
 
 
 ];
