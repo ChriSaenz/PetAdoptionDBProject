@@ -17,12 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sprinboot.backend.dto.ReceiptDto;
 import com.sprinboot.backend.exceptions.MissingEntryException;
-import com.sprinboot.backend.model.Customer;
 import com.sprinboot.backend.model.Employee;
 import com.sprinboot.backend.model.Receipt;
 import com.sprinboot.backend.model.Request;
 import com.sprinboot.backend.model.UserProfile;
-import com.sprinboot.backend.repository.CustomerRepository;
 import com.sprinboot.backend.repository.EmployeeRepository;
 import com.sprinboot.backend.repository.ReceiptRepository;
 import com.sprinboot.backend.repository.RequestRepository;
