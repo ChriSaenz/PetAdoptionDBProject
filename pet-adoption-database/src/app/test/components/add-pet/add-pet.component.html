@@ -1,47 +1,50 @@
-<h1>[Test] Add new Pet</h1>
-{{msg}}
+<h1>Add new Pet</h1>
+{{ msg }}
 <form (submit)="onFormSubmit()" [formGroup]="newPetForm">
-
   <label>Name: </label>
-  <input type="text" name="name" formControlName="name">
+  <input type="text" name="name" formControlName="name" />
   <br /><br />
 
   <label>Age: </label>
-  <input type="number" name="age" formControlName="age">
+  <input type="number" name="age" formControlName="age" />
   <br /><br />
 
   <label>Species: </label>
-  <input type="text" name="species" formControlName="species">
+  <input type="text" name="species" formControlName="species" />
   <br /><br />
 
   <label>Breed: </label>
-  <input type="text" name="breed" formControlName="breed">
+  <input type="text" name="breed" formControlName="breed" />
   <br /><br />
-  
+
   <label>Color: </label>
-  <input type="text" name="color" formControlName="color">
+  <input type="text" name="color" formControlName="color" />
   <br /><br />
-  
+
   <label>Sex: </label>
-  <input type="text" name="sex" formControlName="sex">
+  <input type="text" name="sex" formControlName="sex" />
   <br /><br />
 
   <label>Neutered? </label>
-  <input type="checkbox" name="neutered" formControlName="neutered">
+  <input type="checkbox" name="neutered" formControlName="neutered" />
   <br /><br />
 
   <label>Vaccinated? </label>
-  <input type="checkbox" name="vaccinated" formControlName="vaccinated">
+  <input type="checkbox" name="vaccinated" formControlName="vaccinated" />
   <br /><br />
 
   <label>Cost: </label>
-  <input type="number" name="cost" formControlName="cost">
+  <input type="number" name="cost" formControlName="cost" />
   <br /><br />
 
   <label>Photo: </label>
-  <input type="file" name="imagePath" accept="image/gif, image/jpeg, image/png" formControlName="imagePath">
+  <input
+    type="file"
+    name="imagePath"
+    accept="image/gif, image/jpeg, image/png"
+    formControlName="imagePath"
+  />
   <br /><br />
 
-  <input type="submit" value="Add Pet" [disabled]="!newPetForm.valid">
-
+  <input type="submit" value="Add Pet" [disabled]="!newPetForm.valid" />
 </form>

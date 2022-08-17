@@ -29,9 +29,17 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'pets', component: PetSearchComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'adoption/:petId', component: AdoptionComponent},
-  {path: 'requests', component: RequestPageComponent, canActivate:[AuthguardService]},
-  {path: 'receipts', component: ReceiptPageComponent, canActivate:[AuthguardService]},
+  { path: 'adoption/:petId', component: AdoptionComponent },
+  {
+    path: 'requests',
+    component: RequestPageComponent,
+    canActivate: [AuthguardService],
+  },
+  {
+    path: 'receipts',
+    component: ReceiptPageComponent,
+    canActivate: [AuthguardService],
+  },
   { path: 'verify-user', component: VerifyUsernameComponent },
   { path: 'pass-reset', component: PasswordResetComponent },
   {
@@ -44,7 +52,6 @@ const routes: Routes = [
     component: ReceiptPageComponent,
     canActivate: [AuthguardService],
   },
-
 
   {
     path: 'employeeDashboard',
@@ -59,6 +66,7 @@ const routes: Routes = [
       { path: 'receipts', component: ReceiptPageComponent },
       { path: 'requests', component: RequestPageComponent },
       { path: 'support', component: SupportComponent },
+      { path: 'view-employees', component: ViewEmployeesComponent },
     ],
   },
 
@@ -70,8 +78,6 @@ const routes: Routes = [
 
   { path: 'add-employee', component: AddEmployeeComponent },
   { path: 'view-employees', component: ViewEmployeesComponent },
-
-
 ];
 
 @NgModule({

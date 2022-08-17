@@ -94,7 +94,7 @@ public class UserController {
 			throw new InvalidEntryException("[getUserbyUsername] Username does not exist");
 		
 		UserProfile u = optional.get();
-		return new UserEditDto(u.getNickname(), u.getSecurityAnswer(), u.getSecurityQuestion());
+		return new UserEditDto(u.getNickname(), u.getRole(), u.getSecurityAnswer(), u.getSecurityQuestion());
 	}
 	
 	@GetMapping("/user")
@@ -169,7 +169,7 @@ public class UserController {
 	@GetMapping("/user/security/info/{username}")
 	public UserEditDto getUserInfo(@PathVariable("username") String username) {
 		UserProfile info = userRepository.getUserByUsername(username);
-		UserEditDto dto = new UserEditDto(info.getNickname(), 
+		UserEditDto dto = new UserEditDto(info.getNickname(), info.getRole(), 
 				"", info.getSecurityQuestion());
 		return dto; 
 	}

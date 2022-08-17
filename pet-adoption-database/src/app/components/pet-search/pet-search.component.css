@@ -1,0 +1,33 @@
+.pet-cards {
+  padding: 16px;
+}
+
+.pet-cards > mat-card {
+  width: 200px;
+}
+
+mat-sidenav-container {
+  height: 100%;
+  background-color: #efeef1;
+}
+
+mat-sidenav,
+mat-sidenav-content {
+  padding: 16px;
+}
+
+mat-sidenav {
+  width: 200px;
+  background-color: #efeef1;
+}
+
+.petsContainer {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+mat-card {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+}

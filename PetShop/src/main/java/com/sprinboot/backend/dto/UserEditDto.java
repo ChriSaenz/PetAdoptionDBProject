@@ -4,6 +4,7 @@ package com.sprinboot.backend.dto;
 
 public class UserEditDto {
 	private String nickname;
+	private String role;
 	private String securityAnswer;
 	private String securityQuestion;
 	public String getNickname() {
@@ -25,9 +26,16 @@ public class UserEditDto {
 		this.securityQuestion = securityQuestion;
 	}
 
-	public UserEditDto(String nickname, String securityAnswer, String securityQuestion) {
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public UserEditDto(String nickname, String role, String securityAnswer, String securityQuestion) {
 		super();
 		this.nickname = nickname;
+		this.role = role;
 		this.securityAnswer = securityAnswer;
 		this.securityQuestion = securityQuestion;
 	}

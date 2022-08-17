@@ -4,16 +4,32 @@
       <div class="sidenav-option" routerLink="/employeeDashboard/accountInfo">
         Account Info
       </div>
-      <div class="sidenav-option" routerLink="/employeeDashboard/pass-reset">
-        Reset Password
+      <div
+        *ngIf="currentRole == 'ADMIN'"
+        class="sidenav-option"
+        routerLink="/employeeDashboard/view-employees"
+      >
+        Employees
       </div>
-      <div class="sidenav-option" routerLink="/employeeDashboard/addAPet">
+      <div
+        *ngIf="currentRole == 'EMPLOYEE' || currentRole == 'ADMIN'"
+        class="sidenav-option"
+        routerLink="/employeeDashboard/addAPet"
+      >
         Add a Pet
       </div>
-      <div class="sidenav-option" routerLink="/employeeDashboard/requests">
+      <div
+        *ngIf="currentRole == 'EMPLOYEE' || currentRole == 'ADMIN'"
+        class="sidenav-option"
+        routerLink="/employeeDashboard/requests"
+      >
         Requests
       </div>
-      <div class="sidenav-option" routerLink="/employeeDashboard/receipts">
+      <div
+        *ngIf="currentRole == 'EMPLOYEE' || currentRole == 'ADMIN'"
+        class="sidenav-option"
+        routerLink="/employeeDashboard/receipts"
+      >
         Receipts
       </div>
       <div class="sidenav-option" routerLink="/employeeDashboard/support">

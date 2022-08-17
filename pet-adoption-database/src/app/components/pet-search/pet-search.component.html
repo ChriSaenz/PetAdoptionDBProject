@@ -1,4 +1,3 @@
-
 <div class="pets-filters">
   <style>
     input {
@@ -14,18 +13,18 @@
   <h2>Pet Search</h2>
   <form (submit)="searchForPets()" [formGroup]="filterForm">
     <label>Search by Name</label>
-    <input type="text" formControlName="name">
+    <input type="text" formControlName="name" />
     <br />
 
     <!-- "select multiple" allows for multiple choices, note for later -->
     <label>Filter by Species</label>
     <select formControlName="species">
-      <option *ngFor="let s of speciesUnique" value="{{s}}">{{s}}</option>
+      <option *ngFor="let s of speciesUnique" value="{{ s }}">{{ s }}</option>
     </select>
     <br />
 
     <label>Search by Age</label>
-    <input type="number" formControlName="age">
+    <input type="number" formControlName="age" />
     <br />
 
     <label>Filter by Sex</label>
@@ -38,13 +37,13 @@
 
     <label>Filter by Color</label>
     <select formControlName="color">
-      <option *ngFor="let c of colorsUnique" value="{{c}}">{{c}}</option>
+      <option *ngFor="let c of colorsUnique" value="{{ c }}">{{ c }}</option>
     </select>
     <br />
 
     <label>Filter by Breed</label>
     <select formControlName="breed">
-      <option *ngFor="let b of breedUnique" value="{{b}}">{{b}}</option>
+      <option *ngFor="let b of breedUnique" value="{{ b }}">{{ b }}</option>
     </select>
     <br />
 
@@ -56,7 +55,7 @@
     </select>
     <br />
 
-     <label>Neutered?</label>
+    <label>Neutered?</label>
     <select formControlName="neutered">
       <option value="null"></option>
       <option value="true">Yes</option>
@@ -64,7 +63,7 @@
     </select>
     <br /><br />
 
-    <input type="submit" value="Filter Pets by Selections">&nbsp;
+    <input type="submit" value="Filter Pets by Selections" />&nbsp;
     <button (click)="resetFilters()">Reset Filters</button>
   </form>
 </div>
@@ -85,8 +84,8 @@
       margin-left: 20px;
     }
   </style>
-  <h4>{{petsFiltered.length}} pets found</h4>
-	<table>
+  <h4>{{ petsFiltered.length }} pets found</h4>
+  <table>
     <tr>
       <th>Name</th>
       <th>Species</th>
@@ -97,25 +96,54 @@
       <th>Adopt</th>
     </tr>
     <tr *ngFor="let p of petsFiltered">
-      <th>{{p.name}}</th>
-      <th>{{p.species}}</th>
-      <th>{{p.breed}}</th>
-      <th>{{p.sex}}</th>
-      <th>{{p.age}}</th>
+      <th>{{ p.name }}</th>
+      <th>{{ p.species }}</th>
+      <th>{{ p.breed }}</th>
+      <th>{{ p.sex }}</th>
+      <th>{{ p.age }}</th>
       <th>
         <!-- <button mat-button (click)="toggleInfo(p.id)">More Info</button> -->
         <p id="moreInfo">
-          Date Acquired: {{p.date_acquired}}<br>
-          Color: {{p.color}}<br>
-          Vaccinated: {{p.vaccinated}}<br>
-          Neutered: {{p.neutered}}<br>
-          Cost: ${{p.cost}}
+          Date Acquired: {{ p.date_acquired }}<br />
+          Color: {{ p.color }}<br />
+          Vaccinated: {{ p.vaccinated }}<br />
+          Neutered: {{ p.neutered }}<br />
+          Cost: ${{ p.cost }}
         </p>
       </th>
       <th>
-        <button routerLink="/adoption/{{p.id}}" *ngIf="userIsLoggedIn()">Adopt</button>
+        <button routerLink="/adoption/{{ p.id }}" *ngIf="userIsLoggedIn()">
+          Adopt
+        </button>
         <label *ngIf="!userIsLoggedIn()">Log in to adopt</label>
       </th>
     </tr>
   </table>
 </div>
+
+<!--
+<div class="pets-filters">
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side">
+      <div class="container">
+        <form (submit)="searchForPets()" [formGroup]="filterForm">
+          <div class="filter-item">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="name" />
+          </div>
+
+          <div class="filter-item">
+            <mat-label>Filter by Species</mat-label>
+            <select formControlName="species">
+              <option *ngFor="let s of speciesUnique" value="{{ s }}">
+                {{ s }}
+              </option>
+            </select>
+          </div>
+        </form>
+      </div>
+    </mat-sidenav>
+  </mat-sidenav-container>
+</div>
+
+-->

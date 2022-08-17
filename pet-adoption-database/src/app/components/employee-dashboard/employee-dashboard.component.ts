@@ -8,10 +8,34 @@ import { AuthService } from 'app/auth/service/auth.service';
   styleUrls: ['./employee-dashboard.component.css'],
 })
 export class EmployeeDashboardComponent implements OnInit {
-  option: string;
-  constructor(authService: AuthService, private _formBuilder: FormBuilder) {}
+  currentRole: string;
 
-  ngOnInit(): void {}
+  constructor(
+    private authService: AuthService,
+    private _formBuilder: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+    this.authService
+      .getUserByUsername(localStorage.getItem('credentials'))
+      .subscribe({
+        next: (data) => {
+          this.currentRole = data.role;
+          console.log(this.currentRole);
+        },
+      });
+  }
 
   currentTab() {}
+
+  test() {
+    this.authService
+      .getUserByUsername(localStorage.getItem('credentials'))
+      .subscribe({
+        next: (data) => {
+          this.currentRole = data.role;
+          console.log(this.currentRole);
+        },
+      });
+  }
 }
