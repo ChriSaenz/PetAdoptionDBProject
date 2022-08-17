@@ -29,11 +29,13 @@ import com.sprinboot.backend.model.Employee;
 import com.sprinboot.backend.model.Pet;
 import com.sprinboot.backend.model.Receipt;
 import com.sprinboot.backend.model.Request;
+import com.sprinboot.backend.model.UserProfile;
 import com.sprinboot.backend.repository.CustomerRepository;
 import com.sprinboot.backend.repository.EmployeeRepository;
 import com.sprinboot.backend.repository.PetRepository;
 import com.sprinboot.backend.repository.ReceiptRepository;
 import com.sprinboot.backend.repository.RequestRepository;
+import com.sprinboot.backend.repository.UserRepository;
 
 @RestController
 public class RequestController {
@@ -42,6 +44,8 @@ public class RequestController {
 	private RequestRepository requestRepository;
 	@Autowired
 	private CustomerRepository customerRepository;
+	@Autowired
+	private UserRepository userRepository;
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	@Autowired
@@ -60,7 +64,7 @@ public class RequestController {
 		dto.setStatus(request.getStatus());
 		dto.setDate(request.getDate());
 		dto.setC_id(request.getCustomer().getId());
-		dto.setC_name(request.getCustomer().getName());
+		dto.setC_name(request.getCustomer().getNickname());
 //		dto.setC_phone(request.getCustomer().getPhone());
 //		dto.setC_date_joined(request.getCustomer().getDate_joined());
 //		dto.setC_birthday(request.getCustomer().getBirthday());
@@ -102,6 +106,8 @@ public class RequestController {
 		return convertListToDto(requestRepository.findAll());
 	}
 
+	
+	
 	/*
 	 * End point to post a new request
 	 * @return RequestDto - newly created object
@@ -117,6 +123,30 @@ public class RequestController {
 		fixRequest(request, cid, pid, eid);
 		return convertToDto(requestRepository.save(request)); // save request
 	}
+	@PostMapping("/request/adoption/{uid}/{pid}/{eid}")
+	public RequestDto postRequestAdoption(@RequestBody Request request, @PathVariable("uid") Long uid,
+			@PathVariable("pid") Long pid, @PathVariable("eid") Long eid) {
+		if (request.getDate() == null) // If no date was entered, make it today
+			request.setDate(LocalDate.now());
+		if (request.getStatus() == null) // If not status was entered, make it pending
+			request.setStatus(Status.Pending);
+		// Add the customer, pet, and employee objects to the request
+		Optional<UserProfile> optionalU = userRepository.findById(uid);
+		Optional<Pet> optionalP = petRepository.findById(pid);
+		Optional<Employee> optionalE = employeeRepository.findById(eid);
+		if (!optionalU.isPresent())
+			throw new MissingEntryException("Unable to find user ID");
+		if (!optionalP.isPresent())
+			throw new MissingEntryException("Unable to find pet ID");
+		if (!optionalE.isPresent())
+			throw new MissingEntryException("Unable to find employee ID");
+		request.setCustomer(optionalU.get());
+		request.setEmployee(optionalE.get());
+		request.setPet(optionalP.get());
+		return convertToDto(requestRepository.save(request)); // save request
+	}
+	
+	
 	
 	/*
 	 * Retrieves a request by its ID
@@ -154,7 +184,7 @@ public class RequestController {
 	 * Throws MissingIDException if any of the three IDs can't be found in the DB
 	 */
 	private void fixRequest(Request old, Long cid, Long pid, Long eid) {
-		Optional<Customer> optionalC = customerRepository.findById(cid);
+		Optional<UserProfile> optionalC = userRepository.findById(cid);
 		Optional<Pet> optionalP = petRepository.findById(pid);
 		Optional<Employee> optionalE = employeeRepository.findById(eid);
 		if (!optionalC.isPresent())
