@@ -30,7 +30,7 @@ public class Request {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@OneToOne
-	private Customer customer;
+	private UserProfile customer;
 	@OneToOne
 	private Pet pet;
 	@Column(nullable = false)
@@ -50,12 +50,12 @@ public class Request {
 		this.id = id;
 	}
 
-	public Customer getCustomer() {
+	public UserProfile getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setCustomer(UserProfile userProfile) {
+		this.customer = userProfile;
 	}
 
 	public Pet getPet() {
@@ -99,7 +99,7 @@ public class Request {
 
 	// ********** CONSTRUCTORS **********//
 	
-	public Request(Long id, Customer customer, Pet pet, LocalDate date, Status status, Employee employee) {
+	public Request(Long id, UserProfile customer, Pet pet, LocalDate date, Status status, Employee employee) {
 		super();
 		this.id = id;
 		this.customer = customer;
@@ -109,7 +109,7 @@ public class Request {
 		this.employee = employee;
 	}
 
-	public Request(Customer customer, Pet pet, LocalDate date, Status status, Employee employee) {
+	public Request(UserProfile customer, Pet pet, LocalDate date, Status status, Employee employee) {
 		super();
 		this.customer = customer;
 		this.pet = pet;
@@ -118,7 +118,7 @@ public class Request {
 		this.employee = employee;
 	}
 	
-	public Request(Customer customer, Pet pet, LocalDate date, Employee employee) {
+	public Request(UserProfile customer, Pet pet, LocalDate date, Employee employee) {
 		super();
 		this.customer = customer;
 		this.pet = pet;

@@ -21,7 +21,7 @@ public class Receipt {
 	private Employee employee;
 	
 	@OneToOne
-	private Customer customer;
+	private UserProfile customer;
 	
 	@OneToOne
 	private Request request;
@@ -64,12 +64,12 @@ public class Receipt {
 		this.employee = employee;
 	}
 
-	public Customer getCustomer() {
+	public UserProfile getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setCustomer(UserProfile userProfile) {
+		this.customer = userProfile;
 	}
 
 	public Request getRequest() {

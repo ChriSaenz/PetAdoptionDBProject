@@ -29,11 +29,13 @@ import com.sprinboot.backend.model.Employee;
 import com.sprinboot.backend.model.Pet;
 import com.sprinboot.backend.model.Receipt;
 import com.sprinboot.backend.model.Request;
+import com.sprinboot.backend.model.UserProfile;
 import com.sprinboot.backend.repository.CustomerRepository;
 import com.sprinboot.backend.repository.EmployeeRepository;
 import com.sprinboot.backend.repository.PetRepository;
 import com.sprinboot.backend.repository.ReceiptRepository;
 import com.sprinboot.backend.repository.RequestRepository;
+import com.sprinboot.backend.repository.UserRepository;
 
 @RestController
 public class RequestController {
@@ -41,7 +43,7 @@ public class RequestController {
 	@Autowired
 	private RequestRepository requestRepository;
 	@Autowired
-	private CustomerRepository customerRepository;
+	private UserRepository customerRepository;
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	@Autowired
@@ -60,10 +62,11 @@ public class RequestController {
 		dto.setStatus(request.getStatus());
 		dto.setDate(request.getDate());
 		dto.setC_id(request.getCustomer().getId());
-		dto.setC_name(request.getCustomer().getName());
-		dto.setC_phone(request.getCustomer().getPhone());
-		dto.setC_date_joined(request.getCustomer().getDate_joined());
-		dto.setC_birthday(request.getCustomer().getBirthday());
+		//request.getCustomer().getNickname()
+		dto.setC_name(request.getCustomer().getNickname());
+		//dto.setC_phone(request.getCustomer().getPhone());
+	//	dto.setC_date_joined(request.getCustomer().getDate_joined());
+//		dto.setC_birthday(request.getCustomer().getBirthday());
 		dto.setP_id(request.getPet().getId());
 		dto.setP_name(request.getPet().getName());
 		dto.setP_age(request.getPet().getAge());
@@ -154,7 +157,7 @@ public class RequestController {
 	 * Throws MissingIDException if any of the three IDs can't be found in the DB
 	 */
 	private void fixRequest(Request old, Long cid, Long pid, Long eid) {
-		Optional<Customer> optionalC = customerRepository.findById(cid);
+		Optional<UserProfile> optionalC = customerRepository.findById(cid);
 		Optional<Pet> optionalP = petRepository.findById(pid);
 		Optional<Employee> optionalE = employeeRepository.findById(eid);
 		if (!optionalC.isPresent())
