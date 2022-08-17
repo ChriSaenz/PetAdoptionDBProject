@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'pets', component: PetSearchComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'adopt/:petId', component: AdoptionComponent},
+  { path: 'adoption/:petId', component: AdoptionComponent},
   {path: 'requests', component: RequestPageComponent, canActivate:[AuthguardService]},
   {path: 'receipts', component: ReceiptPageComponent, canActivate:[AuthguardService]},
   {

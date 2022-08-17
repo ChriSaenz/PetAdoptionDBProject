@@ -6,10 +6,10 @@ import { PetRequest } from '../components/requests/model/petrequest.model';
   providedIn: 'root'
 })
 export class AdoptionService {
-  postApi:"ERROR";
+  postApi:"http://localhost:8824/request";
   constructor(private http:HttpClient) { }
 
-  makeNewRequest(pr:PetRequest) {
-    this.http.post<any>(this.postApi, pr);
+  makeNewRequest(pr:PetRequest, cid:number, pid:number) {
+    this.http.post<any>(this.postApi + "/" + cid + "/" + pid + "/0", pr);
   }
 }

@@ -40,11 +40,19 @@
     <br />
 
     <label>Vaccinated?</label>
-    <input type="checkbox" formControlName="vaccinated">
+    <select formControlName="vaccinated">
+      <option value="null"></option>
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
     <br />
 
-    <label>Neutered?</label>
-    <input type="checkbox" formControlName="neutered">
+     <label>Neutered?</label>
+    <select formControlName="neutered">
+      <option value="null"></option>
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
     <br />
 
     <input type="submit" value="FILTER">
@@ -80,13 +88,13 @@
       <th>{{p.sex}}</th>
       <th>{{p.age}}</th>
       <th>
-        <button mat-button (click)="toggleInfo(p.id)">More Info</button>
+        <!-- <button mat-button (click)="toggleInfo(p.id)">More Info</button> -->
         <p id="moreInfo">
           Date Acquired: {{p.date_acquired}}<br>
           Color: {{p.color}}<br>
           Vaccinated: {{p.vaccinated}}<br>
           Neutered: {{p.neutered}}<br>
-          Cost: {{p.cost}}
+          Cost: ${{p.cost}}
         </p>
       </th>
       <th>

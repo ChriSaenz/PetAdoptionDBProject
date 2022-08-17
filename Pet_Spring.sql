@@ -80,6 +80,8 @@ update hibernate_sequence set next_val = 22;
 set SQL_SAFE_UPDATES = 1;
 select * from hibernate_sequence;
 
+select * from request;
+
 
 
 

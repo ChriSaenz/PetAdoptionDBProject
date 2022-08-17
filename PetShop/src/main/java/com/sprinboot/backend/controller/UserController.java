@@ -99,6 +99,15 @@ public class UserController {
 		return userRepository.findAll();
 	}
 	
+	@GetMapping("/user/username/{username}")
+	public UserProfile getUserByName(@PathVariable("username") String username)
+	{
+		Optional<UserProfile> optional = userRepository.getByUsername(principal.getName());
+		if(!optional.isPresent())
+			throw new InvalidEntryException("[getUserbyUsername] Username does not exist");
+		return optional.get();
+	}
+	
 	//Login for Angular
 	@GetMapping("/login")
 	public UserInfoDto login(Principal principal)

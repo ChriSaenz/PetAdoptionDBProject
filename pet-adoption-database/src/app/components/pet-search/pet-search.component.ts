@@ -75,9 +75,9 @@ export class PetSearchComponent implements OnInit {
 
     //  For each property that exists in filters
     Object.entries(filters).forEach(([property, value]) => {
-      //  filter array based on that filter
-      if(value != null && value != '' && value != undefined) {
-        console.log("Applying filter " + property + ": " + value);
+      //  filter array based on that filter if a valid value exists for it
+      if(value != null && value != '' && value != "null" && value != undefined) {
+        console.log("Applying filter " + property + ":" + value);
         // this.petsFiltered = this.petsFiltered.filter(f => {f[property] == value});
         this.petService.getPetsByFilter(property, value).subscribe({
           next: (data) => {this.petsFiltered = data},
@@ -87,14 +87,9 @@ export class PetSearchComponent implements OnInit {
     });
   }
 
-  //  resets filtered pets displayed
+  //  resets filtered pets displayed: assigns
   resetFilters(): void {
     this.petsFiltered = this.pets;
-  }
-
-  //  Toggles visibility of additional information in a column for pet
-  toggleInfo(id:number): void {
-
   }
 
   matchesFilters() {

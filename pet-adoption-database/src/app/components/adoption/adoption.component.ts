@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'app/auth/service/auth.service';
 import { Pet } from 'app/model/pet.model';
+import { User } from 'app/model/user.model';
 import { PetService } from 'app/service/pet.service';
+import { UserService } from 'app/service/user.service';
 import { PetRequest } from '../requests/model/petrequest.model';
 import { RequestService } from '../requests/service/request.service';
 
@@ -13,23 +15,31 @@ import { RequestService } from '../requests/service/request.service';
   styleUrls: ['./adoption.component.css']
 })
 export class AdoptionComponent implements OnInit {
-  petToAdopt: Pet;
+  petToAdopt:Pet = new Pet();
+  adopter:User = new User();
 
   constructor(private petService:PetService,
     private activatedRoute:ActivatedRoute, private requestService:RequestService,
-    private authService:AuthService) { }
+    private authService:AuthService, private userService:UserService) { }
 
   //  Gets pet based on target Id retrieved from URL
   ngOnInit(): void {
-    let targetId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.petService.getAllPets().subscribe(
-      e => {e.forEach(
-        f => {if(f.id == targetId) {
-          this.petToAdopt = f;;
-          return;
-        }
-      });}
-    );
+    let targetId = parseInt(this.activatedRoute.snapshot.paramMap.get('petId'));
+    this.petService.getPetById(targetId).subscribe({
+      next: (data) => {
+        console.log("Successfully returned pet " + data.name);
+        this.petToAdopt = data;
+      },
+      error: (e) => {console.log("Error returned at ngOnInit() in adoption.component.ts:27");}
+    });
+    
+    this.userService.getUserByUsername(this.authService.username$.getValue()).subscribe({
+      next: (data) => {
+        console.log("Successfully returned user " + data.name);
+        this.adopter = data;
+      },
+      error: (e) => {console.log("Error returned at ngOnInit() in adoption.component.ts:41");}
+    });
   }
 
   //  Get customer ID from ??? and create a post request with it
@@ -41,11 +51,11 @@ export class AdoptionComponent implements OnInit {
     let pr = new PetRequest();
     pr.date = new Date().toDateString();
     pr.status  = "Pending";
-    // pr.c_id = 
-    pr.c_name = this.authService.username$.getValue();
-    // pr.c_phone = 
-    // pr.c_date_joined = 
-    // pr.c_birthday = 
+    pr.c_id = this.adopter.id;
+    pr.c_name = this.adopter.name;
+    pr.c_phone = "";
+    pr.c_date_joined = "";
+    pr.c_birthday = "";
     pr.p_id = this.petToAdopt.id;
     pr.p_name = this.petToAdopt.name;
     pr.p_species = this.petToAdopt.species;
@@ -58,6 +68,6 @@ export class AdoptionComponent implements OnInit {
     pr.p_neutered = this.petToAdopt.neutered;
     pr.p_cost = this.petToAdopt.cost;
     
-    this.requestService.postRequest(pr, null, pr.c_id, pr.p_id);
+    this.requestService.postRequest(pr, 0, pr.c_id, pr.p_id);
   }
 }

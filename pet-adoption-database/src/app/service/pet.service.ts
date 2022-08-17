@@ -26,8 +26,12 @@ export class PetService {
     return gotPets;
   }
 
+  getPetById(pid:number): Observable<Pet> {
+    return this.http.get<Pet>(this.getApi + "/" + pid);
+  }
+
   //  Filter methods
   getPetsByFilter(filter:string, value:string): Observable<Pet[]> {
-    return this.http.get<Pet[]>(this.getApi + "/" + filter + "/" + value);
+    return this.http.get<Pet[]>(this.getApi + "/" + filter.toLocaleLowerCase() + "/" + value.toString());
   }
 }
