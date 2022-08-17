@@ -13,3 +13,4 @@
 <h5>Cost: {{petToAdopt.cost}}</h5>
 <br />
 <button mat-button (click)="createRequest()">Create Adoption Request</button>
+<label *ngIf="requestConfirm()">Adoption request sent! Thank you!</label>
