@@ -14,8 +14,14 @@ import { RequestService } from '../requests/service/request.service';
   styleUrls: ['./adoption.component.css'],
 })
 export class AdoptionComponent implements OnInit {
+<<<<<<< HEAD
   petToAdopt: Pet = new Pet();
   adopter: User = new User();
+=======
+  petToAdopt:Pet = new Pet();
+  adopter:User = new User();
+  requestSent:boolean;
+>>>>>>> main
 
   constructor(
     private petService: PetService,
@@ -27,6 +33,7 @@ export class AdoptionComponent implements OnInit {
 
   //  Gets pet based on target Id retrieved from URL
   ngOnInit(): void {
+    this.requestSent = false;
     let targetId = parseInt(this.activatedRoute.snapshot.paramMap.get('petId'));
     this.petService.getPetById(targetId).subscribe({
       next: (data) => {
@@ -58,13 +65,8 @@ export class AdoptionComponent implements OnInit {
   //  Create a post request with pet and customer information
   createRequest(): void {
     let pr = new PetRequest();
-<<<<<<< HEAD
-    pr.date = new Date().toDateString();
-    pr.status = 'Pending';
-=======
     pr.date = null;
-    pr.status  = "Pending";
->>>>>>> main
+    pr.status = 'Pending';
     pr.c_id = this.adopter.id;
     pr.c_name = this.adopter.nickname;
     // pr.c_phone = "";
@@ -84,6 +86,25 @@ export class AdoptionComponent implements OnInit {
 
     //  make new request and push to DB
     //  TODO: Change 8 to a value that shows no Employee ID
+<<<<<<< HEAD
+    this.requestService
+      .postRequestAdoption(pr, 22, pr.c_id, pr.p_id)
+      .subscribe({
+        next: (data) => {
+          pr = data;
+          //  POST doesn't update the database, must do this to update database
+          let reqArr = this.requestService.request$.getValue();
+          reqArr.push(pr);
+          this.requestService.request$.next(reqArr);
+          console.log('Successfully created new request');
+        },
+        error: (e) => {
+          console.log(
+            'Error returned at ngOnInit() in adoption.component.ts:77'
+          );
+        },
+      });
+=======
     this.requestService.postRequestAdoption(pr, 8, pr.c_id, pr.p_id).subscribe({
       next: (data) => {
         pr = data;
@@ -91,11 +112,12 @@ export class AdoptionComponent implements OnInit {
         let reqArr = this.requestService.request$.getValue();
         reqArr.push(pr);
         this.requestService.request$.next(reqArr);
-        console.log('Successfully created new request');
+        console.log("Successfully created new request");
       },
-      error: (e) => {
-        console.log('Error returned at ngOnInit() in adoption.component.ts:77');
-      },
+      error: (e) => {console.log("Error returned at ngOnInit() in adoption.component.ts:77");}
     });
+
+    this.requestSent = true;
+>>>>>>> main
   }
 }
