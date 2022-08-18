@@ -24,7 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
     this.authService.username$.subscribe(data => {
       if (data != "") this.username = data;
-      console.log("Username: " + this.username);
+      // console.log("Username: " + this.username);
     }))
   }
   title = 'pet-adoption-database';

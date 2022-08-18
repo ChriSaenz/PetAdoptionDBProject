@@ -18,7 +18,7 @@ public class Receipt {
 	private Long id;
 	
 	@OneToOne
-	private Employee employee;
+	private UserProfile employee;
 	
 	@OneToOne
 	private UserProfile customer;
@@ -56,11 +56,11 @@ public class Receipt {
 		this.cost = cost;
 	}
 
-	public Employee getEmployee() {
+	public UserProfile getEmployee() {
 		return employee;
 	}
 
-	public void setEmployee(Employee employee) {
+	public void setEmployee(UserProfile employee) {
 		this.employee = employee;
 	}
 

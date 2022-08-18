@@ -39,7 +39,7 @@ public class Request {
 	@Enumerated(value = EnumType.STRING)
 	private Status status;
 	@OneToOne
-	private Employee employee;
+	private UserProfile employee;
 	
 	//********** GETTERS & SETTERS **********//
 
@@ -83,11 +83,11 @@ public class Request {
 		this.status = status;
 	}
 
-	public Employee getEmployee() {
+	public UserProfile getEmployee() {
 		return employee;
 	}
 
-	public void setEmployee(Employee employee) {
+	public void setEmployee(UserProfile employee) {
 		this.employee = employee;
 	}
 
@@ -100,7 +100,7 @@ public class Request {
 
 	// ********** CONSTRUCTORS **********//
 	
-	public Request(Long id, UserProfile customer, Pet pet, LocalDate date, Status status, Employee employee) {
+	public Request(Long id, UserProfile customer, Pet pet, LocalDate date, Status status, UserProfile employee) {
 		super();
 		this.id = id;
 		this.customer = customer;
@@ -110,7 +110,7 @@ public class Request {
 		this.employee = employee;
 	}
 
-	public Request(UserProfile customer, Pet pet, LocalDate date, Status status, Employee employee) {
+	public Request(UserProfile customer, Pet pet, LocalDate date, Status status, UserProfile employee) {
 		super();
 		this.customer = customer;
 		this.pet = pet;
@@ -119,7 +119,7 @@ public class Request {
 		this.employee = employee;
 	}
 	
-	public Request(UserProfile customer, Pet pet, LocalDate date, Employee employee) {
+	public Request(UserProfile customer, Pet pet, LocalDate date, UserProfile employee) {
 		super();
 		this.customer = customer;
 		this.pet = pet;

@@ -68,7 +68,7 @@ export class AdoptionComponent implements OnInit {
     
     //  make new request and push to DB
     //  TODO: Change 8 to a value that shows no Employee ID
-    this.requestService.postRequestAdoption(pr, 8, pr.c_id, pr.p_id).subscribe({
+    this.requestService.postRequestAdoptionAlter(pr, pr.c_id, pr.p_id).subscribe({
       next: (data) => {
         pr = data;
         //  POST doesn't update the database, must do this to update database
@@ -81,5 +81,10 @@ export class AdoptionComponent implements OnInit {
     });
 
     this.requestSent = true;
+  }
+
+  isRequestSent()
+  {
+    return this.requestSent
   }
 }

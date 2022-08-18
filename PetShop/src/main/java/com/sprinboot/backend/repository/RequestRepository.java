@@ -75,4 +75,8 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 	@Query("select r from Request r where r.pet.cost=?1")
 	List<Request> findByPriceEqualTo(Double price);
 
+	//Alter
+	@Query("select distinct r.pet.id from Request r")
+	Integer[] getPetsInCarts();
+
 }

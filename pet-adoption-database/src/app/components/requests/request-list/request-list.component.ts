@@ -57,7 +57,7 @@ export class RequestListComponent implements OnInit, OnDestroy {
 
   approve(id: number) {
     this.subscriptions.push(
-      this.requestService.approve(id).subscribe({
+      this.requestService.approveAlter(id).subscribe({
         next: (data) => {
           let requestArry = this.requestService.request$.getValue();
           for (var request of requestArry) {
@@ -75,7 +75,7 @@ export class RequestListComponent implements OnInit, OnDestroy {
 
   reject(id: number) {
     this.subscriptions.push(
-      this.requestService.reject(id).subscribe({
+      this.requestService.rejectAlter(id).subscribe({
         next: (data) => {
           let requestArry = this.requestService.request$.getValue();
           for (var request of requestArry) {

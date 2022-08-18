@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { PetRequest } from '../model/petrequest.model';
 
@@ -59,11 +60,18 @@ export class RequestService {
   }
 
   url: string;
+  postRequestAlterApi: string
+  requestAlterApi: string
+  getPetsInCartsApi: string
 
   request$ = new BehaviorSubject<PetRequest[]>([]);
 
   constructor(private http: HttpClient) {
     this.url = 'http://localhost:8824/request';
+
+    this.postRequestAlterApi = environment.serverURL + "/request-alter/adoption/"
+    this.requestAlterApi = environment.serverURL + "/request-alter/"
+    this.getPetsInCartsApi = environment.serverURL + "/request-alter/pets-in-cart"
   }
 
   delete(id: number): Observable<any> {
@@ -95,4 +103,41 @@ export class RequestService {
   reject(id: number): Observable<any> {
     return this.http.put(this.url + '/reject/' + id, null);
   }
+
+  //Alter
+  postRequestAdoptionAlter(request: PetRequest, cid: number, pid: number): Observable<PetRequest> {
+    return this.http.post<PetRequest>(this.postRequestAlterApi + cid + '/' + pid, request);
+  }
+
+  approveAlter(id: number): Observable<any> {
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        'Authorization': 'basic ' + localStorage.getItem('credentials')
+      })
+    }
+    
+    console.log("Creed" + localStorage.getItem('credentials'))
+
+    return this.http.put(this.requestAlterApi + 'approve/' + id, null, httpOptions);
+  }
+  rejectAlter(id: number): Observable<any> {
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        'Authorization': 'basic ' + localStorage.getItem('credentials')
+      })
+    }
+
+    return this.http.put(this.requestAlterApi + 'reject/' + id, null, httpOptions);
+  }
+
+  getPetsInCarts(): Observable<any>{
+    return this.http.get<any>(this.getPetsInCartsApi)
+  }
+
+
+
+
+
 }

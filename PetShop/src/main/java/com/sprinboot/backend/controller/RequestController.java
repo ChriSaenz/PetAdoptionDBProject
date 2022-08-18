@@ -6,6 +6,7 @@
 */
 package com.sprinboot.backend.controller;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprinboot.backend.dto.RequestDto;
+import com.sprinboot.backend.dto.UserEditDto;
 import com.sprinboot.backend.enums.Status;
+import com.sprinboot.backend.exceptions.InvalidEntryException;
 import com.sprinboot.backend.exceptions.MissingEntryException;
 import com.sprinboot.backend.model.Customer;
 import com.sprinboot.backend.model.Employee;
@@ -79,8 +82,10 @@ public class RequestController {
 		dto.setP_vaccinated(request.getPet().isVaccinated());
 		dto.setP_sex(request.getPet().getSex());
 		dto.setP_cost(request.getPet().getCost());
-		dto.setE_id(request.getEmployee().getId());
-		dto.setE_name(request.getEmployee().getName());
+		if(request.getEmployee() != null) {
+			dto.setE_id(request.getEmployee().getId());
+			dto.setE_name(request.getEmployee().getNickname());
+		}
 		return dto;
 	}
 	
@@ -133,7 +138,7 @@ public class RequestController {
 		// Add the customer, pet, and employee objects to the request
 		Optional<UserProfile> optionalU = userRepository.findById(uid);
 		Optional<Pet> optionalP = petRepository.findById(pid);
-		Optional<Employee> optionalE = employeeRepository.findById(eid);
+		Optional<UserProfile> optionalE = userRepository.findById(eid);
 		if (!optionalU.isPresent())
 			throw new MissingEntryException("Unable to find user ID");
 		if (!optionalP.isPresent())
@@ -145,8 +150,7 @@ public class RequestController {
 		request.setPet(optionalP.get());
 		return convertToDto(requestRepository.save(request)); // save request
 	}
-	
-	
+		
 	
 	/*
 	 * Retrieves a request by its ID
@@ -186,7 +190,7 @@ public class RequestController {
 	private void fixRequest(Request old, Long cid, Long pid, Long eid) {
 		Optional<UserProfile> optionalC = userRepository.findById(cid);
 		Optional<Pet> optionalP = petRepository.findById(pid);
-		Optional<Employee> optionalE = employeeRepository.findById(eid);
+		Optional<UserProfile> optionalE = userRepository.findById(eid);
 		if (!optionalC.isPresent())
 			throw new MissingEntryException("Unable to find customer ID");
 		if (!optionalP.isPresent())
@@ -353,5 +357,69 @@ public class RequestController {
 	@GetMapping("/request/range/{price1}/{price2}")
 	public List<RequestDto> getRequestByPriceGreaterThan(@PathVariable("price1") Double price1, @PathVariable("price2") Double price2) {
 		return convertListToDto(requestRepository.findByPriceBetween(price1, price2));
+	}
+	
+	
+	//Alter
+	@PostMapping("/request-alter/adoption/{uid}/{pid}")
+	public RequestDto postRequestAdoptionAlter(@RequestBody Request request, @PathVariable("uid") Long uid,
+			@PathVariable("pid") Long pid) {
+		if (request.getDate() == null) // If no date was entered, make it today
+			request.setDate(LocalDate.now());
+		if (request.getStatus() == null) // If not status was entered, make it pending
+			request.setStatus(Status.Pending);
+		// Add the customer, pet, and employee objects to the request
+		Optional<UserProfile> optionalU = userRepository.findById(uid);
+		Optional<Pet> optionalP = petRepository.findById(pid);
+		if (!optionalU.isPresent())
+			throw new MissingEntryException("Unable to find user ID");
+		if (!optionalP.isPresent())
+			throw new MissingEntryException("Unable to find pet ID");
+		request.setCustomer(optionalU.get());
+		request.setEmployee(null);
+		request.setPet(optionalP.get());
+		return convertToDto(requestRepository.save(request)); // save request
+	}
+
+	@PutMapping("/request-alter/approve/{id}")
+	public void approveRequestAlter(Principal principal, @PathVariable("id") Long id) {
+		Optional<UserProfile> optional = userRepository.getByUsername(principal.getName());
+		if(!optional.isPresent())
+			throw new InvalidEntryException("[approveRequestAlter] Username does not exist");
+		
+		UserProfile u = optional.get();
+		
+		Request request = getRequestById(id); // find the request
+		request.setStatus(Status.Approved); // change status to approved
+		request.setEmployee(u);
+		requestRepository.save(request); // save to DB
+		// create receipt object
+		Receipt receipt = new Receipt();
+		receipt.setCost(request.getPet().getCost());
+		receipt.setCustomer(request.getCustomer());
+		receipt.setEmployee(request.getEmployee());
+		receipt.setDate(LocalDate.now());
+		receipt.setRequest(request);
+		receiptRepository.save(receipt); // save receipt
+	}
+
+	@PutMapping("/request-alter/reject/{id}")
+	public RequestDto rejectRequestAlter(Principal principal, @PathVariable("id") Long id) {
+		Optional<UserProfile> optional = userRepository.getByUsername(principal.getName());
+		if(!optional.isPresent())
+			throw new InvalidEntryException("[approveRequestAlter] Username does not exist");
+		
+		UserProfile u = optional.get();
+		
+		Request request = getRequestById(id); // find the request
+		request.setStatus(Status.Rejected); // change status to rejected
+		request.setEmployee(u);
+		return convertToDto(requestRepository.save(request)); // save request
+	}
+	
+	@GetMapping("/request-alter/pets-in-cart")
+	public Integer[] getPetsInCarts()
+	{
+		return requestRepository.getPetsInCarts();
 	}
 }

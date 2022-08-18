@@ -47,14 +47,14 @@ public class ReceiptController {
 //		dto.setC_date_joined(r.getCustomer().getDate_joined());
 		dto.setC_id(r.getCustomer().getId());
 //		dto.setC_phone(r.getCustomer().getPhone());
-//		dto.setC_name(r.getCustomer().getName());
+		dto.setC_name(r.getCustomer().getNickname());
 		dto.setCost(r.getCost());
 		dto.setDate(r.getDate());
 		dto.setId(r.getId());
 		dto.setR_id(r.getRequest().getId());
 		dto.setR_date(r.getRequest().getDate());
 		dto.setE_id(r.getEmployee().getId());
-		dto.setE_name(r.getEmployee().getName());
+		dto.setE_name(r.getEmployee().getNickname());
 		dto.setP_breed(r.getRequest().getPet().getBreed());
 		dto.setP_age(r.getRequest().getPet().getAge());
 		dto.setP_color(r.getRequest().getPet().getColor());
@@ -78,7 +78,7 @@ public class ReceiptController {
 
 	private void fixReceipt(Receipt old, Long cid, Long eid, Long rid) {
 		Optional<UserProfile> optionalC = userRepository.findById(cid);
-		Optional<Employee> optionalE = employeeRepository.findById(eid);
+		Optional<UserProfile> optionalE = userRepository.findById(eid);
 		Optional<Request> optionalR = requestRepository.findById(rid);
 		if (!optionalC.isPresent())
 			throw new MissingEntryException("Unable to find customer ID");

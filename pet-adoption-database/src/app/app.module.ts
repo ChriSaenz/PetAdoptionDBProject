@@ -39,6 +39,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PetSearchComponent } from './components/pet-search/pet-search.component';
 import { PasswordResetComponent } from './auth/component/password-reset/password-reset.component';
 import { VerifyUsernameComponent } from './auth/component/verify-username/verify-username.component';
+import { AdoptionComponent } from './components/adoption/adoption.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { VerifyUsernameComponent } from './auth/component/verify-username/verify
     PetSearchComponent,
     PasswordResetComponent,
     VerifyUsernameComponent,
+    AdoptionComponent
   ],
   imports: [
     BrowserModule,

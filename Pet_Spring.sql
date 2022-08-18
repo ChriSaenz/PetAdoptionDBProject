@@ -50,10 +50,10 @@ INSERT INTO Pet (id, name, age, species, breed, color, sex, neutered, vaccinated
 describe Request;
 select * from Request;
 -- set SQL_SAFE_UPDATES = 0; delete from Request; set SQL_SAFE_UPDATES = 1;
-insert into Request(id, employee_id, customer_id, pet_id, date, status) values
-(19, 8, 1, 13, '2022-07-7', "Pending"),
-(20, 11, 2, 14, '2022-07-8', "Pending"),
-(21, 12, 1, 18, '2022-07-10', "Pending");
+-- insert into Request(id, employee_id, customer_id, pet_id, date, status) values
+-- (19, 8, 1, 13, '2022-07-7', "Pending"),
+-- (20, 11, 2, 14, '2022-07-8', "Pending"),
+-- (21, 12, 1, 18, '2022-07-10', "Pending");
 
 -- Input manually in Postman
 describe User;

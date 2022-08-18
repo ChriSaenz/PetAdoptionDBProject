@@ -4,6 +4,7 @@ import { AuthService } from 'app/auth/service/auth.service';
 import { Filter } from 'app/model/filter.model';
 import { Pet } from 'app/model/pet.model';
 import { PetService } from 'app/service/pet.service';
+import { RequestService } from '../requests/service/request.service';
 
 @Component({
   selector: 'app-pet-search',
@@ -19,7 +20,9 @@ export class PetSearchComponent implements OnInit {
   speciesUnique:string[]=[];
   breedUnique:string[]=[];
 
-  constructor(private petService:PetService, private authService:AuthService) { }
+  constructor(private petService:PetService, private authService:AuthService,
+    //Alter
+    private reqService: RequestService) { }
 
   ngOnInit(): void {
     //  pull data from pets API
@@ -58,12 +61,19 @@ export class PetSearchComponent implements OnInit {
       vaccinated: new FormControl(''),
       neutered: new FormControl(''),
     });
+
+    //Alter
+    this.removePetsAlreadyInCart()
   }
 
   //  Filters pets in array.
   searchForPets(): void {
     //  Get all pets from subscribed array
     this.petsFiltered = this.pets;
+
+    //Alter: Remove pets that are already in a cart from search list
+    this.removePetsAlreadyInCart()
+
     
     //  Create new filter with form data
     let filters = new Filter();
@@ -138,5 +148,21 @@ export class PetSearchComponent implements OnInit {
   //  For use with the Adopt button
   userIsLoggedIn(): boolean {
     return this.authService.isLoggedIn();
+  }
+
+  //Alter: Remove pets that are already in a cart from search list
+  removePetsAlreadyInCart(){
+    let arrExcuse = []
+    this.reqService.getPetsInCarts().subscribe({
+      next: (data) =>{
+        arrExcuse = data
+        console.log("Not displaying Pets with ID: " + arrExcuse + " (Reason: Another client requested them)")
+        console.log(arrExcuse)
+        for(var a of arrExcuse)
+        {
+          this.petsFiltered = this.petsFiltered.filter(p => p.id != a)
+        }
+      }
+    })
   }
 }
