@@ -157,6 +157,7 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
 
   filterByEmployee(): void {
     let p = this.filterByEmployeeForm.value.e_id;
+    console.log(p);
     this.subscriptions.push(
       this.requestService.filterByEmployee(p).subscribe({
         next: (data) => {
@@ -172,7 +173,7 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
   }
 
   filterByCustomer(): void {
-    let p = this.filterByCustomerForm.value.e_id;
+    let p = this.filterByCustomerForm.value.c_id;
     this.subscriptions.push(
       this.requestService.filterByCustomer(p).subscribe({
         next: (data) => {
@@ -188,7 +189,8 @@ export class RequestSearchComponent implements OnInit, OnDestroy {
   }
 
   searchOnDate(): void {
-    let p = this.searchAfterDateForm.value.date;
+    let p = this.searchOnDateForm.value.date;
+    console.log(p);
     this.subscriptions.push(
       this.requestService.filterByOnDate(p).subscribe({
         next: (data) => {

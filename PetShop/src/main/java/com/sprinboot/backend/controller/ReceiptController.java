@@ -140,6 +140,11 @@ public class ReceiptController {
 		return convertToDtoList(receiptRepository.findByCustomerId(id));
 	}
 	
+	@GetMapping("/receipt/pet/{id}")
+	public List<ReceiptDto> getReceiptByPetId(@PathVariable("id") Long id) {
+		return convertToDtoList(receiptRepository.findByPetId(id));
+	}
+	
 	@GetMapping("/receipt/request/{id}")
 	public List<ReceiptDto> getReceiptByRequestId(@PathVariable("id") Long id) {
 		return convertToDtoList(receiptRepository.findByRequestId(id));

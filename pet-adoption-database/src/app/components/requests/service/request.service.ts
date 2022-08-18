@@ -48,7 +48,7 @@ export class RequestService {
   filterByRejected() {
     return this.http.get<PetRequest[]>(this.url + '/status/rejected');
   }
-  filterByEmployee(p: any) {
+  filterByEmployee(p: string) {
     return this.http.get<PetRequest[]>(this.url + '/employee/' + p);
   }
   filterById(id: string) {

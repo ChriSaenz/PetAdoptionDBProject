@@ -91,7 +91,7 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
         this.message = "Searching for pet " + p + " successful"
       },
       error: (e) => {
-        this.message = "Searching for employee " + p + " unsuccessful"
+        this.message = "Searching for pet " + p + " unsuccessful"
         this.receiptService.receipt$.next([]);
       }
     }))
@@ -113,7 +113,7 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
   }
 
   filterByCustomer(): void {
-    let p = this.filterByCustomerForm.value.e_id;
+    let p = this.filterByCustomerForm.value.c_id;
     this.subscriptions.push(
     this.receiptService.filterByCustomer(p).subscribe({
       next: (data) => {

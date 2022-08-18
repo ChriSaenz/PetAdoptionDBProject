@@ -33,7 +33,7 @@
 
 <div>
   <form (submit)="searchOnDate()" [formGroup]="searchOnDateForm">
-    <label>After date</label>&nbsp;
+    <label>On date</label>&nbsp;
     <input type="date" name="date" formControlName="date" />
     <input type="submit" value="search" [disabled]="!searchOnDateForm.valid" />
   </form>
