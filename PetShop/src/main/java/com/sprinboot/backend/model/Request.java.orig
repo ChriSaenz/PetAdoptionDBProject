@@ -31,6 +31,10 @@ public class Request {
 	private Long id;
 	@OneToOne
 	private UserProfile customer;
+<<<<<<< HEAD
+=======
+//	private Customer customer;
+>>>>>>> 1dc189da9aa9fbb15c4fed62ee32800fbf5112ce
 	@OneToOne
 	private Pet pet;
 	@Column(nullable = false)
@@ -54,8 +58,13 @@ public class Request {
 		return customer;
 	}
 
+<<<<<<< HEAD
 	public void setCustomer(UserProfile userProfile) {
 		this.customer = userProfile;
+=======
+	public void setCustomer(UserProfile customer) {
+		this.customer = customer;
+>>>>>>> 1dc189da9aa9fbb15c4fed62ee32800fbf5112ce
 	}
 
 	public Pet getPet() {

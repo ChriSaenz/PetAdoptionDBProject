@@ -17,7 +17,7 @@ mat-sidenav-content {
 }
 
 .dashboard-container {
-  max-width: 1000px;
+  max-width: auto;
   margin-left: auto;
   margin-right: auto;
   padding-top: 30px;

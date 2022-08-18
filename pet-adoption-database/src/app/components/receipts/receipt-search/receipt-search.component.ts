@@ -21,8 +21,8 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
   filterByRequestForm : FormGroup;
   searchOverCostForm : FormGroup;
   searchUnderCostForm : FormGroup;
-  receipts: Receipt[];
   subscriptions:Subscription[]=[];
+  message : string;
 
   constructor(private receiptService: ReceiptService) { }
   ngOnDestroy(): void {
@@ -30,6 +30,7 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.message = null;
     this.searchCostForm = new FormGroup({
       cost: new FormControl('', [Validators.required]),
     })
@@ -70,10 +71,11 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
     this.receiptService.fetchreceipts()
       .subscribe({
         next: (data) => {
-          this.receipts = data;
-          this.receiptService.receipt$.next(this.receipts);
+          this.receiptService.receipt$.next(data);
+          this.message = "Reset successful"
         },
         error: (e) => {
+          this.message = "Reset unsuccessful"
         }
       }))
   }
@@ -86,10 +88,11 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
     this.receiptService.filterByPet(p).subscribe({
       next: (data) => {
         this.receiptService.receipt$.next(data);
-        console.log("filter successful");
+        this.message = "Searching for pet " + p + " successful"
       },
       error: (e) => {
-        console.log("filter unsuccessful");
+        this.message = "Searching for pet " + p + " unsuccessful"
+        this.receiptService.receipt$.next([]);
       }
     }))
   }
@@ -100,39 +103,42 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
     this.receiptService.filterByEmployee(p).subscribe({
       next: (data) => {
         this.receiptService.receipt$.next(data);
-        console.log("filter successful");
+        this.message = "Searching for employee " + p + " successful"
       },
       error: (e) => {
-        console.log("filter unsuccessful");
+        this.message = "Searching for employee " + p + " unsuccessful"
+        this.receiptService.receipt$.next([]);
       }
     }))
   }
 
   filterByCustomer(): void {
-    let p = this.filterByCustomerForm.value.e_id;
+    let p = this.filterByCustomerForm.value.c_id;
     this.subscriptions.push(
     this.receiptService.filterByCustomer(p).subscribe({
       next: (data) => {
         this.receiptService.receipt$.next(data);
-        console.log("filter successful");
+        this.message = "Searching for customer " + p + " successful"
       },
       error: (e) => {
-        console.log("filter unsuccessful");
+        this.message = "Searching for customer " + p + " unsuccessful"
+        this.receiptService.receipt$.next([]);
       }
     }))
   }
 
 
   filterByRequestId(): void {
-    let p = this.filterByCustomerForm.value.e_id;
+    let p = this.filterByRequestForm.value.p_id;
     this.subscriptions.push(
     this.receiptService.filterByRequest(p).subscribe({
       next: (data) => {
         this.receiptService.receipt$.next(data);
-        console.log("filter successful");
+        this.message = "Searching for request " + p + " successful"
       },
       error: (e) => {
-        console.log("filter unsuccessful");
+        this.message = "Searching for request " + p + " unsuccessful"
+        this.receiptService.receipt$.next([]);
       }
     }))
   }
@@ -143,10 +149,11 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
     this.receiptService.filterByOverCost(p).subscribe({
       next: (data) => {
         this.receiptService.receipt$.next(data);
-        console.log("filter successful");
+        this.message = "Searching for receipts over $" + p + " successful"
       },
       error: (e) => {
-        console.log("filter unsuccessful");
+        this.message = "Searching for receipts over $" + p + " unsuccessful"
+        this.receiptService.receipt$.next([]);
       }
     }))
   }
@@ -157,10 +164,11 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
     this.receiptService.filterByCost(p).subscribe({
       next: (data) => {
         this.receiptService.receipt$.next(data);
-        console.log("filter successful");
+        this.message = "Searching for receipts = $" + p + " successful"
       },
       error: (e) => {
-        console.log("filter unsuccessful");
+        this.message = "Searching for receipts = $" + p + " unsuccessful"
+        this.receiptService.receipt$.next([]);
       }
     }))
   }
@@ -172,10 +180,11 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
     this.receiptService.filterByBetweenCost(p, v).subscribe({
       next: (data) => {
         this.receiptService.receipt$.next(data);
-        console.log("filter successful");
+        this.message = "Searching for receipts between $" + p + " and $" + v + " successful"
       },
       error: (e) => {
-        console.log("filter unsuccessful");
+        this.message = "Searching for receipts between $" + p + " and $" + v + " unsuccessful"
+        this.receiptService.receipt$.next([]);
       }
     }))
   }
@@ -186,10 +195,11 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
     this.receiptService.filterByUnderCost(p).subscribe({
       next: (data) => {
         this.receiptService.receipt$.next(data);
-        console.log("filter successful");
+        this.message = "Searching for receipts under $" + p + " successful"
       },
       error: (e) => {
-        console.log("filter unsuccessful");
+        this.message = "Searching for receipts under $" + p + " unsuccessful"
+        this.receiptService.receipt$.next([]);
       }
     }))
   }
@@ -200,10 +210,11 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
     this.receiptService.filterByAfterDate(p).subscribe({
       next: (data) => {
         this.receiptService.receipt$.next(data);
-        console.log("filter successful");
+        this.message = "Searching for receipts after " + p + " successful"
       },
       error: (e) => {
-        console.log("filter unsuccessful");
+        this.message = "Searching for receipts after " + p + " unsuccessful"
+        this.receiptService.receipt$.next([]);
       }
     }))
   }
@@ -214,10 +225,11 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
     this.receiptService.filterByOnDate(p).subscribe({
       next: (data) => {
         this.receiptService.receipt$.next(data);
-        console.log("filter successful");
+        this.message = "Searching for receipts on " + p + " successful"
       },
       error: (e) => {
-        console.log("filter unsuccessful");
+        this.message = "Searching for receipts on " + p + " unsuccessful"
+        this.receiptService.receipt$.next([]);
       }
     }))
   }
@@ -228,10 +240,11 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
     this.receiptService.filterByBeforeDate(p).subscribe({
       next: (data) => {
         this.receiptService.receipt$.next(data);
-        console.log("filter successful");
+        this.message = "Searching for receipts before " + p + " successful"
       },
       error: (e) => {
-        console.log("filter unsuccessful");
+        this.message = "Searching for receipts before " + p + " unsuccessful"
+        this.receiptService.receipt$.next([]);
       }
     }))
   }
@@ -243,10 +256,11 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
     this.receiptService.filterByBetweenDates(p, v).subscribe({
       next: (data) => {
         this.receiptService.receipt$.next(data);
-        console.log("filter successful");
+        this.message = "Searching for receipts between " + p + " and " + v + " successful"
       },
       error: (e) => {
-        console.log("filter unsuccessful");
+        this.message = "Searching for receipts between " + p + " and " + v + " unsuccessful"
+        this.receiptService.receipt$.next([]);
       }
     }))
   }
@@ -258,10 +272,11 @@ export class ReceiptSearchComponent implements OnInit, OnDestroy {
       next: (data) => {
         var newList: Receipt[] = [data];
         this.receiptService.receipt$.next(newList);
-        console.log("filter successful");
+        this.message = "Searching for receipt " + id + " successful"
       },
       error: (e) => {
-        console.log("filter unsuccessful");
+        this.message = "Searching for receipt " + id + " unsuccessful"
+        this.receiptService.receipt$.next([]);
       }
     }))
   }

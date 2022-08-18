@@ -43,5 +43,8 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
 	@Query("select r from Receipt r where r.date=?1")
 	List<Receipt> findOnDate(LocalDate parse);
 
+	@Query("select r from Receipt r where r.request.pet.id=?1")
+	List<Receipt> findByPetId(Long id);
+
 
 }

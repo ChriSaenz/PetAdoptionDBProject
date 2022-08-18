@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sprinboot.backend.dto.ReceiptDto;
 import com.sprinboot.backend.exceptions.MissingEntryException;
+import com.sprinboot.backend.model.Customer;
 import com.sprinboot.backend.model.Employee;
 import com.sprinboot.backend.model.Receipt;
 import com.sprinboot.backend.model.Request;
 import com.sprinboot.backend.model.UserProfile;
+import com.sprinboot.backend.repository.CustomerRepository;
+import com.sprinboot.backend.repository.UserRepository;
 import com.sprinboot.backend.repository.EmployeeRepository;
 import com.sprinboot.backend.repository.ReceiptRepository;
 import com.sprinboot.backend.repository.RequestRepository;
@@ -33,6 +36,8 @@ public class ReceiptController {
 	@Autowired
 	private UserRepository customerRepository;
 	@Autowired
+	private UserRepository userRepository;
+	@Autowired
 	private EmployeeRepository employeeRepository;
 	@Autowired
 	private RequestRepository requestRepository;
@@ -40,11 +45,19 @@ public class ReceiptController {
 
 	private ReceiptDto convertToDto(Receipt r) {
 		ReceiptDto dto = new ReceiptDto();
+<<<<<<< HEAD
 	//	dto.setC_birthday(r.getCustomer().getBirthday());
 	//	dto.setC_date_joined(r.getCustomer().getDate_joined());
 		dto.setC_id(r.getCustomer().getId());
 	//	dto.setC_phone(r.getCustomer().getPhone());
 		dto.setC_name(r.getCustomer().getNickname());
+=======
+//		dto.setC_birthday(r.getCustomer().getBirthday());
+//		dto.setC_date_joined(r.getCustomer().getDate_joined());
+		dto.setC_id(r.getCustomer().getId());
+//		dto.setC_phone(r.getCustomer().getPhone());
+//		dto.setC_name(r.getCustomer().getName());
+>>>>>>> 1dc189da9aa9fbb15c4fed62ee32800fbf5112ce
 		dto.setCost(r.getCost());
 		dto.setDate(r.getDate());
 		dto.setId(r.getId());
@@ -74,7 +87,11 @@ public class ReceiptController {
 	}
 
 	private void fixReceipt(Receipt old, Long cid, Long eid, Long rid) {
+<<<<<<< HEAD
 		Optional<UserProfile> optionalC = customerRepository.findById(cid);
+=======
+		Optional<UserProfile> optionalC = userRepository.findById(cid);
+>>>>>>> 1dc189da9aa9fbb15c4fed62ee32800fbf5112ce
 		Optional<Employee> optionalE = employeeRepository.findById(eid);
 		Optional<Request> optionalR = requestRepository.findById(rid);
 		if (!optionalC.isPresent())
@@ -138,11 +155,6 @@ public class ReceiptController {
 	@GetMapping("/receipt/customer/{id}")
 	public List<ReceiptDto> getReceiptByCustomerId(@PathVariable("id") Long id) {
 		return convertToDtoList(receiptRepository.findByCustomerId(id));
-	}
-	
-	@GetMapping("/receipt/pet/{id}")
-	public List<ReceiptDto> getReceiptByPetId(@PathVariable("id") Long id) {
-		return convertToDtoList(receiptRepository.findByPetId(id));
 	}
 	
 	@GetMapping("/receipt/request/{id}")

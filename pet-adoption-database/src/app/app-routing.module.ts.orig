@@ -14,24 +14,28 @@ import { LogoutComponent } from './auth/component/logout/logout.component';
 import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
 import { AddPetComponent } from './test/components/add-pet/add-pet.component';
 import { AccountInfoComponent } from './components/employee-dashboard/components/account-info/account-info.component';
-<<<<<<< HEAD
+
 import { AdoptionComponent } from './components/adoption/adoption.component';
-=======
+
 import { SupportComponent } from './components/employee-dashboard/components/support/support.component';
 import { AddEmployeeComponent } from './components/employee/add-employee/add-employee.component';
 import { ViewEmployeesComponent } from './components/employee/view-employees/view-employees.component';
->>>>>>> main
+import { PetSearchComponent } from './components/pet-search/pet-search.component';
+import { PasswordResetComponent } from './auth/component/password-reset/password-reset.component';
+import { VerifyUsernameComponent } from './auth/component/verify-username/verify-username.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'pets', component: PetsComponent },
+  { path: 'pets', component: PetSearchComponent },
   { path: 'login', component: LoginComponent },
 <<<<<<< HEAD
+=======
   { path: 'adoption/:petId', component: AdoptionComponent},
   {path: 'requests', component: RequestPageComponent, canActivate:[AuthguardService]},
   {path: 'receipts', component: ReceiptPageComponent, canActivate:[AuthguardService]},
-=======
+  { path: 'verify-user', component: VerifyUsernameComponent },
+  { path: 'pass-reset', component: PasswordResetComponent },
   {
     path: 'requests',
     component: RequestPageComponent,
@@ -42,7 +46,8 @@ const routes: Routes = [
     component: ReceiptPageComponent,
     canActivate: [AuthguardService],
   },
->>>>>>> main
+>>>>>>> 1dc189da9aa9fbb15c4fed62ee32800fbf5112ce
+
 
   {
     path: 'employeeDashboard',

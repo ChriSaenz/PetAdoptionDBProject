@@ -52,6 +52,8 @@ export class RequestService {
     return this.http.get<PetRequest[]>(this.url + '/employee/' + p);
   }
   filterById(id: string) {
+    console.log(this.url);
+    console.log(this.url + '/' + id);
     return this.http.get<PetRequest>(this.url + '/' + id);
   }
   filterByPet(p: string) {
@@ -75,21 +77,29 @@ export class RequestService {
   }
 
 <<<<<<< HEAD
-  postRequest(request: PetRequest, cid: number, pid: number, eid: number): Observable<PetRequest> {
-    return this.http.post<PetRequest>(this.url + "/" + cid + "/" + pid + "/" + eid, request);
-=======
   postRequest(
     request: PetRequest,
-    eid: number,
     cid: number,
-    pid: number
+    pid: number,
+    eid: number
   ): Observable<PetRequest> {
+=======
+  postRequest(request: PetRequest, eid: number, cid: number, pid: number): Observable<PetRequest> {
+    console.log("Making request " + eid + "/" + cid + "/" + pid);
+>>>>>>> main
     return this.http.post<PetRequest>(
       this.url + '/' + cid + '/' + pid + '/' + eid,
       request
     );
->>>>>>> cdf74e2e8394d32450b690b8e12f0dee5c02b6ec
   }
+  postRequestAdoption(request: PetRequest, eid: number, cid: number, pid: number): Observable<PetRequest> {
+    console.log("Making request " + eid + "/" + cid + "/" + pid);
+    return this.http.post<PetRequest>(
+      this.url + "/adoption/" + cid + '/' + pid + '/' + eid,
+      request
+    );
+  }
+
   approve(id: number): Observable<any> {
     return this.http.put(this.url + '/approve/' + id, null);
   }
