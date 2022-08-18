@@ -49,7 +49,7 @@ INSERT INTO Pet (id, name, age, species, breed, color, sex, neutered, vaccinated
 -- Should be auto generated
 describe Request;
 select * from Request;
--- set SQL_SAFE_UPDATES = 0; delete from Request; set SQL_SAFE_UPDATES = 1;
+set SQL_SAFE_UPDATES = 0; delete from Request; set SQL_SAFE_UPDATES = 1;
 -- insert into Request(id, employee_id, customer_id, pet_id, date, status) values
 -- (19, 8, 1, 13, '2022-07-7', "Pending"),
 -- (20, 11, 2, 14, '2022-07-8', "Pending"),
@@ -66,7 +66,7 @@ select * from User;
 -- Should be auto Generated
 describe Receipt;
 select * from Receipt;
--- set SQL_SAFE_UPDATES = 0; delete from Receipt; set SQL_SAFE_UPDATES = 1;
+set SQL_SAFE_UPDATES = 0; delete from Receipt; set SQL_SAFE_UPDATES = 1;
 -- INSERT INTO Receipt (employee_id, customer_id, request_id, date, cost)
 -- VALUES (1, 1, 1, '2022-07-02', 1500.01),
 -- (2, 2, 2, '2021-06-03', 2000),

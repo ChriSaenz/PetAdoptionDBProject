@@ -28,6 +28,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'pets', component: PetSearchComponent },
+  { path: 'view-pets', component: PetsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'adoption/:petId', component: AdoptionComponent },
   {
