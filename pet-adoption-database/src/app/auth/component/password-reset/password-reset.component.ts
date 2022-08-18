@@ -21,7 +21,7 @@ export class PasswordResetComponent implements OnInit {
   }
 
   onReset() {
-    if (this.password === this.password) {
+    if (this.password === this.newpassword) {
       this.authService.resetPassword(this.username, this.password).subscribe({
         next: (data) => {
           this.authService.message$.next('Your Password has been Reset!');
@@ -31,6 +31,10 @@ export class PasswordResetComponent implements OnInit {
           this.error = 'Reset Failure';
         },
       });
+    }
+
+    else{
+      this.error = "Passwords don't match!"
     }
   }
 }

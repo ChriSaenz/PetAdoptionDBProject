@@ -22,6 +22,7 @@ export class RequestListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.errorMsg = ""
     this.subscriptions.push(
       this.requestService.request$.subscribe(data => {
         this.requests = data;
